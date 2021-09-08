@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Battleship</title>
+
+    <!-- Import CSS-->
+    <link rel="stylesheet" href="/style.css"/>
+
+    <!-- Import JavaScript -->
+    <script src="/script.js" defer></script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="content" role="main">
+        <!-- This is the start of content for our page -->
+        <h1 class = "title">Battleship</h1>
+        <h4 class = "subtitle">
+            Designed By: Raj Nara, Truman Klenklen, Andrew Brown, Drew Fink, and Zachary Sambol<br>For: University of Kansas EECS 448
+        </h4>
+        </div>
+
+        <canvas id="board1"
+            width="400"
+            height="400"
+            style="border: 3px solid red"
+        >  
+        </canvas>
+
+        <canvas id="board2"
+        width="400"
+        height="400"
+        style="border: 3px solid blue"
+        >  
+        </canvas>
+
+        <div>
+            <button class="start" id="start" style="background-color:green" onclick="start()">Start Game</button>
+        </div>
+    </div>
+  </body>
+</html>
