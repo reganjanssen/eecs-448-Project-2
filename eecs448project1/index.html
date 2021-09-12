@@ -5,38 +5,50 @@
     <title>Battleship</title>
 
     <!-- Import CSS-->
-    <link rel="stylesheet" href="/style.css"/>
+    <link rel="stylesheet" href="style.css"/>
 
     <!-- Import JavaScript -->
-    <script src="/script.js" defer></script>
+    <script src="script.js" defer></script>
   </head>
 
   <body>
-    <div class="wrapper">
-      <div class="content" role="main">
+    <div>
+      <div>
         <!-- This is the start of content for our page -->
         <h1 class = "title">Battleship</h1>
         <h4 class = "subtitle">
             Designed By: Raj Nara, Truman Klenklen, Andrew Brown, Drew Fink, and Zachary Sambol<br>For: University of Kansas EECS 448
         </h4>
         </div>
+        
+        <div style= "text-align: center;">
 
-        <canvas id="board1"
-            width="400"
-            height="400"
+          <canvas id="board1"
+            width="450"
+            height="450"
             style="border: 3px solid red"
-        >  
-        </canvas>
+          >  
+          </canvas>
+          
+          <canvas id="board2"
+            width="450"
+            height="450"
+            style="border: 3px solid blue"
+          >  
+          </canvas>
+        </div>
 
-        <canvas id="board2"
-        width="400"
-        height="400"
-        style="border: 3px solid blue"
-        >  
-        </canvas>
+        <div style = "text-align: center;">
+            <button class="start" id="start" style="background-color:green" onclick="drawgrid()">Start Game</button>
+        </div>
 
-        <div>
-            <button class="start" id="start" style="background-color:green" onclick="start()">Start Game</button>
+        <div style="text-align: center;">
+            <button class="1ship" id="1ship" style="background-color:green" onclick="ship1()">1 Ship per Person</button>
+            <button class="2ship" id="2ship" style="background-color:green" onclick="ship2()">2 Ships per Person</button>
+            <button class="3ship" id="3ship" style="background-color:green" onclick="ship3()">3 Ships per Person</button>
+            <button class="4ship" id="4ship" style="background-color:green" onclick="ship4()">4 Ships per Person</button>
+            <button class="5ship" id="5ship" style="background-color:green" onclick="ship5()">5 Ships per Person</button>
+            <button class="6ship" id="6ship" style="background-color:green" onclick="ship6()">6 Ships per Person</button>
         </div>
     </div>
   </body>
