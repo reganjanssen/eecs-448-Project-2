@@ -8,6 +8,36 @@ ctx1.strokeStyle = 'red';
 ctx2.strokeStyle = 'blue';
 const col = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
+class Ship
+{
+    sunk = false; // Our ship obviously won't start already sunk.
+    constructor(size, posX, posY)
+    {
+        this.size = size; // Carriers are 5, battleships are 4, cruisers & subs are 3, destroyers are 2
+        this.posX = posX;
+        this.posY = posY;
+    }
+
+    sink()
+    {
+        this.sunk = true;
+    }
+
+    getPosX()
+    {
+        return this.posX;
+    }
+
+    getPosY()
+    {
+        return this.posY;
+    }
+
+    isSunk()
+    {
+        return this.sunk;
+    }
+}
 
 function drawgrid()
 {
