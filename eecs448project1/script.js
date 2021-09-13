@@ -39,56 +39,55 @@ class Ship
     }
 }
 
+function playBoard(rows, cols, classname, callback) // The "callback" is a function we use for our event listener.
+{
+    var letter = 65; // 65 is ASCII for the letter A. We use this when numbering the grid.
+    var i = 1; // This is also used for numbering the grid.
+    var grid = document.createElement('table');
+    grid.className = classname; // Determines if it's the 1st or 2nd player grid
+    for (var r = 0; r < rows; ++r)
+    {
+        var tr = grid.appendChild(document.createElement('tr')); // Put a new row in
+        for (var c = 0; c < cols; ++c)
+        {
+            var cell = tr.appendChild(document.createElement('td')); // Put a new column in
+            cell.innerHTML = `${String.fromCharCode(letter)}${i++}`; // Insert the grid number, like A1, B2, C3 etc.
+            cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+            {
+                return function()
+                {
+                    callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+                }
+            })(cell, r, c, i), false);
+        }
+        i = 1;
+        letter++;
+    }
+    return grid;
+}
+
 function drawgrid()
 {
-    for (let i = 1; i < 10; i++)
-    {
-        ctx1.beginPath();
-        ctx1.moveTo(i * 45, 0)
-        ctx1.lineTo(i * 45, 450)
-        ctx1.stroke();
-
-        ctx1.beginPath();
-        ctx1.moveTo(0, i * 50)
-        ctx1.lineTo(450, i * 50)
-        ctx1.stroke();
-
-        ctx2.beginPath();
-        ctx2.moveTo(i * 45, 0)
-        ctx2.lineTo(i * 45, 450)
-        ctx2.stroke();
-
-        ctx2.beginPath();
-        ctx2.moveTo(0, i * 50)
-        ctx2.lineTo(450, i * 50)
-        ctx2.stroke();
-    }
-
-    for (let j = 0; j < 11; j++)
-    {
-        ctx1.font = "15px Arial";
-        ctx1.fillText(col[j], j*45, 13);
-    }
-
-    for (let j = 0; j < 10; j++)
-    {
-        ctx1.font = "15px Arial";
-        ctx1.fillText(j, 0, j*50);
-    }
-
-    for (let j = 0; j < 10; j++)
-    {
-        ctx2.font = "15px Arial";
-        ctx2.fillText(col[j], j*45, 13);
-    }
-
-    for (let j = 0; j < 10; j++)
-    {
-        ctx2.font = "15px Arial";
-        ctx2.fillText(j, 0, j*50);
-    }
-
     document.getElementById('start').disabled = 'disabled';
+
+    var player1grid = playBoard(10, 10, "p1-grid", function(cell, row, col, i)
+    {
+        console.log("x: "+ row);
+        console.log("y: " + col);
+
+        cell.className = 'clicked';
+    });
+
+    var player2grid = playBoard(10, 10, "p2-grid", function(cell, row, col, i)
+    {
+        console.log("x: "+ row);
+        console.log("y: " + col);
+
+        cell.className = 'clicked';
+    });
+
+    document.getElementById("boards").appendChild(player1grid);
+    document.getElementById("boards").appendChild(player2grid);
 }
 
 function ship1()
