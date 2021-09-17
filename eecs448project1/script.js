@@ -1,12 +1,8 @@
 let canvas;
 
-var c1 = document.getElementById("board1");
-var ctx1 = c1.getContext("2d");
-var c2 = document.getElementById("board2");
-var ctx2 = c2.getContext("2d");
-ctx1.strokeStyle = 'red';
-ctx2.strokeStyle = 'blue';
 const col = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+var isChanging = 0;
+var curPlyr = 1;
 
 class Ship
 {
@@ -69,8 +65,9 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
 function drawgrid()
 {
     document.getElementById('start').disabled = 'disabled';
+    document.getElementById("playerNum").innerHTML = curPlyr;
 
-    var player1grid = playBoard(10, 10, "p1-grid", function(cell, row, col, i)
+    var player1grid = playBoard(10, 9, "p1-grid", function(cell, row, col, i)
     {
         console.log("x: "+ row);
         console.log("y: " + col);
@@ -78,7 +75,7 @@ function drawgrid()
         cell.className = 'clicked';
     });
 
-    var player2grid = playBoard(10, 10, "p2-grid", function(cell, row, col, i)
+    var player2grid = playBoard(10, 9, "p2-grid", function(cell, row, col, i)
     {
         console.log("x: "+ row);
         console.log("y: " + col);
@@ -159,4 +156,21 @@ function ship6()
 
     alert("You and your opponent have the following ships: 1x1, 1x2, 1x3, 1x4, 1x5, 1x6");
 
+}
+
+//This function will block the board while the players are changing in order to prevent the a player from seeing the others ship locations.
+//The button must be pressed twice: Once to block the boards so the players can switch, and then once more to switch to the other player.
+function changeTurn(){
+  if(isChanging == 0){ //Checks to see if this is the first time the button is being pressed in a turn switch.
+    isChanging = 1;
+
+  }else{
+    isChanging = 0;
+    if(curPlyr == 1){
+      curPlyr++;
+    }else{
+      curPlyr--;
+    }
+    document.getElementById("playerNum").innerHTML = curPlyr;
+  }
 }

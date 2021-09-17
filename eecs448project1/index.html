@@ -20,26 +20,32 @@
           Designed By: Raj Nara, Truman Klenklen, Andrew Brown, Drew Fink, and Zachary Sambol<br>For: University of Kansas EECS 448
         </h4>
         </div>
-        
+
         <div id="boards" style= "text-align: center;">
 
           <!--<canvas id="board1"
             width="450"
             height="450"
             style="border: 3px solid red"
-          >  
+          >
           </canvas>
-          
+
           <canvas id="board2"
             width="450"
             height="450"
             style="border: 3px solid blue"
-          >  
+          >
           </canvas> -->
+        </div>
+
+        <div style= "text-align: center;">
+          <h1 class = "player">Current Player: <span id="playerNum"></span></h1>
+
         </div>
 
         <div style = "text-align: center;">
           <button class="start" id="start" style="background-color:green" onclick="drawgrid()">Start Game</button>
+          <button class="start" id="start" style="background-color:green" onclick="window.location.reload()">Reset Game</button>
         </div>
 
         <div style="text-align: center; margin-top: 10px;">
@@ -54,6 +60,10 @@
         <div style="text-align: center; margin-top: 10px;">
           <button class="rotateL" id="rotateL" style="background-color:green" onclick="rotateL()">Rotate Ship Left</button>
           <button class="rotateR" id="rotateR" style="background-color:green" onclick="rotateR()">Rotate Ship Right</button>
+        </div>
+
+        <div style="text-align: center; margin-top: 10px;">
+          <button class="changeTurn" id="changeTurn" style="background-color:green" onclick="changeTurn()">Change Turn</button>
         </div>
     </div>
   </body>
