@@ -3,6 +3,11 @@ let canvas;
 const col = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 var isChanging = 0;
 var curPlyr = 1;
+var gameOn = false;
+let p1grid;
+let p1guess;
+let p2grid;
+let p2guess;
 
 class Ship
 {
@@ -83,8 +88,36 @@ function drawgrid()
         cell.className = 'clicked';
     });
 
-    document.getElementById("boards").appendChild(player1grid);
-    document.getElementById("boards").appendChild(player2grid);
+    var player1guess = playBoard(10, 9, "p1-grid", function(cell, row, col, i)
+    {
+        console.log("x: "+ row);
+        console.log("y: " + col);
+
+        cell.className = 'clicked';
+    });
+
+    var player2guess = playBoard(10, 9, "p2-grid", function(cell, row, col, i)
+    {
+        console.log("x: "+ row);
+        console.log("y: " + col);
+
+        cell.className = 'clicked';
+    });
+
+    p1guess = document.getElementById("guessBoards").appendChild(player1guess);
+    p1guess.setAttribute("id", "p1guess");
+
+    p1grid = document.getElementById("boards").appendChild(player1grid);
+    p1grid.setAttribute("id", "p1grid");
+
+    p2guess = document.getElementById("guessBoards").appendChild(player2guess);
+    p2guess.setAttribute("id", "p2guess");
+
+    p2grid = document.getElementById("boards").appendChild(player2grid);
+    p2grid.setAttribute("id", "p2grid");
+
+    gameOn = true;
+    gameLoop();
 }
 
 function ship1()
@@ -160,17 +193,36 @@ function ship6()
 
 //This function will block the board while the players are changing in order to prevent the a player from seeing the others ship locations.
 //The button must be pressed twice: Once to block the boards so the players can switch, and then once more to switch to the other player.
-function changeTurn(){
-  if(isChanging == 0){ //Checks to see if this is the first time the button is being pressed in a turn switch.
-    isChanging = 1;
-
-  }else{
-    isChanging = 0;
-    if(curPlyr == 1){
-      curPlyr++;
-    }else{
-      curPlyr--;
+function changeTurn()
+{
+    if(isChanging == 0)
+    { //Checks to see if this is the first time the button is being pressed in a turn switch.
+        isChanging = 1;
     }
-    document.getElementById("playerNum").innerHTML = curPlyr;
-  }
+    else
+    {
+        isChanging = 0;
+        if(curPlyr == 1)
+        {
+            p1grid.style.display = "inline";
+            p1guess.style.display = "inline";
+            p2grid.style.display = "none";
+            p2guess.style.display = "none";
+            curPlyr++;
+        }
+        else
+        {   
+            p1grid.style.display = "none";
+            p1guess.style.display = "none";
+            p2grid.style.display = "inline";
+            p2guess.style.display = "inline";
+            curPlyr--;
+        }
+        document.getElementById("playerNum").innerHTML = curPlyr;
+    } 
+}
+
+function gameLoop()
+{
+    // TODO: Create game loop
 }
