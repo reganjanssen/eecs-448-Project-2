@@ -113,11 +113,10 @@ function placeShips(arr)
         let col = Math.floor(Math.random() * 9);
         let vertOrHoriz = Math.floor(Math.random() * 2);
         
-        if(vertOrHoriz == 0) // Horizontal is chosen
+        if(vertOrHoriz == 0) // Vertical is chosen
         {
             if((row < 7 && arr[row][col] == null && arr[row + 1][col] == null && arr[row + 2][col] == null && arr[row + 3][col] == null)) // Check if the appropriate spaces are empty
             {
-                console.log("Placed one - vertical at " + row + ", " + col);
                 arr[row][col] = 1;
                 arr[row + 1][col] = 1;
                 arr[row + 2][col] = 1;
@@ -128,7 +127,7 @@ function placeShips(arr)
                 continue;
             }
         }
-        if(vertOrHoriz == 1) // Vertical is chosen
+        if(vertOrHoriz == 1) // Horizontal is chosen
         {
             if((col < 3 && arr[row][col] == null && arr[row][col + 1] == null && arr[row][col + 2] == null && arr[row][col + 3] == null)) // Check if the adjacent spaces are empty
             {
