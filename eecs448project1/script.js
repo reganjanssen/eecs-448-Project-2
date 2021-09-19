@@ -313,7 +313,12 @@ function drawgrid()
 	
 	do {
 		amntShips = window.prompt("Enter amount of ships for each player (1 - 6)");
-	}while(!(amntShips <=6) && !(amntShips >= 1));
+		
+		if(amntShips != null) {
+			amntShips = parseInt(amntShips, 10);		//forces int input
+		}
+		
+	}while(((amntShips <=6) && (amntShips >= 1)) != true);
 	
 	alert("Player 1 will place ships first. Each ship placement will require 2 coordinates: a start and endpoint. For example, a 1x3 ship with start point A1 and end point A3 will occupy tiles A1, A2, and A3. As long as points are horizontal or vertical to each other, order does not matter.");
 	
