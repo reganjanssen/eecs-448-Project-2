@@ -90,9 +90,9 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
     return grid;
 }
 
-//Might want to see if this can deal with doubles
+//Asks for startpoint and endpoint of ship, then formats them to work with the grid
 function getCoords(shipNum) {
-	let coordString = window.prompt("Enter Starting Point for Ship " + shipNum + " as a Grid ID (ex. B3)");
+	let coordString = window.prompt("Enter Starting Point for Ship " + shipNum + " as a Grid ID (ex. B3) within A-J, 1-9");
 	coordSplit = coordString.split("");
 	let coordX1 = parseInt(coordSplit[1]) - 1;		//Both coords normalized to grid format (begins with 0) (goes row, column)
 	let coordY1 = parseInt(coordSplit[0], 36) - 10;
@@ -118,7 +118,8 @@ function isOrthogonal(toCheck) {
 	}
 }
 
-//if blocks are long to avoid using math for absolute value
+//function makes sure ship is occupying the right amount of tiles for its size
+//using nasty if statements to avoid absolute value
 function isSize(toCheck, size) {
 	if(toCheck[0] == toCheck[2] && toCheck[1] == toCheck[3] && size == 1) {
 		return(true);
@@ -146,7 +147,7 @@ function isWithinBounds(toCheck) {
 }
 
 //again, pain for absolute values
-//not thoroughly tested, but should stop ships from being placed on each other
+//stops ships from being placed on each other
 function isOnEmpty(toCheck, playerGrid) {
 	let pass = true;
 	if(toCheck[0] == toCheck[2] && toCheck[1] == toCheck[3] && playerGrid[toCheck[0]][toCheck[1]] == 0) {
@@ -196,25 +197,60 @@ function placeShips(arr)
 	
 	var coords = [];
 	var doesPass;
+	var passError;
 	
-	for(let i = 1; i <= amntShips; i++) {
+	for(let i = 1; i <= amntShips; i++) {								//this gets coords and runs above tests to see if they are fit
+	
+		alert("Placing Ship " + i + ", Size: 1x" + i);
+	
 		do {
 			coords = getCoords(i);
 			
 			doesPass = false;
+			passError = 0;
 			
 			if(isOrthogonal(coords) == true) {
 				if(isSize(coords, i) == true) {
 					if(isWithinBounds(coords) == true) {
-						if(isOnEmpty(coords, arr) == true) {
+						if(isOnEmpty(coords, arr) == true) {			//isOnEmpty MUST BE CALLED AFTER isWithinBounds - causes errors if looking outsite arr
 							doesPass = true;
 							console.log(isOnEmpty(coords, arr));
 						}
+						else {
+							passError = 1;
+						}
+					}
+					else {
+						passError = 2;
 					}
 				}
+				else {
+					passError = 3;
+				}
+			}
+			else {
+				passError = 4;
 			}
 			
-			console.log(coords[0]);
+			switch(passError) {
+				case 0:
+					alert("Ship Placed!");
+					break;
+				case 1:
+					alert("Ship overlaps another ship. Try again.");
+					break;
+				case 2:
+					alert("Ship is out of bounds of the game board. Try again.");
+					break;
+				case 3:
+					alert("Coordinate range does not match ship size. Try again.");
+					break;
+				case 4:
+					alert("Ship is not horizontal or vertical. Try again.");
+					break;
+			}
+			
+			console.log(coords[0]);							//debug statements
 			console.log(coords[1]);
 			console.log(coords[2]);
 			console.log(coords[3]);
@@ -224,7 +260,8 @@ function placeShips(arr)
 			
 		}while(doesPass == false);
 		
-		
+		//below if-blocks decide how to and place ships on arr
+		//again, avoiding use of absolute value
 		if(coords[0] == coords[2] && coords[1] == coords[3]) {
 			arr[coords[0]][coords[1]] = 1;
 			
@@ -272,12 +309,20 @@ function placeShips(arr)
 
 function drawgrid()
 {
+	alert("Next prompt will ask for the number of ships in play. Amount of ships corresponds with ship size. Ex. 1 ship gives each player a 1x1 ship. 3 ships gives each player a 1x1, 1x2, and 1x3 ship to place.");
+	
 	do {
 		amntShips = window.prompt("Enter amount of ships for each player (1 - 6)");
 	}while(!(amntShips <=6) && !(amntShips >= 1));
 	
+	alert("Player 1 will place ships first. Each ship placement will require 2 coordinates: a start and endpoint. For example, a 1x3 ship with start point A1 and end point A3 will occupy tiles A1, A2, and A3. As long as points are horizontal or vertical to each other, order does not matter.");
+	
     placeShips(p1GridArr);
+	
+	alert("Player 2 will now place ships.");
+	
     placeShips(p2GridArr);
+	
     document.getElementById('start').disabled = 'disabled';
     document.getElementById("playerNum").innerHTML = curPlyr;
 
