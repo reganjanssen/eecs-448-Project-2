@@ -62,6 +62,15 @@ Sept. 19: 1 hour
 
 
 Zachary Sambol:
+Sept. 16: 1 hour
+	- Examine existing code and plan for ship placement code.
+
+Sept. 17: 5 hours
+	- Added documentation folder, added "Facing" and "getter" functions to ship class, added getWinner function, coded proof-of-concept for player-led ship placement.
+		- Above changes were added to new ship-placement branch, was scrapped
+		
+Sept. 19: 2.5 hours
+	- Added second take on player ship placement, added to ship-placement-v2 branch
 
 
 
@@ -72,3 +81,5 @@ https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke
 https://sebhastian.com/display-javascript-variable-html/
 https://stackoverflow.com/a/966938
 https://stackoverflow.com/a/9141943
+https://newbedev.com/convert-letter-to-number-in-javascript
+https://stackoverflow.com/questions/17907233/making-one-array-exactly-equal-to-another/17907325
