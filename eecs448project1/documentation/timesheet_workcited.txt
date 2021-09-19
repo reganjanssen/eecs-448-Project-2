@@ -31,7 +31,19 @@ Truman Klenklen:
 
 Andrew Brown:
 
+Sept. 9: 1.5 hours
+    -Built the reset button and worked on a change turn button that would switch grids.
 
+Sept. 11: 1 hour
+    -Wrote the code to show what players turn it was.
+    
+ Sept. 14: 1.5 hours
+    -Began reworking the process to change grids after the screen was reworked.
+    
+
+Sept. 16: 2 hours
+    -Team met up for zoom to complete lab three and also pushed code for reset button, and change turn.
+    
 Drew Fink:
 
 
@@ -43,3 +55,4 @@ Zachary Sambol:
 Works Cited:
 https://stackoverflow.com/questions/36682806/how-to-place-two-canvases-adjacent-to-each-other-and-on-top-of-a-third-one
 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke
+https://sebhastian.com/display-javascript-variable-html/
