@@ -12,43 +12,13 @@ let p1GuessArr = createArray(10, 9);
 let p2GridArr = createArray(10, 9);
 let p2GuessArr = createArray(10, 9);
 
-class Ship
-{
-    sunk = false; // Our ship obviously won't start already sunk.
-    constructor(size, posX, posY)
-    {
-        this.size = size; // Carriers are 5, battleships are 4, cruisers & subs are 3, destroyers are 2
-        this.posX = posX;
-        this.posY = posY;
-    }
-
-    sink()
-    {
-        this.sunk = true;
-    }
-
-    getPosX()
-    {
-        return this.posX;
-    }
-
-    getPosY()
-    {
-        return this.posY;
-    }
-
-    isSunk()
-    {
-        return this.sunk;
-    }
-}
-
-function createArray(length)
+function createArray(length) // JS does not natively support 2D arrays, so we have to make a special function to create them.
 {
     var arr = new Array(length || 0),
         i = length;
 
-    if (arguments.length > 1) {
+    if (arguments.length > 1) // This just adds the specified number of dimensions to the array based upon how many arguments you feed createArray()
+    {
         var args = Array.prototype.slice.call(arguments, 1);
         while(i--) arr[length-1 - i] = createArray.apply(this, args);
     }
@@ -242,77 +212,6 @@ function drawgrid()
     p2Grid.setAttribute("id", "p2Grid");
 
     gameStart();
-}
-
-function ship1()
-{
-    document.getElementById('2ship').disabled = true;
-    document.getElementById('3ship').disabled = true;
-    document.getElementById('4ship').disabled = true;
-    document.getElementById('5ship').disabled = true;
-    document.getElementById('6ship').disabled = true;
-
-    alert("You and your opponent have the following ships: 1x1");
-}
-
-function ship2()
-{
-    document.getElementById('1ship').disabled = true;
-    document.getElementById('3ship').disabled = true;
-    document.getElementById('4ship').disabled = true;
-    document.getElementById('5ship').disabled = true;
-    document.getElementById('6ship').disabled = true;
-
-    alert("You and your opponent have the following ships: 1x1, 1x2");
-
-}
-
-function ship3()
-{
-    document.getElementById('1ship').disabled = true;
-    document.getElementById('2ship').disabled = true;
-    document.getElementById('4ship').disabled = true;
-    document.getElementById('5ship').disabled = true;
-    document.getElementById('6ship').disabled = true;
-
-    alert("You and your opponent have the following ships: 1x1, 1x2, 1x3");
-
-}
-
-function ship4()
-{
-    document.getElementById('1ship').disabled = true;
-    document.getElementById('2ship').disabled = true;
-    document.getElementById('3ship').disabled = true;
-    document.getElementById('5ship').disabled = true;
-    document.getElementById('6ship').disabled = true;
-
-    alert("You and your opponent have the following ships: 1x1, 1x2, 1x3, 1x4");
-
-}
-
-function ship5()
-{
-    document.getElementById('1ship').disabled = true;
-    document.getElementById('2ship').disabled = true;
-    document.getElementById('3ship').disabled = true;
-    document.getElementById('4ship').disabled = true;
-    document.getElementById('6ship').disabled = true;
-
-    alert("You and your opponent have the following ships: 1x1, 1x2, 1x3, 1x4, 1x5");
-
-}
-
-function ship6()
-{
-    document.getElementById('1ship').disabled = true;
-    document.getElementById('2ship').disabled = true;
-    document.getElementById('3ship').disabled = true;
-    document.getElementById('4ship').disabled = true;
-    document.getElementById('5ship').disabled = true;
-
-    alert("You and your opponent have the following ships: 1x1, 1x2, 1x3, 1x4, 1x5, 1x6");
-
 }
 
 //This function will block the board while the players are changing in order to prevent the a player from seeing the others ship locations.
