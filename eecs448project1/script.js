@@ -1,9 +1,7 @@
 let canvas;
 
 const col = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-var isChanging = 0;
 var curPlyr = 1;
-var gameOn = false;
 let p1Grid;
 let p1Guess;
 let p2Grid;
@@ -58,6 +56,8 @@ function createArray(length)
     return arr;
 }
 
+
+
 function playBoard(rows, cols, classname, callback) // The "callback" is a function we use for our event listener.
 {
     var letter = 65; // 65 is ASCII for the letter A. We use this when numbering the grid.
@@ -78,12 +78,28 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                 {
                     cell.className = 'clicked';
                 }
+                if(p1GridArr[r][c] == 2)
+                {
+                    cell.className = 'hit';
+                }
+                if(p1GridArr[r][c] == 3)
+                {
+                    cell.className = 'benign';
+                }
             }
             if(grid.className == "p2-grid")
             {
                 if(p2GridArr[r][c] == 1)
                 {
                     cell.className = 'clicked';
+                }
+                if(p2GridArr[r][c] == 2)
+                {
+                    cell.className = 'hit';
+                }
+                if(p2GridArr[r][c] == 3)
+                {
+                    cell.className = 'benign';
                 }
             }
             else
@@ -96,7 +112,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                     }
                 })(cell, r, c, i), false);
             }
-            
         }
         i = 1;
         letter++;
@@ -131,7 +146,6 @@ function placeShips(arr)
         {
             if((col < 3 && arr[row][col] == null && arr[row][col + 1] == null && arr[row][col + 2] == null && arr[row][col + 3] == null)) // Check if the adjacent spaces are empty
             {
-                console.log("Placed one - horizontal at " + row + ", " + col);
                 arr[row][col] = 1;
                 arr[row][col + 1] = 1;
                 arr[row][col + 2] = 1;
@@ -156,49 +170,78 @@ function drawgrid()
     var player1grid = playBoard(10, 9, "p1-grid", function(cell, row, col, i)
     {
         console.log("x: " + row + " y: " + col + " i: " + i);
-
-        cell.className = 'clicked';
     });
 
     var player2grid = playBoard(10, 9, "p2-grid", function(cell, row, col, i)
     {
         console.log("x: " + row + " y: " + col);
-
-        cell.className = 'clicked';
     });
 
     var player1guess = playBoard(10, 9, "p1-guess", function(cell, row, col, i)
     {
         console.log("x: " + row + " y: " + col);
-
-        cell.className = 'clicked';
+        if(p2GridArr[row][col] == 1)
+        {
+            p2GridArr[row][col] = 2;
+            alert("It's a hit!");
+            cell.className = 'hit';
+        }
+        else
+        {
+            p2GridArr[row][col] = 3;
+            alert("It's a miss.");
+            cell.className = 'clicked';
+        }
+        document.getElementById("boards").removeChild(player2grid); // Redraw player 2's bottom grid so that it reflects where player 1 has guessed.
+        player2grid = playBoard(10, 9, "p2-grid", function(cell, row, col, i)
+        {
+            console.log("x: " + row + " y: " + col + " i: " + i);
+        });
+        p2Grid = document.getElementById("boards").appendChild(player2grid);
+        p2Grid.setAttribute("id", "p2Grid");
+        p2Grid.style.display = "none";
+        changeTurn();
     });
 
     var player2guess = playBoard(10, 9, "p2-guess", function(cell, row, col, i)
     {
         console.log("x: " + row + " y: " + col);
-
-        cell.className = 'clicked';
+        if(p1GridArr[row][col] == 1)
+        {
+            p1GridArr[row][col] = 2;
+            alert("It's a hit!");
+            cell.className = 'hit';
+        }
+        else
+        {
+            p1GridArr[row][col] = 3;
+            alert("It's a miss.");
+            cell.className = 'clicked';
+        }
+        document.getElementById("boards").removeChild(player1grid); // Redraw player 1's bottom grid so that it reflects where player 2 has guessed.
+        player1grid = playBoard(10, 9, "p1-grid", function(cell, row, col, i)
+        {
+            console.log("x: " + row + " y: " + col + " i: " + i);
+        });
+        p1Grid = document.getElementById("boards").appendChild(player1grid);
+        p1Grid.setAttribute("id", "p1Grid");
+        p1Grid.style.display = "none";
+        changeTurn();
     });
 
-    p1Guess = document.getElementById("guessBoards").appendChild(player1guess);
+    p1Guess = document.getElementById("guessBoards").appendChild(player1guess); // Do an initial drawing of all the grids.
     p1Guess.setAttribute("id", "p1Guess");
-    p1GuessArr = createArray(10, 9);
 
     p1Grid = document.getElementById("boards").appendChild(player1grid);
     p1Grid.setAttribute("id", "p1Grid");
-    p1GridArr = createArray(10, 9);
 
     p2Guess = document.getElementById("guessBoards").appendChild(player2guess);
     p2Guess.setAttribute("id", "p2Guess");
-    p2GuessArr = createArray(10, 9);
 
     p2Grid = document.getElementById("boards").appendChild(player2grid);
     p2Grid.setAttribute("id", "p2Grid");
-    p2GridArr = createArray(10, 9);
 
-    gameOn = true;
-    gameLoop();
+    gameStart();
 }
 
 function ship1()
@@ -273,45 +316,70 @@ function ship6()
 }
 
 //This function will block the board while the players are changing in order to prevent the a player from seeing the others ship locations.
-//The button must be pressed twice: Once to block the boards so the players can switch, and then once more to switch to the other player.
 function changeTurn()
 {
-    if(isChanging == 0)
-    { //Checks to see if this is the first time the button is being pressed in a turn switch.
-        isChanging = 1;
-    }
-    else
+    if(curPlyr == 1)
     {
-        isChanging = 0;
-        if(curPlyr == 1)
+        var p2HasShips = false;
+        for(var r = 0; r < 10; r++)
         {
-            p1Grid.style.display = "inline";
-            p1Guess.style.display = "inline";
-            p2Grid.style.display = "none";
-            p2Guess.style.display = "none";
+            for(var c = 0; c < 9; c++)
+            {
+                if (p2GridArr[r][c] == 1)
+                {
+                    p2HasShips = true;
+                }
+            }
+        }
+        if(p2HasShips)
+        {
+            p1Grid.style.display = "none";
+            p1Guess.style.display = "none";
+            setTimeout(() => alert("Okay, Player 1, turn your back, and Player 2, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+            setTimeout(() => p2Grid.style.display = "inline", 0);
+            setTimeout(() => p2Guess.style.display = "inline", 0);
             curPlyr++;
         }
         else
-        {   
-            p1Grid.style.display = "none";
-            p1Guess.style.display = "none";
-            p2Grid.style.display = "inline";
-            p2Guess.style.display = "inline";
+        {
+            alert("Game over, Player 1 wins!");
+        }
+    }
+    else
+    {   
+        var p1HasShips = false;
+        for(var r = 0; r < 10; r++)
+        {
+            for(var c = 0; c < 9; c++)
+            {
+                if (p1GridArr[r][c] == 1)
+                {
+                    p1HasShips = true;
+                }
+            }
+        }
+        if(p1HasShips)
+        {
+            p2Grid.style.display = "none";
+            p2Guess.style.display = "none";
+            setTimeout(() => alert("Okay, Player 2, turn your back, and Player 1, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+            setTimeout(() => p1Grid.style.display = "inline", 0);
+            setTimeout(() => p1Guess.style.display = "inline", 0);
             curPlyr--;
         }
-        document.getElementById("playerNum").innerHTML = curPlyr;
-    } 
+        else
+        {
+            alert("Game over, Player 2 wins!");
+        }
+    }
+    document.getElementById("playerNum").innerHTML = curPlyr;
 }
 
-function gameLoop()
+function gameStart()
 {
-    while(gameOn)
-    {
-        p1Grid.style.display = "inline";
-        p1Guess.style.display = "inline";
-        p2Grid.style.display = "none";
-        p2Guess.style.display = "none";
-        alert("Player 1, select on bottom where you will place your first ship. Must be three long/wide, horizontal/vertical only, and must not overlap any other ship.");
-        gameOn = false;
-    }
+    alert("Okay Player 1, you start. Player 2, turn your back.");
+    setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
+    setTimeout(() => p1Guess.style.display = "inline", 0);
+    setTimeout(() => p2Grid.style.display = "none", 0);
+    setTimeout(() => p2Guess.style.display = "none", 0);
 }

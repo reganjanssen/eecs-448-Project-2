@@ -53,6 +53,11 @@ p {
     font-weight:bold; color:blue;
 }
 
+.p1-grid td.benign {
+    background-color:green;
+    font-weight:bold; color:green;
+}
+
 .p1-guess { margin:1em 2em; border-collapse:collapse; display: inline-block }
 .p1-guess td {
     cursor:pointer;
@@ -87,6 +92,11 @@ p {
 .p2-grid td.hit {
     background-color:red;
     font-weight:bold; color:red;
+}
+
+.p2-grid td.benign {
+    background-color:pink;
+    font-weight:bold; color:pink;
 }
 
 .p2-guess { margin:1em 2em; border-collapse:collapse; display: inline-block }
