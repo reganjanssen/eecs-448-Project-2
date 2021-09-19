@@ -122,30 +122,176 @@ function placeShips(arr)
         
         if(vertOrHoriz == 0) // Vertical is chosen
         {
-            if((row < 7 && arr[row][col] == null && arr[row + 1][col] == null && arr[row + 2][col] == null && arr[row + 3][col] == null)) // Check if the appropriate spaces are empty
+            switch(ships)
             {
-                arr[row][col] = 1;
-                arr[row + 1][col] = 1;
-                arr[row + 2][col] = 1;
-                ships++;
-            }
-            else // If not, cut the loop and try again
-            {
-                continue;
+                case 0:
+                    if(arr[row][col] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
+                case 1:
+                    if(row < 9 && arr[row][col] == null && arr[row + 1][col] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        arr[row + 1][col] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
+                case 2:
+                    if(row < 8 && arr[row][col] == null && arr[row + 1][col] == null && arr[row + 2][col] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        arr[row + 1][col] = 1;
+                        arr[row + 2][col] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
+                case 3:
+                    if(row < 7 && arr[row][col] == null && arr[row + 1][col] == null && arr[row + 2][col] == null && arr[row + 3][col] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        arr[row + 1][col] = 1;
+                        arr[row + 2][col] = 1;
+                        arr[row + 3][col] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
+                case 4:
+                    if(row < 6 && arr[row][col] == null && arr[row + 1][col] == null && arr[row + 2][col] == null && arr[row + 3][col] == null && arr[row + 4][col] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        arr[row + 1][col] = 1;
+                        arr[row + 2][col] = 1;
+                        arr[row + 3][col] = 1;
+                        arr[row + 4][col] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
+                case 5:
+                    if(row < 5 && arr[row][col] == null && arr[row + 1][col] == null && arr[row + 2][col] == null && arr[row + 3][col] == null && arr[row + 4][col] == null && arr[row + 5][col] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        arr[row + 1][col] = 1;
+                        arr[row + 2][col] = 1;
+                        arr[row + 3][col] = 1;
+                        arr[row + 4][col] = 1;
+                        arr[row + 5][col] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
             }
         }
         if(vertOrHoriz == 1) // Horizontal is chosen
         {
-            if((col < 3 && arr[row][col] == null && arr[row][col + 1] == null && arr[row][col + 2] == null && arr[row][col + 3] == null)) // Check if the adjacent spaces are empty
+            switch(ships)
             {
-                arr[row][col] = 1;
-                arr[row][col + 1] = 1;
-                arr[row][col + 2] = 1;
-                ships++;
-            }
-            else // If not, cut the loop and try again
-            {
-                continue;
+                case 0:
+                    if(arr[row][col] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
+                case 1:
+                    if(col < 9 && arr[row][col] == null && arr[row][col + 1] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        arr[row][col + 1] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
+                case 2:
+                    if(col < 8 && arr[row][col] == null && arr[row][col + 1] == null && arr[row][col + 2] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        arr[row][col + 1] = 1;
+                        arr[row][col + 2] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
+                case 3:
+                    if(col < 7 && arr[row][col] == null && arr[row][col + 1] == null && arr[row][col + 2] == null && arr[row][col + 3] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        arr[row][col + 1] = 1;
+                        arr[row][col + 2] = 1;
+                        arr[row][col + 3] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
+                case 4:
+                    if(col < 6 && arr[row][col] == null && arr[row][col + 1] == null && arr[row][col + 2] == null && arr[row][col + 3] == null && arr[row][col + 4] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        arr[row][col + 1] = 1;
+                        arr[row][col + 2] = 1;
+                        arr[row][col + 3] = 1;
+                        arr[row][col + 4] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
+                case 5:
+                    if(col < 5 && arr[row][col] == null && arr[row][col + 1] == null && arr[row][col + 2] == null && arr[row][col + 3] == null && arr[row][col + 4] == null && arr[row][col + 5] == null) // Check if the appropriate spaces are empty
+                    {
+                        arr[row][col] = 1;
+                        arr[row][col + 1] = 1;
+                        arr[row][col + 2] = 1;
+                        arr[row][col + 3] = 1;
+                        arr[row][col + 4] = 1;
+                        arr[row][col + 5] = 1;
+                        ships++;
+                    }
+                    else // If not, cut the loop and try again
+                    {
+                        continue;
+                    }
+                    break;
             }
         }
     }
