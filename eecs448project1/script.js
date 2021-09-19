@@ -1,5 +1,3 @@
-let canvas;
-
 const col = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 var curPlyr = 1;
 let p1Grid;
@@ -7,6 +5,7 @@ let p1Guess;
 let p2Grid;
 let p2Guess;
 
+//These arrays are the grids that will allow us to play the game.
 let p1GridArr = createArray(10, 9);
 let p1GuessArr = createArray(10, 9);
 let p2GridArr = createArray(10, 9);
@@ -130,7 +129,9 @@ function placeShips(arr)
     return arr;
 }
 
-function drawgrid()
+
+//This function draws the grid dynamically and allows hit registration.
+function drawgrid() 
 {
     placeShips(p1GridArr);
     placeShips(p2GridArr);
@@ -274,6 +275,7 @@ function changeTurn()
     document.getElementById("playerNum").innerHTML = curPlyr;
 }
 
+//This function starts the game and gives instructions to the players on whose turn it is.
 function gameStart()
 {
     alert("Okay Player 1, you start. Player 2, turn your back.");

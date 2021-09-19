@@ -1,0 +1,45 @@
+Estimate of Hours:
+
+1 week: 5 hours on weekdays + 5 hours on weekends = 10 hrs per week 
+3 weeks = 10*3 = 30 hours 
+
+5 teammates = 30*5 = 150 hours
+
+
+Day-by-Day Accounting:
+
+Raj Nara:
+Sept. 8: 30 min
+    -Researched ways to build grids + interactivity from player to player.
+
+Sept. 11: 3 hours
+    -Worked on building the main HTML file with a bit of CSS.
+    -Added a bit of JS to build the grid.
+
+Sept. 16: 1 hour
+    -Team hopped on Zoom to discuss what we had done and what needed to get done.
+
+Sept. 18: 30 min 
+    -Tested game to see edge cases + see how game functioned.
+
+Sept. 19: 2 hrs
+    -Added documentation + messed around with JSDoc to see if it would work.
+
+
+Truman Klenklen:
+
+
+Andrew Brown:
+
+
+Drew Fink:
+
+
+Zachary Sambol:
+
+
+
+
+Works Cited:
+https://stackoverflow.com/questions/36682806/how-to-place-two-canvases-adjacent-to-each-other-and-on-top-of-a-third-one
+https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke
