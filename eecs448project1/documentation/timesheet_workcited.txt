@@ -57,8 +57,9 @@ Sept. 18: 2 hours
     - Made game fully playable by adding hit/miss detection.
     - Added grid redrawing functionality to display where other player has guessed.
 
-Sept. 19: 1 hour
+Sept. 19: 1.5 hours
     - Internal code reorganization and documentation
+    - Made ship size variable based upon ship count
 
 
 Zachary Sambol:
