@@ -45,6 +45,20 @@ Sept. 16: 2 hours
     -Team met up for zoom to complete lab three and also pushed code for reset button, and change turn.
     
 Drew Fink:
+Sept. 13: 3.5 hours
+    - First made a rudimentary ship class (scrapped later)
+    - Made grid clickable.
+
+Sept. 17: 3 hours
+    - Implemented "guess grid" and hid grids upon switching player turns.
+    - Implemented random ship placement
+
+Sept. 18: 2 hours
+    - Made game fully playable by adding hit/miss detection.
+    - Added grid redrawing functionality to display where other player has guessed.
+
+Sept. 19: 1 hour
+    - Internal code reorganization and documentation
 
 
 Zachary Sambol:
@@ -56,3 +70,5 @@ Works Cited:
 https://stackoverflow.com/questions/36682806/how-to-place-two-canvases-adjacent-to-each-other-and-on-top-of-a-third-one
 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke
 https://sebhastian.com/display-javascript-variable-html/
+https://stackoverflow.com/a/966938
+https://stackoverflow.com/a/9141943
