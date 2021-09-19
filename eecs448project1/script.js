@@ -1,5 +1,6 @@
 const col = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 var curPlyr = 1;
+var numShips = 5;
 let p1Grid;
 let p1Guess;
 let p2Grid;
@@ -113,7 +114,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
 function placeShips(arr)
 {
     var ships = 0;
-    while(ships < 5)
+    while(ships < numShips)
     {
         let row = Math.floor(Math.random() * 10);
         let col = Math.floor(Math.random() * 9);
@@ -298,6 +299,28 @@ function drawGrids()
  */
 function gameHandler()
 {
+    var resp = parseInt(window.prompt("How many ships? (min is 1, max is 6, default is 5)")); // Retrieve number of ships for gameplay and store as integer.
+    
+    if(Number.isInteger(resp)) // If someone were to enter, say, text, this would be NaN and therefore not work and just use the default.
+    {
+        if(resp < 1)
+        {
+            alert("You can't have less than 1 ship. Resetting to the default of 5.");
+        }
+        else if(resp > 6)
+        {
+            alert("You can't have more than 6 ships. Resetting to the default of 5.");
+        }
+        else
+        {
+            numShips = resp;
+        }
+    }
+    else
+    {
+        alert("Your response was invalid so we're going with the default of 5 ships.");
+    }
+
     placeShips(p1GridArr);
     placeShips(p2GridArr);
     document.getElementById('start').disabled = 'disabled';
