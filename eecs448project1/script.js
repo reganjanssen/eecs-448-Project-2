@@ -2,6 +2,7 @@ let canvas;
 
 const col = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 var curPlyr = 1;
+var amntShips = 0;
 let p1Grid;
 let p1Guess;
 let p2Grid;
@@ -89,49 +90,192 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
     return grid;
 }
 
+//Might want to see if this can deal with doubles
+function getCoords(shipNum) {
+	let coordString = window.prompt("Enter Starting Point for Ship " + shipNum + " as a Grid ID (ex. B3)");
+	coordSplit = coordString.split("");
+	let coordX1 = parseInt(coordSplit[1]) - 1;		//Both coords normalized to grid format (begins with 0) (goes row, column)
+	let coordY1 = parseInt(coordSplit[0], 36) - 10;
+	
+	coordString = window.prompt("Enter Ending Point for Ship " + shipNum + " as a Grid ID (ex. B3)");
+	coordSplit = coordString.split("");
+	let coordX2 = parseInt(coordSplit[1]) - 1;		//Both coords normalized to grid format (begins with 0) (goes row, column)
+	let coordY2 = parseInt(coordSplit[0], 36) - 10;
+	
+	let coordTogether = [coordY1, coordX1, coordY2, coordX2];
+	
+	
+	return(coordTogether);
+}
+
+//function doesn't check size, just making sure startpoint and endpoint are in either same row or column
+function isOrthogonal(toCheck) {
+	if(toCheck[0] == toCheck[2] || toCheck[1] == toCheck[3]) {
+		return(true);
+	}
+	else {
+		return(false);
+	}
+}
+
+//if blocks are long to avoid using math for absolute value
+function isSize(toCheck, size) {
+	if(toCheck[0] == toCheck[2] && toCheck[1] == toCheck[3] && size == 1) {
+		return(true);
+	}
+	else if(toCheck[0] == toCheck[2] && (((toCheck[1] - toCheck[3]) == size-1) || ((toCheck[3] - toCheck[1]) == size-1))) {
+		return(true);
+	}
+	else if(toCheck[1] == toCheck[3] && (((toCheck[0] - toCheck[2]) == size-1) || ((toCheck[2] - toCheck[0]) == size-1))) {
+		return(true);
+	}
+	else {
+		return(false);
+	}
+		
+}
+
+//only checks if values are within gameboard
+function isWithinBounds(toCheck) {
+	if(toCheck[0] > 9 || toCheck[0] < 0 || toCheck[1] > 8 || toCheck[1] < 0 || toCheck[2] > 9|| toCheck[2] < 0 || toCheck[3] > 8 || toCheck[3] < 0) {
+		return(false);
+	}
+	else {
+		return(true);
+	}
+}
+
+//again, pain for absolute values
+//not thoroughly tested, but should stop ships from being placed on each other
+function isOnEmpty(toCheck, playerGrid) {
+	let pass = true;
+	if(toCheck[0] == toCheck[2] && toCheck[1] == toCheck[3] && playerGrid[toCheck[0]][toCheck[1]] == 0) {
+		return(true);
+	}
+	else if(toCheck[0] == toCheck[2]) {
+		if(toCheck[1] < toCheck[3]) {
+			for(let j = toCheck[1]; j <= toCheck[3]; j++) {
+				if(playerGrid[toCheck[0]][j] == 1) {
+					pass = false;
+				}
+			}
+		}
+		else {
+			for(let j = toCheck[3]; j <= toCheck[1]; j++) {
+				if(playerGrid[toCheck[0]][j] == 1) {
+					pass = false;
+				}
+			}
+		}
+	}
+	else if(toCheck[1] == toCheck[3]) {
+		if(toCheck[0] < toCheck[2]) {
+			for(let j = toCheck[0]; j <= toCheck[2]; j++) {
+				if(playerGrid[j][toCheck[1]] == 1) {
+					pass = false;
+				}
+			}
+		}
+		else {
+			for(let j = toCheck[2]; j <= toCheck[0]; j++) {
+				if(playerGrid[j][toCheck[1]] == 1) {
+					pass = false;
+				}
+			}
+		}
+	}
+	else {
+		return(false);
+	}
+	return(pass);
+}
+
 function placeShips(arr)
 {
-    var ships = 0;
-    while(ships < 5)
-    {
-        let row = Math.floor(Math.random() * 10);
-        let col = Math.floor(Math.random() * 9);
-        let vertOrHoriz = Math.floor(Math.random() * 2);
-        
-        if(vertOrHoriz == 0) // Vertical is chosen
-        {
-            if((row < 7 && arr[row][col] == null && arr[row + 1][col] == null && arr[row + 2][col] == null && arr[row + 3][col] == null)) // Check if the appropriate spaces are empty
-            {
-                arr[row][col] = 1;
-                arr[row + 1][col] = 1;
-                arr[row + 2][col] = 1;
-                ships++;
-            }
-            else // If not, cut the loop and try again
-            {
-                continue;
-            }
-        }
-        if(vertOrHoriz == 1) // Horizontal is chosen
-        {
-            if((col < 3 && arr[row][col] == null && arr[row][col + 1] == null && arr[row][col + 2] == null && arr[row][col + 3] == null)) // Check if the adjacent spaces are empty
-            {
-                arr[row][col] = 1;
-                arr[row][col + 1] = 1;
-                arr[row][col + 2] = 1;
-                ships++;
-            }
-            else // If not, cut the loop and try again
-            {
-                continue;
-            }
-        }
-    }
-    return arr;
+
+	
+	var coords = [];
+	var doesPass;
+	
+	for(let i = 1; i <= amntShips; i++) {
+		do {
+			coords = getCoords(i);
+			
+			doesPass = false;
+			
+			if(isOrthogonal(coords) == true) {
+				if(isSize(coords, i) == true) {
+					if(isWithinBounds(coords) == true) {
+						if(isOnEmpty(coords, arr) == true) {
+							doesPass = true;
+							console.log(isOnEmpty(coords, arr));
+						}
+					}
+				}
+			}
+			
+			console.log(coords[0]);
+			console.log(coords[1]);
+			console.log(coords[2]);
+			console.log(coords[3]);
+			console.log(isOrthogonal(coords));
+			console.log(isSize(coords, i));
+			console.log(isWithinBounds(coords));
+			
+		}while(doesPass == false);
+		
+		
+		if(coords[0] == coords[2] && coords[1] == coords[3]) {
+			arr[coords[0]][coords[1]] = 1;
+			
+			console.log("Using placement 1");
+			console.log("Placed ship " + i + " at Row, Column " + coords[0] + ", " + coords[1]);
+		}
+		else if(coords[0] == coords[2]) {
+			if(coords[1] < coords[3]) {
+				for(let startX = coords[1]; startX <= coords[3]; startX++) {
+					arr[coords[0]][startX] = 1;
+					
+					console.log("Using placement 2");
+					console.log("Placed ship " + i + " at Row, Column " + coords[0] + ", " + coords[startX]);
+				}
+			}
+			else {
+				for(let startX = coords[3]; startX <= coords[1]; startX++) {
+					arr[coords[0]][startX] = 1;
+					
+					console.log("Using placement 3");
+					console.log("Placed ship " + i + " at Row, Column " + coords[0] + ", " + coords[startX]);
+				}
+			}
+		}
+		else if(coords[1] == coords[3]) {
+			if(coords[0] < coords[2]) {
+				for(let startY = coords[0]; startY <= coords[2]; startY++) {
+					arr[startY][coords[1]] = 1;
+					
+					console.log("Using placement 4");
+					console.log("Placed ship " + i + " at Row, Column " + coords[startY] + ", " + coords[1]);
+				}
+			}
+			else {
+				for(let startY = coords[2]; startY <= coords[0]; startY++) {
+					arr[startY][coords[1]] = 1;
+					
+					console.log("Using placement 5");
+					console.log("Placed ship " + i + " at Row, Column " + coords[startY] + ", " + coords[1]);
+				}
+			}
+		}
+	}
 }
 
 function drawgrid()
 {
+	do {
+		amntShips = window.prompt("Enter amount of ships for each player (1 - 6)");
+	}while(!(amntShips <=6) && !(amntShips >= 1));
+	
     placeShips(p1GridArr);
     placeShips(p2GridArr);
     document.getElementById('start').disabled = 'disabled';
