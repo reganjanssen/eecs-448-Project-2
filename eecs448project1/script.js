@@ -108,7 +108,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
  *
  * @param {int} shipNum - The sequential number of the ship being placed.
  * @post The coordinates of the ship are returned.
- * @author Zach Sambol
+ * @author Zach Sambol - adapted from newbedev solution
  */
 function getCoords(shipNum)
 {

@@ -84,4 +84,3 @@ https://sebhastian.com/display-javascript-variable-html/
 https://stackoverflow.com/a/966938
 https://stackoverflow.com/a/9141943
 https://newbedev.com/convert-letter-to-number-in-javascript
-https://stackoverflow.com/questions/17907233/making-one-array-exactly-equal-to-another/17907325
