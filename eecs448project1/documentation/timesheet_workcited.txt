@@ -1,7 +1,7 @@
 Estimate of Hours:
 
-1 week: 5 hours on weekdays + 5 hours on weekends = 10 hrs per week 
-3 weeks = 10*3 = 30 hours 
+1 week: 5 hours on weekdays + 5 hours on weekends = 10 hrs per week
+3 weeks = 10*3 = 30 hours
 
 5 teammates = 30*5 = 150 hours
 
@@ -19,7 +19,7 @@ Sept. 11: 3 hours
 Sept. 16: 1 hour
     -Team hopped on Zoom to discuss what we had done and what needed to get done.
 
-Sept. 18: 30 min 
+Sept. 18: 30 min
     -Tested game to see edge cases + see how game functioned.
 
 Sept. 19: 2 hrs
@@ -27,7 +27,20 @@ Sept. 19: 2 hrs
 
 
 Truman Klenklen:
+Sept. 8: 1 hour
+    -Read through rubric to better understand assignment, wrote out team contract.
 
+Sept. 13: 30 minutes
+    -Took some psuedocode notes to work through how the program would work, starting when players begin game
+
+Sept. 14: 2 Hours
+      -Spent time trying to understand code that had been written, proposed concept for how placing the ships would work and consulted the team
+
+Sept. 16: 1 hour
+    -Had a team zoom, discussed topics in lab 3, discussed what we had left to add to the project
+
+Sept. 18th: 1 hour 30 minutes
+    -Read through all updated code to this point, took notes for documentation
 
 Andrew Brown:
 
@@ -36,14 +49,14 @@ Sept. 9: 1.5 hours
 
 Sept. 11: 1 hour
     -Wrote the code to show what players turn it was.
-    
+
  Sept. 14: 1.5 hours
     -Began reworking the process to change grids after the screen was reworked.
-    
+
 
 Sept. 16: 2 hours
     -Team met up for zoom to complete lab three and also pushed code for reset button, and change turn.
-    
+
 Drew Fink:
 Sept. 13: 3.5 hours
     - First made a rudimentary ship class (scrapped later)
@@ -69,7 +82,7 @@ Sept. 16: 1 hour
 Sept. 17: 5 hours
 	- Added documentation folder, added "Facing" and "getter" functions to ship class, added getWinner function, coded proof-of-concept for player-led ship placement.
 		- Above changes were added to new ship-placement branch, was scrapped
-		
+
 Sept. 19: 3.6 hours
 	- Added second take on player ship placement, added to ship-placement-v2 branch
 	- Tidied up code on ship-placement-v2
