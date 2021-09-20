@@ -108,7 +108,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
  *
  * @param {int} shipNum - The sequential number of the ship being placed.
  * @post The coordinates of the ship are returned.
- * @author Zack Sambol
+ * @author Zach Sambol
  */
 function getCoords(shipNum)
 {
@@ -133,7 +133,7 @@ function getCoords(shipNum)
  * @pre A ship has been placed and its coordinates need to be checked to ensure they're in the same row or column.
  * @param {int} toCheck - The coordinates of the ship being placed.
  * @post True if the ship is orthogonal, false if not.
- * @author Zack Sambol
+ * @author Zach Sambol
  */
 function isOrthogonal(toCheck)
 {
@@ -152,7 +152,7 @@ function isOrthogonal(toCheck)
  * @param {int} toCheck - The coordinates of the ship being placed.
  * @param {int} size - The size of the ship being placed.
  * @post True if the ship is correctly-sized, false if not.
- * @author Zack Sambol
+ * @author Zach Sambol
  */
 function isSize(toCheck, size)
 {
@@ -179,7 +179,7 @@ function isSize(toCheck, size)
  * @pre A ship has been placed and its coordinates need to be checked to ensure it's actually within the board.
  * @param {int} toCheck - The coordinates of the ship being placed.
  * @post True if the ship is in the board, false if not.
- * @author Zack Sambol
+ * @author Zach Sambol
  */
 function isWithinBounds(toCheck)
 {
@@ -198,7 +198,7 @@ function isWithinBounds(toCheck)
  * @param {int} toCheck - The coordinates of the ship being placed.
  * @param {int} playerGrid - The grid for the active player.
  * @post False if the ship is clear, true if not.
- * @author Zack Sambol
+ * @author Zach Sambol
  */
 function isOnEmpty(toCheck, playerGrid)
 {
