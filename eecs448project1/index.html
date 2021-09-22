@@ -20,40 +20,23 @@
           Designed By: Raj Nara, Truman Klenklen, Andrew Brown, Drew Fink, and Zachary Sambol<br>For: University of Kansas EECS 448
         </h4>
         </div>
-        
+
+        <div id="guessBoards" style= "text-align: center;">
+        </div>
+
+        <div id="boards" style= "text-align: center;">
+          <h4 class = "subtitle">Top: Your guesses. Bottom: Where your ships are.</h4>
+        </div>
+
         <div style= "text-align: center;">
+          <h1 class = "player">Current Player: <span id="playerNum"></span></h1>
 
-          <canvas id="board1"
-            width="450"
-            height="450"
-            style="border: 3px solid red"
-          >  
-          </canvas>
-          
-          <canvas id="board2"
-            width="450"
-            height="450"
-            style="border: 3px solid blue"
-          >  
-          </canvas>
         </div>
 
+        <!-- These are buttons on the page that will start the game and reset the game respectively -->
         <div style = "text-align: center;">
-          <button class="start" id="start" style="background-color:green" onclick="drawgrid()">Start Game</button>
-        </div>
-
-        <div style="text-align: center; margin-top: 10px;">
-          <button class="1ship" id="1ship" style="background-color:green" onclick="ship1()">1 Ship per Person</button>
-          <button class="2ship" id="2ship" style="background-color:green" onclick="ship2()">2 Ships per Person</button>
-          <button class="3ship" id="3ship" style="background-color:green" onclick="ship3()">3 Ships per Person</button>
-          <button class="4ship" id="4ship" style="background-color:green" onclick="ship4()">4 Ships per Person</button>
-          <button class="5ship" id="5ship" style="background-color:green" onclick="ship5()">5 Ships per Person</button>
-          <button class="6ship" id="6ship" style="background-color:green" onclick="ship6()">6 Ships per Person</button>
-        </div>
-
-        <div style="text-align: center; margin-top: 10px;">
-          <button class="rotateL" id="rotateL" style="background-color:green" onclick="rotateL()">Rotate Ship Left</button>
-          <button class="rotateR" id="rotateR" style="background-color:green" onclick="rotateR()">Rotate Ship Right</button>
+          <button class="start" id="start" style="background-color:green" onclick="gameHandler()">Start Game</button>
+          <button class="start" id="start" style="background-color:green" onclick="window.location.reload()">Reset Game</button>
         </div>
     </div>
   </body>
