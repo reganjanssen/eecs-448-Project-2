@@ -573,33 +573,33 @@ function gameAIhandler()
     setTimeout(() => aiGuess.style.display = "none", 0);
 	*/
 }
-function getAiCoords(shipNum)
+function getAiCoords(shipNum) 
 {
 	let coordString = window.prompt("AI place ship");
 	//coordSplit = coordString.split("");
 	let coordX1 = 0;
 	let coordY1 = 0;
-	for (let i = 0; i <= (shipNum - 1); i++)
-	{
+	// for (let i = 0; i <= (shipNum - 1); i++) -----the ship is place 1 by 1 call the coords everytime so change it
+	
 		try {
 			if (Math.random() > 0.5)  // we can use >0.5 = horizontal or any value bettwen 0-1.
 			{
-				coordX1 = (Math.floor(Math.random() * Math.floor(9 - i)));// Math.random output 0<x<1  max ship is 1x6 when the shipNum = 6 we only can do 0,1,2 Floor will return a int; 
+				coordX1 = (Math.floor(Math.random() * Math.floor(9 - (shipNum-1))));// Math.random output 0<x<1  max ship is 1x6 when the shipNum = 6 we only can do 0,1,2 Floor will return a int; 
 				coordY1 = (Math.floor(Math.random() * Math.floor(9)));
-				let coordTogether = [coordY1, coordX1, coordY1, coordX1 + i];// + ship number to get next coordx  and return coord to set ship
+				let coordTogether = [coordY1, coordX1, coordY1, coordX1 + (shipNum - 1)];// + ship number to get next coordx  and return coord to set ship
 				return (coordTogether);
 			}
 			else {
-				coordX1 = (Math.floor(Math.random() * Math.floor(9 - i)));// Math.random output 0<x<1  max ship is 1x6 when the shipNum = 6 we only can do 0,1,2 Floor will return a int; 
+				coordX1 = (Math.floor(Math.random() * Math.floor(9 - (shipNum - 1))));// Math.random output 0<x<1  max ship is 1x6 when the shipNum = 6 we only can do 0,1,2 Floor will return a int;
 				coordY1 = (Math.floor(Math.random() * Math.floor(9)));
-				let coordTogether = [coordY1, coordX1, coordY1 + i, coordX1];// + ship number to get next coordx  and return it to set ship
+				let coordTogether = [coordY1, coordX1, coordY1 + (shipNum - 1), coordX1];// + ship number to get next coordx  and return it to set ship
 				return (coordTogether);
 			}
 		} catch (e)
 		{
         }
 		
-	}
+	
 }
 /*
 function bgMusic() {
