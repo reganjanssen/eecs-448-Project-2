@@ -12,32 +12,38 @@
   </head>
 
   <body>
-    <div>
       <div>
-        <!-- This is the start of content for our page -->
-        <h1 class = "title">Battleship</h1>
-        <h4 class = "subtitle">
-          Designed By: Raj Nara, Truman Klenklen, Andrew Brown, Drew Fink, and Zachary Sambol<br>For: University of Kansas EECS 448
-        </h4>
-        </div>
+          <div>
+              <!-- This is the start of content for our page -->
+              <h1 class="title">Battleship</h1>
+              <h4 class="subtitle">
+                  Designed By: Raj Nara, Truman Klenklen, Andrew Brown, Drew Fink, and Zachary Sambol<br>For: University of Kansas EECS 448
+              </h4>
+          </div>
 
-        <div id="guessBoards" style= "text-align: center;">
-        </div>
+          <div id="guessBoards" style="text-align: center;">
+          </div>
 
-        <div id="boards" style= "text-align: center;">
-          <h4 class = "subtitle">Top: Your guesses. Bottom: Where your ships are.</h4>
-        </div>
+          <div id="boards" style="text-align: center;">
+              <h4 class="subtitle">Top: Your guesses. Bottom: Where your ships are.</h4>
+          </div>
 
-        <div style= "text-align: center;">
-          <h1 class = "player">Current Player: <span id="playerNum"></span></h1>
+          <div style="text-align: center;">
+              <h1 class="player">Current Player: <span id="playerNum"></span></h1>
 
-        </div>
+          </div>
 
-        <!-- These are buttons on the page that will start the game and reset the game respectively -->
-        <div style = "text-align: center;">
-          <button class="start" id="start" style="background-color:green" onclick="gameHandler()">Start Game</button>
-          <button class="start" id="start" style="background-color:green" onclick="window.location.reload()">Reset Game</button>
-        </div>
-    </div>
+          <!-- These are buttons on the page that will start the game and reset the game respectively -->
+          <div style="text-align: center;">
+              <button class="start" id="start" style="background-color:green" onclick="gameHandler()">Start Local Player Game</button>
+              <button class="start" id="start" style="background-color:green" onclick="gameAIhandler()">Start VS. AI Game</button>
+              <button class="start" id="start" style="background-color:green" onclick="window.location.reload()">Reset Game</button>
+          </div>
+      </div>
   </body>
+ <!-- These are blackground music -->
+  <audio src="Music/blackground.mp3" autoplay="autoplay" loop="loop" preload="auto" controls="controls"><!-- autoplay is not available anymore so I create a even to click the page to start the music still not working wait for fix.-->   </audio>
+                   
+       
+
 </html>

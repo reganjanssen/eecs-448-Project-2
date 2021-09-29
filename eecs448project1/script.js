@@ -11,6 +11,8 @@ let p1GridArr = createArray(10, 9);
 let p1GuessArr = createArray(10, 9);
 let p2GridArr = createArray(10, 9);
 let p2GuessArr = createArray(10, 9);
+let AiGridArr = createArray(10, 9);
+let AiGuessArr = createArray(10, 9);
 
 /**
  * Creates the arrays necessary to store ship positions. This is necessary because JS does not natively support 2D arrays.
@@ -93,7 +95,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                     return function()
                     {
                         callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
-                    }
+					}
+					//bgMusic();
                 })(cell, r, c, i), false);
             }
         }
@@ -537,3 +540,73 @@ function gameHandler()
     setTimeout(() => p2Grid.style.display = "none", 0);
     setTimeout(() => p2Guess.style.display = "none", 0);
 }
+
+function gameAIhandler()
+{
+	alert("Next prompt will ask for the number of ships in play. Amount of ships corresponds with ship size. Ex. 1 ship gives each player a 1x1 ship. 3 ships gives each player a 1x1, 1x2, and 1x3 ship to place.");
+
+	do {
+		amntShips = window.prompt("Enter amount of ships for each player (1 - 6)");
+
+		if (amntShips != null) {
+			amntShips = parseInt(amntShips, 10);		//forces int input
+		}
+
+	} while (((amntShips <= 6) && (amntShips >= 1)) != true);
+
+	alert("Player 1 will place ships first. Each ship placement will require 2 coordinates: a start and endpoint. For example, a 1x3 ship with start point A1 and end point A3 will occupy tiles A1, A2, and A3. As long as points are horizontal or vertical to each other, order does not matter.");
+
+	placeShips(p1GridArr);
+
+	alert("AI place ships now.");
+	/*
+	placeShips(AiGridArr); 
+	document.getElementById('start').disabled = 'disabled';
+    document.getElementById("playerNum").innerHTML = curPlyr;
+
+    drawGrids();
+
+    alert("Okay Player 1, you start. AI, turn your back.");
+    setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
+    setTimeout(() => p1Guess.style.display = "inline", 0);
+    setTimeout(() => aiGrid.style.display = "none", 0);
+    setTimeout(() => aiGuess.style.display = "none", 0);
+	*/
+}
+function getAiCoords(shipNum)
+{
+	let coordString = window.prompt("AI place ship");
+	//coordSplit = coordString.split("");
+	let coordX1 = 0;
+	let coordY1 = 0;
+	for (let i = 0; i <= (shipNum - 1); i++)
+	{
+		try {
+			if (Math.random() > 0.5)  // we can use >0.5 = horizontal or any value bettwen 0-1.
+			{
+				coordX1 = (Math.floor(Math.random() * Math.floor(9 - i)));// Math.random output 0<x<1  max ship is 1x6 when the shipNum = 6 we only can do 0,1,2 Floor will return a int; 
+				coordY1 = (Math.floor(Math.random() * Math.floor(9)));
+				let coordTogether = [coordY1, coordX1, coordY1, coordX1 + i];// + ship number to get next coordx  and return coord to set ship
+				return (coordTogether);
+			}
+			else {
+				coordX1 = (Math.floor(Math.random() * Math.floor(9 - i)));// Math.random output 0<x<1  max ship is 1x6 when the shipNum = 6 we only can do 0,1,2 Floor will return a int; 
+				coordY1 = (Math.floor(Math.random() * Math.floor(9)));
+				let coordTogether = [coordY1, coordX1, coordY1 + i, coordX1];// + ship number to get next coordx  and return it to set ship
+				return (coordTogether);
+			}
+		} catch (e)
+		{
+        }
+		
+	}
+}
+/*
+function bgMusic() {
+	document.addEventListener('click', function ())
+	{
+		document.getElementById('audios').play();
+	}
+}
+*/
+
