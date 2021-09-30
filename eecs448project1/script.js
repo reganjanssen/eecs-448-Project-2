@@ -559,9 +559,11 @@ function gameAIhandler()
 	placeShips(p1GridArr);
 
 	alert("AI place ships now.");
-	/*
+
 	placeShips(AiGridArr); 
-	document.getElementById('start').disabled = 'disabled';
+	document.getElementById('easyAI').disabled = 'disabled';
+	document.getElementById('mediumAI').disabled = 'disabled';
+	document.getElementById('hardAI').disabled = 'disabled';
     document.getElementById("playerNum").innerHTML = curPlyr;
 
     drawGrids();
@@ -571,7 +573,7 @@ function gameAIhandler()
     setTimeout(() => p1Guess.style.display = "inline", 0);
     setTimeout(() => aiGrid.style.display = "none", 0);
     setTimeout(() => aiGuess.style.display = "none", 0);
-	*/
+
 }
 function getAiCoords(shipNum) 
 {
