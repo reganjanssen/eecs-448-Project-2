@@ -614,9 +614,9 @@ function getAiCoords(shipNum)
  */
 function randomHit()
 {
-	int coordCol = 0;
-    int coordRow = 0;
-    bool hasBeenHit = false;
+	var coordCol = 0;
+    var coordRow = 0;
+    var hasBeenHit = false;
     do{
 
     coordCol = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
