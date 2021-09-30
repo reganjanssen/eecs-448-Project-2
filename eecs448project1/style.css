@@ -90,6 +90,7 @@ p {
 }
 
 .p2-grid td.hit {
+    background-image: "fire.png";
     background-color:red;
     font-weight:bold; color:red;
 }
