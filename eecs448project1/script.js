@@ -601,6 +601,43 @@ function getAiCoords(shipNum)
 		
 	
 }
+
+
+/**
+ * hits a randomly generated spot
+ *
+ * @pre none
+ * @post A random spot is hit
+ * @author Natasha Shirley
+ */
+function randomHit()
+{
+	int coordCol = 0;
+    int coordRow = 0;
+    bool hasBeenHit = false;
+    do{
+
+    coordCol = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+	coordRow = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+		if(cell.className != 'clicked')
+     	{
+     		if(p1GridArr[coordRow][coordCol] == 1)
+        	{
+            	p1GridArr[coordRow][coordCol] = 2;
+            	alert("It's a hit!");
+            	cell.className = 'hit';
+        	}
+        	else
+        	{
+            	p1GridArr[coordRow][coordCol] = 3;
+            	alert("It's a miss.");
+            	cell.className = 'clicked';
+        	}
+            hasBeenHit = true;
+         }
+	}while(hasBeenHit == false);		
+}
+
 /*
 function bgMusic() {
 	document.addEventListener('click', function ())
