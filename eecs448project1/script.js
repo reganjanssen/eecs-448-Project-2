@@ -273,7 +273,7 @@ function placeShips(arr)
 
   for(let i = 1; i <= amntShips; i++) {								//this gets coords and runs above tests to see if they are fit
 
-    alert("Placing Ship " + i + ", Size: 1x" + i);
+ 
 
     do {
       if(AIgame == true && onAi == true)
@@ -282,6 +282,7 @@ function placeShips(arr)
       }
       else
       {
+        alert("Placing Ship " + i + ", Size: 1x" + i);
         coords = getCoords(i);
       }
 
