@@ -90,9 +90,9 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             }
             else
             {
-		 if(AIgame == true && grid.className == "p2-grid)
+		 if(AIgame == true && grid.className == "p2-grid")
 		    {
-		    	
+          document.getElementById("clicked").click();
 		    }
 		 else
 		    {
@@ -125,12 +125,12 @@ function getCoords(shipNum)
 	coordSplit = coordString.split("");
 	let coordX1 = parseInt(coordSplit[1]) - 1;		//Both coords normalized to grid format (begins with 0) (goes row, column)
 	let coordY1 = parseInt(coordSplit[0], 36) - 10;
-	
+
 	coordString = window.prompt("Enter Ending Point for Ship " + shipNum + " as a Grid ID (ex. B3)");
 	coordSplit = coordString.split("");
 	let coordX2 = parseInt(coordSplit[1]) - 1;		//Both coords normalized to grid format (begins with 0) (goes row, column)
 	let coordY2 = parseInt(coordSplit[0], 36) - 10;
-	
+
 	let coordTogether = [coordY1, coordX1, coordY2, coordX2];
 
 	return(coordTogether);
@@ -179,7 +179,7 @@ function isSize(toCheck, size)
 	else {
 		return(false);
 	}
-		
+
 }
 
 /**
@@ -266,17 +266,17 @@ function placeShips(arr)
 	var coords = [];
 	var doesPass;
 	var passError;
-	
+
 	for(let i = 1; i <= amntShips; i++) {								//this gets coords and runs above tests to see if they are fit
-	
+
 		alert("Placing Ship " + i + ", Size: 1x" + i);
-	
+
 		do {
 			coords = getCoords(i);
-			
+
 			doesPass = false;
 			passError = 0;
-			
+
 			if(isOrthogonal(coords) == true) {
 				if(isSize(coords, i) == true) {
 					if(isWithinBounds(coords) == true) {
@@ -299,7 +299,7 @@ function placeShips(arr)
 			else {
 				passError = 4;
 			}
-			
+
 			switch(passError) {
 				case 0:
 					alert("Ship Placed!");
@@ -317,14 +317,14 @@ function placeShips(arr)
 					alert("Ship is not horizontal or vertical. Try again.");
 					break;
 			}
-			
+
 		}while(doesPass == false);
-		
+
 		//below if-blocks decide how to and place ships on arr
 		//again, avoiding use of absolute value
 		if(coords[0] == coords[2] && coords[1] == coords[3]) {
 			arr[coords[0]][coords[1]] = 1;
-			
+
 			console.log("Using placement 1");
 			console.log("Placed ship " + i + " at Row, Column " + coords[0] + ", " + coords[1]);
 		}
@@ -332,7 +332,7 @@ function placeShips(arr)
 			if(coords[1] < coords[3]) {
 				for(let startX = coords[1]; startX <= coords[3]; startX++) {
 					arr[coords[0]][startX] = 1;
-					
+
 					console.log("Using placement 2");
 					console.log("Placed ship " + i + " at Row, Column " + coords[0] + ", " + coords[startX]);
 				}
@@ -340,7 +340,7 @@ function placeShips(arr)
 			else {
 				for(let startX = coords[3]; startX <= coords[1]; startX++) {
 					arr[coords[0]][startX] = 1;
-					
+
 					console.log("Using placement 3");
 					console.log("Placed ship " + i + " at Row, Column " + coords[0] + ", " + coords[startX]);
 				}
@@ -350,7 +350,7 @@ function placeShips(arr)
 			if(coords[0] < coords[2]) {
 				for(let startY = coords[0]; startY <= coords[2]; startY++) {
 					arr[startY][coords[1]] = 1;
-					
+
 					console.log("Using placement 4");
 					console.log("Placed ship " + i + " at Row, Column " + coords[startY] + ", " + coords[1]);
 				}
@@ -358,7 +358,7 @@ function placeShips(arr)
 			else {
 				for(let startY = coords[2]; startY <= coords[0]; startY++) {
 					arr[startY][coords[1]] = 1;
-					
+
 					console.log("Using placement 5");
 					console.log("Placed ship " + i + " at Row, Column " + coords[startY] + ", " + coords[1]);
 				}
@@ -405,7 +405,7 @@ function changeTurn()
         }
     }
     else
-    {   
+    {
         var p1HasShips = false;
         for(var r = 0; r < 10; r++)
         {
@@ -496,13 +496,13 @@ function drawGrids()
     // At this point we do some initial setup for the grids and start the game proper.
     p1Guess = document.getElementById("guessBoards").appendChild(player1guess); // Do an initial drawing of all the grids.
     p1Guess.setAttribute("id", "p1Guess");
-    
+
     p1Grid = document.getElementById("boards").appendChild(player1grid);
     p1Grid.setAttribute("id", "p1Grid");
-    
+
     p2Guess = document.getElementById("guessBoards").appendChild(player2guess);
     p2Guess.setAttribute("id", "p2Guess");
-    
+
     p2Grid = document.getElementById("boards").appendChild(player2grid);
     p2Grid.setAttribute("id", "p2Grid");
 }
@@ -517,22 +517,22 @@ function drawGrids()
 function gameHandler()
 {
     alert("Next prompt will ask for the number of ships in play. Amount of ships corresponds with ship size. Ex. 1 ship gives each player a 1x1 ship. 3 ships gives each player a 1x1, 1x2, and 1x3 ship to place.");
-	
+
 	do {
 		amntShips = window.prompt("Enter amount of ships for each player (1 - 6)");
-		
+
 		if(amntShips != null) {
 			amntShips = parseInt(amntShips, 10);		//forces int input
 		}
-		
+
 	}while(((amntShips <=6) && (amntShips >= 1)) != true);
-	
+
 	alert("Player 1 will place ships first. Each ship placement will require 2 coordinates: a start and endpoint. For example, a 1x3 ship with start point A1 and end point A3 will occupy tiles A1, A2, and A3. As long as points are horizontal or vertical to each other, order does not matter.");
-	
+
     placeShips(p1GridArr);
-	
+
 	alert("Player 2 will now place ships.");
-	
+
     placeShips(p2GridArr);
 
     document.getElementById('start').disabled = 'disabled';
@@ -566,7 +566,7 @@ function gameAIhandler(var choice)
 
 	alert("AI place ships now.");
 
-	placeShips(AiGridArr); 
+	placeShips(AiGridArr);
 	document.getElementById('start').disabled = 'disabled';
     	document.getElementById("playerNum").innerHTML = curPlyr;
 
@@ -578,18 +578,18 @@ function gameAIhandler(var choice)
     setTimeout(() => aiGrid.style.display = "none", 0);
     setTimeout(() => aiGuess.style.display = "none", 0);
 }
-function getAiCoords(shipNum) 
+function getAiCoords(shipNum)
 {
 	let coordString = window.prompt("AI place ship");
 	//coordSplit = coordString.split("");
 	let coordX1 = 0;
 	let coordY1 = 0;
 	// for (let i = 0; i <= (shipNum - 1); i++) -----the ship is place 1 by 1 call the coords everytime so change it
-	
+
 		try {
 			if (Math.random() > 0.5)  // we can use >0.5 = horizontal or any value bettwen 0-1.
 			{
-				coordX1 = (Math.floor(Math.random() * Math.floor(9 - (shipNum-1))));// Math.random output 0<x<1  max ship is 1x6 when the shipNum = 6 we only can do 0,1,2 Floor will return a int; 
+				coordX1 = (Math.floor(Math.random() * Math.floor(9 - (shipNum-1))));// Math.random output 0<x<1  max ship is 1x6 when the shipNum = 6 we only can do 0,1,2 Floor will return a int;
 				coordY1 = (Math.floor(Math.random() * Math.floor(9)));
 				let coordTogether = [coordY1, coordX1, coordY1, coordX1 + (shipNum - 1)];// + ship number to get next coordx  and return coord to set ship
 				return (coordTogether);
@@ -603,8 +603,8 @@ function getAiCoords(shipNum)
 		} catch (e)
 		{
         }
-		
-	
+
+
 }
 
 
@@ -640,7 +640,7 @@ function randomHit()
         	}
             hasBeenHit = true;
          }
-	}while(hasBeenHit == false);		
+	}while(hasBeenHit == false);
 }
 
 /*
@@ -651,4 +651,3 @@ function bgMusic() {
 	}
 }
 */
-
