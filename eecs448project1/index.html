@@ -1,3 +1,5 @@
+
+</html>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,44 +8,39 @@
 
     <!-- Import CSS-->
     <link rel="stylesheet" href="style.css"/>
-
     <!-- Import JavaScript -->
     <script src="script.js" defer></script>
   </head>
-
   <body>
+    <div>
       <div>
-          <div>
-              <!-- This is the start of content for our page -->
-              <h1 class="title">Battleship</h1>
-              <h4 class="subtitle">
-                  Designed By: Raj Nara, Truman Klenklen, Andrew Brown, Drew Fink, and Zachary Sambol<br>For: University of Kansas EECS 448
-              </h4>
+        <!-- This is the start of content for our page -->
+        <h1 class = "title">Welcome to Battleship!</h1>
+        <h4 class= "subtitle">
+          Designed By: Regan Janssen, Andrew Loaiza, Chen Lu, Jui Nagarkar, and Natasha Shirley</h4><h4 class="subtitle">For: University of Kansas EECS 448 Project 2<br><small>(Adapted from EECS 448 Group 6)</small></h4>
+        </h4>
+        </div>
+        <!-- These are buttons on the page that will start the game and reset the game respectively -->
+         <!---- <button class="start" id="start" style="background-color:green" onclick="gameHandler()">Start Game</button>
+          <button class="start" id="start" style="background-color:green" onclick="window.location.reload()">Reset Game</button>
+        </div> -->
+        <div>
+            <h2 style="text-align: center; color: #D198f9;" class = "player">Select an opponent to start the game:</h2>
           </div>
-
-          <div id="guessBoards" style="text-align: center;">
+        <div style="text-align: center;">
+              <button class="start" id="start" style="background-color:palevioletred" onclick="gameHandler()">Player 2</button>
+              <button class="start" id="start" style="background-color:palevioletred" onclick="gameHandler()">Easy AI</button>
+              <button class="start" id="start" style="background-color:palevioletred" onclick="gameHandler()">Medium AI</button>
+              <button class="start" id="start" style="background-color:palevioletred" onclick="gameHandler()">Hard AI</button>
+              <button class="start" id="start" style="background-color:palevioletred" onclick="window.location.reload()">Reset Game</button>
+        </div>
+        <div id="guessBoards" style= "text-align: center">
+        </div>
+        <div id="boards" style= "text-align: center;">
+            <h4 class = "subtitle">Top Board: Your guesses.<br>Bottom Board: Where your ships are.
+            <br>Current Player: <span id="playerNum"></span></h4>
           </div>
-
-          <div id="boards" style="text-align: center;">
-              <h4 class="subtitle">Top: Your guesses. Bottom: Where your ships are.</h4>
-          </div>
-
-          <div style="text-align: center;">
-              <h1 class="player">Current Player: <span id="playerNum"></span></h1>
-
-          </div>
-
-          <!-- These are buttons on the page that will start the game and reset the game respectively -->
-          <div style="text-align: center;">
-              <button class="start" id="start" style="background-color:green" onclick="gameHandler()">Start Local Player Game</button>
-              <button class="start" id="start" style="background-color:green" onclick="gameAIhandler()">Start VS. AI Game</button>
-              <button class="start" id="start" style="background-color:green" onclick="window.location.reload()">Reset Game</button>
-          </div>
-      </div>
+        </div>  
   </body>
- <!-- These are blackground music -->
   <audio src="Music/blackground.mp3" autoplay="autoplay" loop="loop" preload="auto" controls="controls"><!-- autoplay is not available anymore so I create a even to click the page to start the music still not working wait for fix. Once fix we can just delete controls.-->   </audio>
-                   
-       
-
 </html>
