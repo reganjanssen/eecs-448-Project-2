@@ -91,7 +91,7 @@ p {
 
 .p2-grid td.hit {
     background-image: "fire.png";
-    background-color:red;
+    /*background-color:red;*/
     font-weight:bold; color:red;
 }
 
@@ -109,12 +109,14 @@ p {
     font-family:sans-serif; font-size:13px; color: white
 }
 .p2-guess td.clicked {
-    background-color:blue;
+    background-image: "fire.png";
+    /*background-color:blue;*/
     font-weight:bold; color:blue;
 }
 
 .p2-guess td.hit {
-    background-color:red;
+    background-image: "fire.png";
+    /*background-color:red;*/
     font-weight:bold; color:red;
 }
 
