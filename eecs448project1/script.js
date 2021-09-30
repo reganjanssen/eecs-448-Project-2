@@ -93,7 +93,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
       }
       else
       {
-        if(AIgame == true && grid.className == "p2-grid")
+        if(AIgame == true && OnAi == true)
         {
           document.getElementById("clicked").click();
         }
@@ -434,8 +434,8 @@ function changeTurn()
       p2Grid.style.display = "none";
       p2Guess.style.display = "none";
       setTimeout(() => alert("Okay, Player 2, turn your back, and Player 1, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
-      setTimeout(() => p1Grid.style.display = "inline", 0);
-      setTimeout(() => p1Guess.style.display = "inline", 0);
+      //setTimeout(() => p1Grid.style.display = "inline", 0);
+      //setTimeout(() => p1Guess.style.display = "inline", 0);
       curPlyr--;
     }
     else
