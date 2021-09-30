@@ -561,9 +561,9 @@ function gameAIhandler()
 	alert("AI place ships now.");
 
 	placeShips(AiGridArr); 
-	document.getElementById('easyAI').disabled = 'disabled';
-	document.getElementById('mediumAI').disabled = 'disabled';
-	document.getElementById('hardAI').disabled = 'disabled';
+	document.getElementById('start').disabled = 'disabled';
+	document.getElementById('start').disabled = 'disabled';
+	document.getElementById('start').disabled = 'disabled';
     document.getElementById("playerNum").innerHTML = curPlyr;
 
     drawGrids();
