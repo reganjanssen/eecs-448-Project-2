@@ -7,6 +7,7 @@ let p2Grid;
 let p2Guess;
 let AIgame;
 let choice;
+let onAi;
 
 // These arrays are the grids that will allow us to play the game.
 let p1GridArr = createArray(10, 9);
@@ -275,7 +276,7 @@ function placeShips(arr)
     alert("Placing Ship " + i + ", Size: 1x" + i);
 
     do {
-      if(AIgame == true && arr == p2GridArr)
+      if(AIgame == true && onAi == true)
       {
         getAiCoords(i)
       }
@@ -575,7 +576,7 @@ function gameAIhandler(choice)
   placeShips(p1GridArr);
 
   alert("AI place ships now.");
-
+  onAi = true;
   placeShips(p2GridArr);
   document.getElementById('start').disabled = 'disabled';
   document.getElementById("playerNum").innerHTML = curPlyr;
