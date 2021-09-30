@@ -562,8 +562,6 @@ function gameAIhandler()
 
 	placeShips(AiGridArr); 
 	document.getElementById('start').disabled = 'disabled';
-	document.getElementById('start').disabled = 'disabled';
-	document.getElementById('start').disabled = 'disabled';
     document.getElementById("playerNum").innerHTML = curPlyr;
 
     drawGrids();
