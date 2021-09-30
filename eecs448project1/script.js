@@ -278,7 +278,7 @@ function placeShips(arr)
     do {
       if(AIgame == true && onAi == true)
       {
-        getAiCoords(i)
+        coords = getAiCoords(i);
       }
       else
       {
