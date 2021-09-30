@@ -13,7 +13,7 @@ let p2GridArr = createArray(10, 9);
 let p2GuessArr = createArray(10, 9);
 let AiGridArr = createArray(10, 9);
 let AiGuessArr = createArray(10, 9);
-
+let AIgame = false;
 /**
  * Creates the arrays necessary to store ship positions. This is necessary because JS does not natively support 2D arrays.
  *
@@ -90,6 +90,12 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             }
             else
             {
+		 if(AIgame == true && grid.className == "p2-grid)
+		    {
+		    	
+		    }
+		 else
+		    {
                 cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
                 {
                     return function()
@@ -571,10 +577,6 @@ function gameAIhandler(var choice)
     setTimeout(() => p1Guess.style.display = "inline", 0);
     setTimeout(() => aiGrid.style.display = "none", 0);
     setTimeout(() => aiGuess.style.display = "none", 0);
-    if(choice == 1)
-    {
-	randomHit();
-    }
 }
 function getAiCoords(shipNum) 
 {
