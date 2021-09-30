@@ -275,7 +275,14 @@ function placeShips(arr)
     alert("Placing Ship " + i + ", Size: 1x" + i);
 
     do {
-      coords = getCoords(i);
+      if(AIgame == true && arr == p2GridArr)
+      {
+        getAiCoords(i)
+      }
+      else
+      {
+        coords = getCoords(i);
+      }
 
       doesPass = false;
       passError = 0;
