@@ -541,7 +541,7 @@ function gameHandler()
     setTimeout(() => p2Guess.style.display = "none", 0);
 }
 
-function gameAIhandler()
+function gameAIhandler(var choice)
 {
 	alert("Next prompt will ask for the number of ships in play. Amount of ships corresponds with ship size. Ex. 1 ship gives each player a 1x1 ship. 3 ships gives each player a 1x1, 1x2, and 1x3 ship to place.");
 
@@ -562,7 +562,7 @@ function gameAIhandler()
 
 	placeShips(AiGridArr); 
 	document.getElementById('start').disabled = 'disabled';
-    document.getElementById("playerNum").innerHTML = curPlyr;
+    	document.getElementById("playerNum").innerHTML = curPlyr;
 
     drawGrids();
 
@@ -571,7 +571,10 @@ function gameAIhandler()
     setTimeout(() => p1Guess.style.display = "inline", 0);
     setTimeout(() => aiGrid.style.display = "none", 0);
     setTimeout(() => aiGuess.style.display = "none", 0);
-
+    if(choice == 1)
+    {
+	randomHit();
+    }
 }
 function getAiCoords(shipNum) 
 {
