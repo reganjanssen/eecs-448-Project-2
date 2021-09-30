@@ -561,7 +561,7 @@ function gameHandler()
 function gameAIhandler(choice)
 {
   alert("Next prompt will ask for the number of ships in play. Amount of ships corresponds with ship size. Ex. 1 ship gives each player a 1x1 ship. 3 ships gives each player a 1x1, 1x2, and 1x3 ship to place.");
-
+  AIgame = true;
   do {
     amntShips = window.prompt("Enter amount of ships for each player (1 - 6)");
 
