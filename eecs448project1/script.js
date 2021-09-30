@@ -5,6 +5,8 @@ let p1Grid;
 let p1Guess;
 let p2Grid;
 let p2Guess;
+let AIgame;
+let choice;
 
 // These arrays are the grids that will allow us to play the game.
 let p1GridArr = createArray(10, 9);
@@ -13,7 +15,7 @@ let p2GridArr = createArray(10, 9);
 let p2GuessArr = createArray(10, 9);
 let AiGridArr = createArray(10, 9);
 let AiGuessArr = createArray(10, 9);
-let AIgame = false;
+
 /**
  * Creates the arrays necessary to store ship positions. This is necessary because JS does not natively support 2D arrays.
  *
@@ -575,8 +577,8 @@ function gameAIhandler(choice)
     alert("Okay Player 1, you start. AI, turn your back.");
     setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
     setTimeout(() => p1Guess.style.display = "inline", 0);
-    setTimeout(() => aiGrid.style.display = "none", 0);
-    setTimeout(() => aiGuess.style.display = "none", 0);
+    setTimeout(() => p2Grid.style.display = "none", 0);
+    setTimeout(() => p2Guess.style.display = "none", 0);
 }
 function getAiCoords(shipNum)
 {
