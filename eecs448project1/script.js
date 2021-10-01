@@ -93,7 +93,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
       }
       else
       {
-        if(AIgame == true && OnAi == true)
+        if(AIgame == true && onAi == true)
         {
           document.getElementById("clicked").click();
         }
@@ -547,7 +547,7 @@ function gameHandler()
 
   placeShips(p2GridArr);
 
-  document.getElementById('start').disabled = 'disabled';
+  document.getElementById('player2').disabled = 'disabled';
   document.getElementById("playerNum").innerHTML = curPlyr;
 
   drawGrids();
@@ -576,10 +576,17 @@ function gameAIhandler(choice)
 
   placeShips(p1GridArr);
 
-  alert("AI place ships now.");
+  alert("AI will now place their ships.");
   onAi = true;
   placeShips(p2GridArr);
-  document.getElementById('start').disabled = 'disabled';
+
+  // these arent working at the moment to show that the button has been disabled, could be bc AI game doesnt run?
+  if (id == 'easyAI'){
+    document.getElementById('easyAI').disabled = 'disabled';}
+  else if (id == 'mediumAI'){
+    document.getElementById('mediumAI').disabled = 'disabled';}
+  else if (id == 'hardAI'){
+    document.getElementById('hardAI').disabled = 'disabled';}
   document.getElementById("playerNum").innerHTML = curPlyr;
 
   drawGrids();
@@ -592,7 +599,7 @@ function gameAIhandler(choice)
 }
 function getAiCoords(shipNum)
 {
-  let coordString = window.prompt("AI place ship");
+  // let coordString = window.prompt("AI place ship"); remove so no pop up window for ai
   //coordSplit = coordString.split("");
   let coordX1 = 0;
   let coordY1 = 0;
