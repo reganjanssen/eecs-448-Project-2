@@ -1,0 +1,45 @@
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Battleship</title>
+
+    <!-- Import CSS-->
+    <link rel="stylesheet" href="style.css"/>
+    <!-- Import JavaScript -->
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div>
+      <div>
+        <!-- This is the start of content for our page -->
+        <h1 class = "title">Welcome to Battleship!</h1>
+        <h4 class= "subtitle">
+          Designed By: Regan Janssen, Andrew Loaiza, Chen Lu, Jui Nagarkar, and Natasha Shirley</h4><h4 class="subtitle">For: University of Kansas EECS 448 Project 2<br><small>(Adapted from EECS 448 Group 6)</small></h4>
+        </h4>
+        </div>
+        <div>
+            <h2 style="text-align: center; color: #D198f9;" class = "player">Select an opponent to start the game:</h2>
+          </div>
+        <div style="text-align: center;">
+              <button class="start" id="player2" style="background-color:palevioletred" onclick="gameHandler()">Player 2</button>
+              <button class="start" id="easyAI" style="background-color:palevioletred" onclick="gameAIhandler(1)">Easy AI</button>
+              <button class="start" id="mediumAI" style="background-color:palevioletred" onclick="gameAIhandler(2)">Medium AI</button>
+              <button class="start" id="hardAI" style="background-color:palevioletred" onclick="gameAIhandler(3)">Hard AI</button>
+              <button class="start" id="start" style="background-color:palevioletred" onclick="window.location.reload()">Reset Game</button>
+        </div>
+        <div id="guessBoards" style= "text-align: center">
+        </div>
+        <div id="boards" style= "text-align: center;">
+            <h4 class = "subtitle">Top Board: Your guesses.<br>Bottom Board: Where your ships are.
+            <br>Current Player: <span id="playerNum"></span></h4>
+          </div>
+        </div>  
+  </body>
+  <audio autoplay loop>
+    <source src="backgroundmusic.mp3" type="audio/mpeg">
+  </audio>
+  
+</html>
