@@ -16,7 +16,8 @@
 <ul>
   <li>Documentation: This file contains the proper HTML documentation as well as the works cited for the project</li>
   <li>TeamInfo: This file contains the teams notes and time logging for the project</li>
-  <li>Code Files:</li></ul>
+  <li>Code Files:</li>
+  <li>Archive: This file contains the previous groups (Group 6) documentation and artifacts</li></ul>
 
 <h2>User Instructions:</h2>
 
