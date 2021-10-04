@@ -20,6 +20,7 @@
   <li>Archive: This file contains the previous groups (Group 6) documentation and artifacts</li></ul>
 
 <h2>User Instructions:</h2>
+To play the battleship game you first need to download the zip file. Once the file has been downloaded, click on the index.html file in your downloads folder. This will take you to a new browser window where the game will be played. Once the html file is opened, follow the instructions on the screen.
 
 
 
