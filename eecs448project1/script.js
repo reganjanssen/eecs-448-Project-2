@@ -453,10 +453,15 @@ function changeTurn()
 * @post The grids are now visible to the player.
 * @author Drew Fink & Andrew Brown
 */
+var hitShip;
+function soundload()
+{
+  hitShip = loadSound(Music/"hit.mp3");
+}
 var missShip;
 function soundload()
 {
-  missShip = loadSound(Music/"miss.wav");
+  missShip = loadSound(Music/"miss.mp3");
 }
 function drawGrids()
 {
@@ -469,7 +474,7 @@ function drawGrids()
     if(p2GridArr[row][col] == 1)
     {
       p2GridArr[row][col] = 2;
-      
+      hitShip.play();
       alert("It's a hit!");
       cell.className = 'hit';
     }
@@ -494,7 +499,7 @@ function drawGrids()
     if(p1GridArr[row][col] == 1)
     {
       p1GridArr[row][col] = 2;
-      
+      hitShip.play();
       alert("It's a hit!");
       cell.className = 'hit';
     }
