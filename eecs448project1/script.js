@@ -118,7 +118,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             //bgMusic();
           })(cell, r, c, i), false);
         }
-       
+
     }
     i = 1;
     letter++;
@@ -283,7 +283,7 @@ function placeShips(arr)
 
   for(let i = 1; i <= amntShips; i++) {								//this gets coords and runs above tests to see if they are fit
 
- 
+
 
     do {
       if(AIgame == true && onAi == true)
@@ -601,7 +601,7 @@ function gameAIhandler(choice)
   onAi = true;
   placeShips(p2GridArr);
 
-  // these need to be updated once ai is functioning 
+  // these need to be updated once ai is functioning
     if (choice = 1) {
         document.getElementById('easyAI').disabled = 'disabled';
         document.getElementById("playerNum").innerHTML = curPlyr;
@@ -614,7 +614,7 @@ function gameAIhandler(choice)
         document.getElementById('hardAI').disabled = 'disabled';
         document.getElementById("playerNum").innerHTML = curPlyr;
     }
-  drawGrids(); 
+  drawGrids();
 
   alert("Okay Player 1, you start. AI, turn your back.");
   setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
@@ -685,6 +685,27 @@ function randomHit()
       hasBeenHit = true;
     }
   }while(hasBeenHit == false);
+}
+
+
+function secureHit()
+{
+  let secureCol = 0;
+  let secureRow = 0;
+
+  for (let i = 0; i < rows; i++)
+  {
+    for (let j = 0; j < cols; j++)
+      {
+        if (p1GridArr[i][j] == 1) // if ship at coordinate
+        {
+          p1GridArr[i][j] = 2; // hit ship
+          alert("It's a hit!");
+          cell.className = 'hit';
+          return;
+        }
+      }
+  }
 }
 
 /*
