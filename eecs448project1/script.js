@@ -92,6 +92,21 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
           cell.className = 'benign';
         }
       }
+      /*
+      else if (onAi) {
+          if()//if in player1
+          cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+          {
+              return function () {
+                  callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+              }
+              //bgMusic();
+          })(cell, r, c, i), false);
+          //if in player2 mean on AI player
+          {
+              // set up random r, c ?
+          }
+      }*/
       else
       {
           cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
@@ -102,7 +117,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             }
             //bgMusic();
           })(cell, r, c, i), false);
-      }
+        }
+       
     }
     i = 1;
     letter++;
@@ -586,11 +602,19 @@ function gameAIhandler(choice)
   placeShips(p2GridArr);
 
   // these need to be updated once ai is functioning 
-  
-  document.getElementById('easyAI').disabled = 'disabled';
-  document.getElementById("playerNum").innerHTML = curPlyr; //the program working untill there for the ai game. 
-
-  drawGrids(); //unknown bug cast the board doesn't showing.
+    if (choice = 1) {
+        document.getElementById('easyAI').disabled = 'disabled';
+        document.getElementById("playerNum").innerHTML = curPlyr;
+    }
+    if (choice = 2) {
+        document.getElementById('mediumAI').disabled = 'disabled';
+        document.getElementById("playerNum").innerHTML = curPlyr;
+    }
+    if (choice = 3) {
+        document.getElementById('hardAI').disabled = 'disabled';
+        document.getElementById("playerNum").innerHTML = curPlyr;
+    }
+  drawGrids(); 
 
   alert("Okay Player 1, you start. AI, turn your back.");
   setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
