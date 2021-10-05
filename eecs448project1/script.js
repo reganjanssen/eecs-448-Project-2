@@ -474,14 +474,14 @@ function drawGrids()
       p2GridArr[row][col] = 2;
       alert("It's a hit!");
       cell.className = 'hit';
-      hitShip.play();
+      //hitShip.play(); still has error back up to old version. the error will cast the changeTurn() not working
     }
     else
     {
       p2GridArr[row][col] = 3;
       alert("It's a miss.");
       cell.className = 'clicked';
-      missShip.play();
+      //missShip.play();still has error back up to old version.
     }
     document.getElementById("boards").removeChild(player2grid); // Redraw player 2's bottom grid so that it reflects where player 1 has guessed.
     player2grid = playBoard(10, 9, "p2-grid", function(cell, row, col, i){});
@@ -497,14 +497,14 @@ function drawGrids()
     if(p1GridArr[row][col] == 1)
     {
       p1GridArr[row][col] = 2;
-      hitShip.play();
+      //hitShip.play(); still has error back up to old version.
       alert("It's a hit!");
       cell.className = 'hit';
     }
     else
     {
       p1GridArr[row][col] = 3;
-      missShip.play();
+      //missShip.play(); still has error back up to old version.
       alert("It's a miss.");
       cell.className = 'clicked';
     }
