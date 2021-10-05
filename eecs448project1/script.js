@@ -94,12 +94,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
       }
       else
       {
-        if(AIgame == true && onAi == true)
-        {
-          document.getElementById("clicked").click();
-        }
-        else
-        {
           cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
           {
             return function()
@@ -108,7 +102,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             }
             //bgMusic();
           })(cell, r, c, i), false);
-        }
       }
     }
     i = 1;
