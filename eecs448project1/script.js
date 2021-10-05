@@ -453,6 +453,11 @@ function changeTurn()
 * @post The grids are now visible to the player.
 * @author Drew Fink & Andrew Brown
 */
+var hitShip;
+function soundload()
+{
+  hitShip = loadSound("miss.wav");
+}
 function drawGrids()
 {
   var player1grid = playBoard(10, 9, "p1-grid", function(cell, row, col, i){});
@@ -464,6 +469,7 @@ function drawGrids()
     if(p2GridArr[row][col] == 1)
     {
       p2GridArr[row][col] = 2;
+      hitShip.play();
       alert("It's a hit!");
       cell.className = 'hit';
     }
@@ -487,6 +493,7 @@ function drawGrids()
     if(p1GridArr[row][col] == 1)
     {
       p1GridArr[row][col] = 2;
+      hitShip.play();
       alert("It's a hit!");
       cell.className = 'hit';
     }
