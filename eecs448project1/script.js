@@ -595,9 +595,9 @@ function gameAIhandler(choice)
   // these need to be updated once ai is functioning 
   
   document.getElementById('easyAI').disabled = 'disabled';
-  document.getElementById("playerNum").innerHTML = curPlyr;
+  document.getElementById("playerNum").innerHTML = curPlyr; //the program working untill there for the ai game. 
 
-  drawGrids();
+  drawGrids(); //unknown bug cast the board doesn't showing.
 
   alert("Okay Player 1, you start. AI, turn your back.");
   setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
