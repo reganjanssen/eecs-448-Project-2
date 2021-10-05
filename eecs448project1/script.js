@@ -456,7 +456,7 @@ function changeTurn()
 var missShip;
 function soundload()
 {
-  missShip = loadSound("miss.wav");
+  missShip = loadSound(Music/"miss.wav");
 }
 function drawGrids()
 {
