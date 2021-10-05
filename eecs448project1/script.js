@@ -454,12 +454,12 @@ function changeTurn()
 * @author Drew Fink & Andrew Brown
 */
 var hitShip;
-function soundload()
+function hitload()
 {
   hitShip = loadSound(Music/"hit.mp3");
 }
 var missShip;
-function soundload()
+function missload()
 {
   missShip = loadSound(Music/"miss.mp3");
 }
