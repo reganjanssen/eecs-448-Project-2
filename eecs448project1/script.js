@@ -56,7 +56,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
   grid.className = classname; // Determines if it's the 1st or 2nd player grid
   for (var r = 0; r < rows; ++r)
   {
-    var tr = grid.appendChild(document.createElement('tr')); // Put a new row in
+    // var tr = grid.appendChild(document.createElement('tr')); // Put a new row in
+    var tr = grid.appendChild(document.createElement('tr'));
     for (var c = 0; c < cols; ++c)
     {
       var cell = tr.appendChild(document.createElement('td')); // Put a new column in
@@ -591,13 +592,9 @@ function gameAIhandler(choice)
   onAi = true;
   placeShips(p2GridArr);
 
-  // these arent working at the moment to show that the button has been disabled, could be bc AI game doesnt run?
-  if (id == 'easyAI'){
-    document.getElementById('easyAI').disabled = 'disabled';}
-  else if (id == 'mediumAI'){
-    document.getElementById('mediumAI').disabled = 'disabled';}
-  else if (id == 'hardAI'){
-    document.getElementById('hardAI').disabled = 'disabled';}
+  // these need to be updated once ai is functioning 
+  
+  document.getElementById('easyAI').disabled = 'disabled';
   document.getElementById("playerNum").innerHTML = curPlyr;
 
   drawGrids();
