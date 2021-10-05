@@ -474,16 +474,16 @@ function drawGrids()
     if(p2GridArr[row][col] == 1)
     {
       p2GridArr[row][col] = 2;
-      hitShip.play();
       alert("It's a hit!");
       cell.className = 'hit';
+      hitShip.play();
     }
     else
     {
       p2GridArr[row][col] = 3;
-      missShip.play();
       alert("It's a miss.");
       cell.className = 'clicked';
+      missShip.play();
     }
     document.getElementById("boards").removeChild(player2grid); // Redraw player 2's bottom grid so that it reflects where player 1 has guessed.
     player2grid = playBoard(10, 9, "p2-grid", function(cell, row, col, i){});
