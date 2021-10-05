@@ -8,6 +8,9 @@ let p2Guess;
 let AIgame;
 let choice;
 let onAi;
+let easymode;
+let mediummode;
+let hardmode;
 
 // These arrays are the grids that will allow us to play the game.
 let p1GridArr = createArray(10, 9);
@@ -92,21 +95,29 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
           cell.className = 'benign';
         }
       }
-      /*
-      else if (onAi) {
-          if()//if in player1
-          cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
-          {
-              return function () {
-                  callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
-              }
-              //bgMusic();
-          })(cell, r, c, i), false);
-          //if in player2 mean on AI player
-          {
-              // set up random r, c ?
-          }
-      }*/
+      
+      else if (easymode) // 
+      {       //massed up player 1
+              //need to add condition to know when p1 turn or at turn. 
+              cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+              {
+                  r = (Math.floor(Math.random() * Math.floor(10)));
+                  c = (Math.floor(Math.random() * Math.floor(9)));
+                  //random hit success, but massed up guess board. Need to find a ways to showing the random coordinate on guess board.
+                  //For now, its will show what u hit on the guess board but player board is getting hit by random when u hit the guess board.
+                  return function () {
+                      callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+                  }
+              })(cell, r, c, i), false);
+      }
+      else if (mediummode)
+      {
+
+      }
+      else if (hardmode)
+      {
+
+      }
       else
       {
           cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
@@ -603,14 +614,17 @@ function gameAIhandler(choice)
 
   // these need to be updated once ai is functioning
     if (choice = 1) {
+        easymode = true;
         document.getElementById('easyAI').disabled = 'disabled';
         document.getElementById("playerNum").innerHTML = curPlyr;
     }
     if (choice = 2) {
+        mediummode = true;
         document.getElementById('mediumAI').disabled = 'disabled';
         document.getElementById("playerNum").innerHTML = curPlyr;
     }
     if (choice = 3) {
+        hardmode = true;
         document.getElementById('hardAI').disabled = 'disabled';
         document.getElementById("playerNum").innerHTML = curPlyr;
     }
