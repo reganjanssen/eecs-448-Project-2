@@ -488,6 +488,7 @@ function changeTurn()
 function drawGrids()
 {
   const hitShip = document.getElementById("hit");
+  const missShip = document.getElementById("miss");
   var player1grid = playBoard(10, 9, "p1-grid", function(cell, row, col, i){});
 
   var player2grid = playBoard(10, 9, "p2-grid", function(cell, row, col, i){});
@@ -506,7 +507,7 @@ function drawGrids()
       p2GridArr[row][col] = 3;
       alert("It's a miss.");
       cell.className = 'clicked';
-      //missShip.play(); //still has error back up to old version.
+      missShip.play(); //still has error back up to old version.
     }
     document.getElementById("boards").removeChild(player2grid); // Redraw player 2's bottom grid so that it reflects where player 1 has guessed.
     player2grid = playBoard(10, 9, "p2-grid", function(cell, row, col, i){});
@@ -520,6 +521,7 @@ function drawGrids()
   var player2guess = playBoard(10, 9, "p2-guess", function(cell, row, col, i)
   {
     const hitShip = document.getElementById("hit");
+    const missShip = document.getElementById("miss");
     if(p1GridArr[row][col] == 1)
     {
       p1GridArr[row][col] = 2;
@@ -530,7 +532,7 @@ function drawGrids()
     else
     {
       p1GridArr[row][col] = 3;
-      //missShip.play(); still has error back up to old version.
+      missShip.play(); //still has error back up to old version.
       alert("It's a miss.");
       cell.className = 'clicked';
     }
