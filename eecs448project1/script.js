@@ -100,7 +100,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
       {       //massed up player 1
               //need to add condition to know when p1 turn or at turn. 
               document.body.addEventListener('click', fn, true);
-              cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+              //cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
               {
                   r = (Math.floor(Math.random() * Math.floor(10)));
                   c = (Math.floor(Math.random() * Math.floor(9)));
