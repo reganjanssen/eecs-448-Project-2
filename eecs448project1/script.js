@@ -485,6 +485,12 @@ function changeTurn()
  // hitShip = loadSound(Music/"hit.mp3");
  // missShip = loadSound(Music/"miss.mp3");
 //}
+
+function lowerVolume()
+{
+  var backgroundMusic = document.getElementById("background");
+  backgroundMusic.volume = 0.5;
+}
 function drawGrids()
 {
   const hitShip = document.getElementById("hit");
@@ -621,17 +627,17 @@ function gameAIhandler(choice)
   placeShips(p2GridArr);
 
   // these need to be updated once ai is functioning
-    if (choice = 1) {
+    if (choice == 1) {
         easymode = true;
         document.getElementById('easyAI').disabled = 'disabled';
         document.getElementById("playerNum").innerHTML = curPlyr;
     }
-    if (choice = 2) {
+    if (choice == 2) {
         mediummode = true;
         document.getElementById('mediumAI').disabled = 'disabled';
         document.getElementById("playerNum").innerHTML = curPlyr;
     }
-    if (choice = 3) {
+    if (choice == 3) {
         hardmode = true;
         document.getElementById('hardAI').disabled = 'disabled';
         document.getElementById("playerNum").innerHTML = curPlyr;
