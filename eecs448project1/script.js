@@ -55,46 +55,49 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
   var letter = 65; // 65 is ASCII for the letter A. We use this when numbering the grid.
   var i = 1; // This is also used for numbering the grid.
   var grid = document.createElement('table');
+  var aiClick = document.querySelector('button');
+  var aiTurn = true;
 
   grid.className = classname; // Determines if it's the 1st or 2nd player grid
   for (var r = 0; r < rows; ++r)
   {
-    // var tr = grid.appendChild(document.createElement('tr')); // Put a new row in
-    var tr = grid.appendChild(document.createElement('tr'));
+    var tr = grid.appendChild(document.createElement('tr')); // Put a new row in
     for (var c = 0; c < cols; ++c)
     {
-      var cell = tr.appendChild(document.createElement('td')); // Put a new column in
-      cell.innerHTML = `${String.fromCharCode(letter)}${i++}`; // Insert the grid number, like A1, B2, C3 etc.
-      if(grid.className == "p1-grid")
-      {
-        if(p1GridArr[r][c] == 1)
+      //while(!aiTurn)
+      
+        var cell = tr.appendChild(document.createElement('td')); // Put a new column in
+        cell.innerHTML = `${String.fromCharCode(letter)}${i++}`; // Insert the grid number, like A1, B2, C3 etc.
+        if(grid.className == "p1-grid")
         {
-          cell.className = 'clicked';
+          if(p1GridArr[r][c] == 1)
+          {
+            cell.className = 'clicked';
+          }
+          if(p1GridArr[r][c] == 2)
+          {
+            cell.className = 'hit';
+          }
+          if(p1GridArr[r][c] == 3)
+          {
+            cell.className = 'benign';
+          }
         }
-        if(p1GridArr[r][c] == 2)
+        if(grid.className == "p2-grid")
         {
-          cell.className = 'hit';
+          if(p2GridArr[r][c] == 1)
+          {
+            cell.className = 'clicked';
+          }
+          if(p2GridArr[r][c] == 2)
+          {
+            cell.className = 'hit';
+          }
+          if(p2GridArr[r][c] == 3)
+          {
+            cell.className = 'benign';
+          }
         }
-        if(p1GridArr[r][c] == 3)
-        {
-          cell.className = 'benign';
-        }
-      }
-      if(grid.className == "p2-grid")
-      {
-        if(p2GridArr[r][c] == 1)
-        {
-          cell.className = 'clicked';
-        }
-        if(p2GridArr[r][c] == 2)
-        {
-          cell.className = 'hit';
-        }
-        if(p2GridArr[r][c] == 3)
-        {
-          cell.className = 'benign';
-        }
-      }
       
       else if (easymode) // 
       {       //massed up player 1
