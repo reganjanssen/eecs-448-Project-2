@@ -478,15 +478,16 @@ function changeTurn()
 * @post The grids are now visible to the player.
 * @author Drew Fink & Andrew Brown
 */
-var hitShip;
-var missShip;
-function preload()
-{
-  hitShip = loadSound(Music/"hit.mp3");
-  missShip = loadSound(Music/"miss.mp3");
-}
+//var hitShip;
+//var missShip;
+//function preload()
+//{
+ // hitShip = loadSound(Music/"hit.mp3");
+ // missShip = loadSound(Music/"miss.mp3");
+//}
 function drawGrids()
 {
+  const hitShip = document.getElementById("hit");
   var player1grid = playBoard(10, 9, "p1-grid", function(cell, row, col, i){});
 
   var player2grid = playBoard(10, 9, "p2-grid", function(cell, row, col, i){});
@@ -498,14 +499,14 @@ function drawGrids()
       p2GridArr[row][col] = 2;
       alert("It's a hit!");
       cell.className = 'hit';
-      //hitShip.play(); still has error back up to old version. the error will cast the changeTurn() not working
+      hitShip.play(); //still has error back up to old version. the error will cast the changeTurn() not working
     }
     else
     {
       p2GridArr[row][col] = 3;
       alert("It's a miss.");
       cell.className = 'clicked';
-      //missShip.play();still has error back up to old version.
+      //missShip.play(); //still has error back up to old version.
     }
     document.getElementById("boards").removeChild(player2grid); // Redraw player 2's bottom grid so that it reflects where player 1 has guessed.
     player2grid = playBoard(10, 9, "p2-grid", function(cell, row, col, i){});
@@ -518,10 +519,11 @@ function drawGrids()
 
   var player2guess = playBoard(10, 9, "p2-guess", function(cell, row, col, i)
   {
+    const hitShip = document.getElementById("hit");
     if(p1GridArr[row][col] == 1)
     {
       p1GridArr[row][col] = 2;
-      //hitShip.play(); still has error back up to old version.
+      hitShip.play();
       alert("It's a hit!");
       cell.className = 'hit';
     }
