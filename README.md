@@ -14,7 +14,7 @@
 
 <h2>File Explainations:</h2>
 <ul>
-  <li>Documentation: This file contains the proper HTML documentation as well as the works cited for the project</li>
+  <li>Documentation: This file contains the proper jsDoc documentation in HTML format, works cited, previous groups design paradigm, explaination of custom artifact, and TeamInfo</li>
   <li>TeamInfo: This file contains the teams notes and time logging for the project</li>
   <li>Code Files:</li>
   <li>Archive: This file contains the previous groups (Group 6) documentation and artifacts</li></ul>
