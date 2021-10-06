@@ -65,7 +65,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
     for (var c = 0; c < cols; ++c)
     {
       //while(!aiTurn)
-      
+
         var cell = tr.appendChild(document.createElement('td')); // Put a new column in
         cell.innerHTML = `${String.fromCharCode(letter)}${i++}`; // Insert the grid number, like A1, B2, C3 etc.
         if(grid.className == "p1-grid")
@@ -98,10 +98,10 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             cell.className = 'benign';
           }
         }
-      
-      else if (easymode) // 
+
+      else if (easymode) //
       {       //massed up player 1
-              //need to add condition to know when p1 turn or at turn. 
+              //need to add condition to know when p1 turn or at turn.
               //cell.body.addEventListener('click', fn, true);
               cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
               {
@@ -489,7 +489,7 @@ function changeTurn()
 function lowerVolume()
 {
   var backgroundMusic = document.getElementById("background");
-  backgroundMusic.volume = 0.5;
+  backgroundMusic.volume = 0.1;
 }
 function drawGrids()
 {
