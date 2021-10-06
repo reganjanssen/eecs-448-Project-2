@@ -438,7 +438,9 @@ function changeTurn()
     }
     else
     {
+      const gameOver = document.getElementById("over");
       alert("Game over, Player 1 wins!");
+      gameOver.play();
     }
   }
   else
@@ -465,7 +467,9 @@ function changeTurn()
     }
     else
     {
+      const gameOver = document.getElementById("over");
       alert("Game over, Player 2 wins!");
+      gameOver.play();
     }
   }
   document.getElementById("playerNum").innerHTML = curPlyr;
