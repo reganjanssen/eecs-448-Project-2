@@ -483,22 +483,38 @@ function placeShips(arr)
         passError = 4;
       }
 
-      switch(passError) {
+      switch (passError) {
         case 0:
-        alert("Ship Placed!");
-        break;
+          if(!onAi)
+          {
+          alert("Ship Placed!");
+          }
+          break;
         case 1:
-        alert("Ship overlaps another ship. Try again.");
-        break;
+         if(!onAi)
+         {
+          alert("Ship overlaps another ship. Try again.");
+          }
+          break;
         case 2:
-        alert("Ship is out of bounds of the game board. Try again.");
-        break;
+         if(!onAi)
+         {
+          alert("Ship is out of bounds of the game board. Try again.");
+          }
+          break;
         case 3:
-        alert("Coordinate range does not match ship size. Try again.");
-        break;
+         if(!onAi)
+         {
+          alert("Coordinate range does not match ship size. Try again.");
+          }
+          break;
         case 4:
-        alert("Ship is not horizontal or vertical. Try again.");
-        break;
+        if(!onAi)
+				{
+          alert("Ship is not horizontal or vertical. Try again.");
+          }
+          break;
+         
       }
 
     }while(doesPass == false);
