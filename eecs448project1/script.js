@@ -103,7 +103,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
           }
         }
 
-      else if (easymode ) //
+      else if (easymode ) // Implementation of Easy AI opponent
   	  {      
 	     if(grid.className != "p2-guess")
        {        	
@@ -113,7 +113,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
            	{
              	callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
            	}
-           //bgMusic();
             })(cell, r, c, i), false);
         }
         else
@@ -126,11 +125,10 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
  		        var randomR= (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
              	callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
            	}
-            //bgMusic();
           		})(cell, r, c, i), false);
            }
     	  }
-      else if (mediummode)
+      else if (mediummode) // Implementation of Medium AI opponent
         {
             var randomC;
             var randomR;
@@ -141,7 +139,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                     return function () {
                         callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
                     }
-                    //bgMusic();
                 })(cell, r, c, i), false);
             }
             else {
@@ -175,11 +172,10 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                             }
                         }
                     }
-                    //bgMusic();
                 })(cell, r, c, i), false);
             }
       }
-      else if (hardmode)
+      else if (hardmode) // Implementation of Hard AI opponent
       {
             if (grid.className != "p2-guess") {
                 cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
@@ -187,7 +183,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                     return function () {
                         callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
                     }
-                    //bgMusic();
                 })(cell, r, c, i), false);
             }
             else {
@@ -217,7 +212,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             {
               callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
             }
-            //bgMusic();
           })(cell, r, c, i), false);
         }
 
@@ -778,62 +772,6 @@ function getAiCoords(shipNum)
     }
   } catch (e)
   {
-  }
-}
-
-/**
-* hits a randomly generated spot
-*
-* @pre none
-* @post A random spot is hit
-* @author Natasha Shirley
-*/
-function randomHit()
-{
-  var coordCol = 0;
-  var coordRow = 0;
-  var hasBeenHit = false;
-  do{
-
-    coordCol = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-    coordRow = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-    if(cell.className != 'clicked')
-    {
-      if(p1GridArr[coordRow][coordCol] == 1)
-      {
-        p1GridArr[coordRow][coordCol] = 2;
-        alert("It's a hit!");
-        cell.className = 'hit';
-      }
-      else
-      {
-        p1GridArr[coordRow][coordCol] = 3;
-        alert("It's a miss.");
-        cell.className = 'clicked';
-      }
-      hasBeenHit = true;
-    }
-  }while(hasBeenHit == false);
-}
-
-
-function secureHit()
-{
-  let secureCol = 0;
-  let secureRow = 0;
-
-  for (let i = 0; i < rows; i++)
-  {
-    for (let j = 0; j < cols; j++)
-      {
-        if (p1GridArr[i][j] == 1) // if ship at coordinate
-        {
-          p1GridArr[i][j] = 2; // hit ship
-          alert("It's a hit!");
-          cell.className = 'hit';
-          return;
-        }
-      }
   }
 }
 
