@@ -129,7 +129,52 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
     	  }
       else if (mediummode)
         {
-            
+            var randomC;
+            var randomR;
+            let isHit = false;
+            if (grid.className != "p2-guess") {
+                cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+                {
+                    return function () {
+                        callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+                    }
+                    //bgMusic();
+                })(cell, r, c, i), false);
+            }
+            else {
+
+                cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+                {
+                    return function () {
+                        if (!isHit) {
+                            randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+                            randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+                            callback(element, randomR, randomC, i);
+                            if (p1GridArr[randomC][randomR] == 1)
+                                isHit = true;
+                            // Pass the element, rows, columns, and item number back.
+                        }
+                        if (isHit) {
+                            //try to find the randoC +1 or, randomR +1 or just find the ship places like hard and set isHit = fulse and find next randoms;
+                            if (p1GridArr[randomC + 1][randomR] == 1) //top
+                                callback(element, randomR, randomC, i);
+                            else if (p1GridArr[randomC][randomR + 1] == 1) //right
+                                callback(element, randomR, randomC, i);
+                            else if (p1GridArr[randomC - 1][randomR] == 1) // down
+                                callback(element, randomR, randomC, i);
+                            else if (p1GridArr[randomC][randomR - 1] == 1) // left
+                                callback(element, randomR, randomC, i);
+                            else {
+                                randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+                                randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+                                if (p1GridArr[randomC][randomR] != 1)
+                                    isHit = false;
+                            }
+                        }
+                    }
+                    //bgMusic();
+                })(cell, r, c, i), false);
+            }
       }
       else if (hardmode)
       {
