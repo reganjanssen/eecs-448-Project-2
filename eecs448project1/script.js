@@ -120,7 +120,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
            	return function()
             { 
                 var randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
- 		var randomR= (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+ 		        var randomR= (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
              	callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
            	}
             //bgMusic();
@@ -128,12 +128,38 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
            }
     	  }
       else if (mediummode)
-      {
-
+        {
+            
       }
       else if (hardmode)
       {
+            if (grid.className != "p2-guess") {
+                cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+                {
+                    return function () {
+                        callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+                    }
+                    //bgMusic();
+                })(cell, r, c, i), false);
+            }
+            else {
 
+                cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+                {   
+                    return function () {
+                        for (var row = 0; row < 10; row++) {
+                            for (var col = 0; col < 9; col++) {
+                                if (p1GridArr[row][col] == 1) { //find the ship on the grid.
+                                    r = row;
+                                    c = col;
+                                }
+                            }
+                        }
+                        callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+                    }
+                    
+                })(cell, r, c, i), false);
+            }
       }
       else
       {
@@ -452,7 +478,7 @@ function changeTurn()
       else
       {
       setTimeout(() => alert("AI's turn. Click anywhere on the board to continue."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
-      setTimeout(() => p2Grid.style.display = "none", 0);
+      setTimeout(() => p2Grid.style.display = "inline", 0);
       }
       setTimeout(() => p2Guess.style.display = "inline", 0);
       curPlyr++;
