@@ -57,8 +57,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
   var grid = document.createElement('table');
   var aiClick = document.querySelector('button');
   var aiTurn = true;
-  var randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-  var randomR= (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+
 
   grid.className = classname; // Determines if it's the 1st or 2nd player grid
   for (var r = 0; r < rows; ++r)
@@ -120,7 +119,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
        		{
            	return function()
             { 
-              alert("Click Anywhere to Continue");
+                var randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+ 		var randomR= (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
              	callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
            	}
             //bgMusic();
@@ -444,7 +444,14 @@ function changeTurn()
     {
       p1Grid.style.display = "none";
       p1Guess.style.display = "none";
-      setTimeout(() => alert("Okay, Player 1, turn your back, and Player 2, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+      if(!onAi)
+      {
+      	setTimeout(() => alert("Okay, Player 1, turn your back, and Player 2, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+      }
+      else
+      {
+      setTimeout(() => alert("AI's turn. Click anywhere on the board to continue."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+      }
       setTimeout(() => p2Grid.style.display = "inline", 0);
       setTimeout(() => p2Guess.style.display = "inline", 0);
       curPlyr++;
