@@ -135,10 +135,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
 			var tempC;
             var tempR;
             let isHit = false;
-			let left = true;
-			let right = true;
-			let top_ = true;
-			let bottom = true;
+
             if (grid.className != "p2-guess") {
                 cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
                 {
@@ -172,6 +169,10 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
 								*/
 							tempC= randomR;
 							tempR= randomC;
+							let left = true;
+							let right = true;
+							let top_ = true;
+							let bottom = true;
                             //try to find the randoC -+1 or, randomR -+1 or just find the ship places like hard and set isHit = fulse and find next randoms;
 							if(top_)
 							{
