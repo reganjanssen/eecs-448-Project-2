@@ -1,3 +1,11 @@
+/**
+File Name: script.js
+Original Authors: Drew Fink, Zach Sambol, Andrew Brown, Raj Nara
+Modified By: Natasha Shirley, Chen Lu, Andrew Loaiza, Jui Nagarkar, and Regan Janssen
+Description: JavaScript program for Battleship Game consisting of 2 player mode and 3 different levels of AI opponents
+Date: Oct. 10, 2021
+*/
+
 const col = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 var curPlyr = 1;
 var amntShips = 0;
@@ -55,9 +63,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
   var letter = 65; // 65 is ASCII for the letter A. We use this when numbering the grid.
   var i = 1; // This is also used for numbering the grid.
   var grid = document.createElement('table');
-  var aiClick = document.querySelector('button');
-  var aiTurn = true;
-
 
   grid.className = classname; // Determines if it's the 1st or 2nd player grid
   for (var r = 0; r < rows; ++r)
@@ -65,8 +70,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
     var tr = grid.appendChild(document.createElement('tr')); // Put a new row in
     for (var c = 0; c < cols; ++c)
     {
-      //while(!aiTurn)
-
         var cell = tr.appendChild(document.createElement('td')); // Put a new column in
         cell.innerHTML = `${String.fromCharCode(letter)}${i++}`; // Insert the grid number, like A1, B2, C3 etc.
         if(grid.className == "p1-grid")
@@ -382,8 +385,6 @@ function placeShips(arr)
 
   for(let i = 1; i <= amntShips; i++) {								//this gets coords and runs above tests to see if they are fit
 
-
-
     do {
       if(AIgame == true && onAi == true)
       {
@@ -589,14 +590,8 @@ function changeTurn()
 * @post The grids are now visible to the player.
 * @author Drew Fink & Andrew Brown
 */
-//var hitShip;
-//var missShip;
-//function preload()
-//{
- // hitShip = loadSound(Music/"hit.mp3");
- // missShip = loadSound(Music/"miss.mp3");
-//}
 
+// Function used to make sure Background Music isn't too loud so extra sounds can be heard
 function lowerVolume()
 {
   var backgroundMusic = document.getElementById("background");
@@ -737,7 +732,6 @@ function gameAIhandler(choice)
   onAi = true;
   placeShips(p2GridArr);
 
-  // these need to be updated once ai is functioning
     if (choice == 1) {
         easymode = true;
         document.getElementById('easyAI').disabled = 'disabled';
@@ -763,8 +757,7 @@ function gameAIhandler(choice)
 }
 function getAiCoords(shipNum)
 {
-  // let coordString = window.prompt("AI place ship"); remove so no pop up window for ai
-  //coordSplit = coordString.split("");
+
   let coordX1 = 0;
   let coordY1 = 0;
   // for (let i = 0; i <= (shipNum - 1); i++) -----the ship is place 1 by 1 call the coords everytime so change it
@@ -786,10 +779,7 @@ function getAiCoords(shipNum)
   } catch (e)
   {
   }
-
-
 }
-
 
 /**
 * hits a randomly generated spot
@@ -847,11 +837,3 @@ function secureHit()
   }
 }
 
-/*
-function bgMusic() {
-document.addEventListener('click', function ())
-{
-document.getElementById('audios').play();
-}
-}
-*/

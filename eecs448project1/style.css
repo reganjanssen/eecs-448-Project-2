@@ -1,3 +1,11 @@
+/**
+File Name: style.css
+Original Authors: Drew Fink, Zach Sambol, Andrew Brown, Raj Nara
+Modified By: Natasha Shirley, Chen Lu, Andrew Loaiza, Jui Nagarkar, and Regan Janssen
+Description: CSS file used to help Design the Battleship Game
+Date: Oct. 10, 2021
+*/
+
 :root {
     --color-bg: #2f857d ;
     --wrapper-height: 87vh;
