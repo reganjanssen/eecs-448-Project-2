@@ -447,12 +447,13 @@ function changeTurn()
       if(!onAi)
       {
       	setTimeout(() => alert("Okay, Player 1, turn your back, and Player 2, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+        setTimeout(() => p2Grid.style.display = "inline", 0);
       }
       else
       {
       setTimeout(() => alert("AI's turn. Click anywhere on the board to continue."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+      setTimeout(() => p2Grid.style.display = "none", 0);
       }
-      setTimeout(() => p2Grid.style.display = "inline", 0);
       setTimeout(() => p2Guess.style.display = "inline", 0);
       curPlyr++;
     }
@@ -489,7 +490,7 @@ function changeTurn()
         setTimeout(() => alert("AI turn is over. Player 1, press OK to advance"), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
      
       }
-       setTimeout(() => p1Grid.style.display = "inline", 0);
+      setTimeout(() => p1Grid.style.display = "inline", 0);
       setTimeout(() => p1Guess.style.display = "inline", 0);
       curPlyr--;
     }
