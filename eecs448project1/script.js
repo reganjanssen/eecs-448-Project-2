@@ -132,7 +132,13 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
         {
             var randomC;
             var randomR;
+			var tempC;
+            var tempR;
             let isHit = false;
+			let left = true;
+			let right = true;
+			let top_ = true;
+			let bottom = true;
             if (grid.className != "p2-guess") {
                 cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
                 {
@@ -144,19 +150,18 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             else {
 
                 cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
-                {
+                {	
                     return function () {
                         if (!isHit) {
                             randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
                             randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
                             callback(element, randomR, randomC, i);
-                            if (p1GridArr[randomC][randomR] == 1)
-                                isHit = true;
+                            
                             // Pass the element, rows, columns, and item number back.
                         }
                         if (isHit) {
-                            //try to find the randoC +1 or, randomR +1 or just find the ship places like hard and set isHit = fulse and find next randoms;
-                            if (p1GridArr[randomC + 1][randomR] == 1) //top
+							/* old one
+							if (p1GridArr[randomC + 1][randomR] == 1) //top
                                 callback(element, randomR, randomC, i);
                             else if (p1GridArr[randomC][randomR + 1] == 1) //right
                                 callback(element, randomR, randomC, i);
@@ -164,6 +169,67 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 callback(element, randomR, randomC, i);
                             else if (p1GridArr[randomC][randomR - 1] == 1) // left
                                 callback(element, randomR, randomC, i);
+								*/
+							tempC= randomR;
+							tempR= randomC;
+                            //try to find the randoC -+1 or, randomR -+1 or just find the ship places like hard and set isHit = fulse and find next randoms;
+							if(top_)
+							{
+								if (p1GridArr[randomC][randomR+1] != 1) //top
+								{
+									top_=false;
+									callback(element, randomR, randomC+1, i);
+								}
+								if(p1GridArr[randomC][tempR+1] == 1)
+								{
+									tempC= randomR;
+									tempR ++;
+									callback(element, tempC, tempR, i)
+								}
+                            }
+							if(bottom)
+							{
+								if (p1GridArr[randomC][randomR-1] != 1) //top
+								{
+									bottom=false;
+									callback(element, randomR, randomC+1, i);
+								}
+								if(p1GridArr[randomC][tempR-1] == 1)
+								{
+									tempC= randomR;
+									tempR--;
+									callback(element, tempC, tempR, i)
+								}
+                            }   							
+							if(left)
+							{
+								if (p1GridArr[randomC-1][randomR] != 1) //left
+								{
+									left=false;
+									callback(element, randomR, randomC+1, i);
+								}
+								if(p1GridArr[tempC-1][tempR] == 1)
+								{
+									tempC--;
+									tempR= randomC;
+									callback(element, tempC, tempR, i)
+								}
+                            }  
+                            
+                            if(right)
+							{
+								if (p1GridArr[randomC+1][randomR] != 1) //right
+								{
+									right=false;
+									callback(element, randomR, randomC+1, i);
+								}
+								if(p1GridArr[tempC+1][tempR] == 1)
+								{
+									tempC++;
+									tempR= randomC;
+									callback(element, tempC, tempR, i)
+								}
+                            }  
                             else {
                                 randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
                                 randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
