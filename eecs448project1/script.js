@@ -57,6 +57,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
   var grid = document.createElement('table');
   var aiClick = document.querySelector('button');
   var aiTurn = true;
+  var randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+  var randomR= (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
 
   grid.className = classname; // Determines if it's the 1st or 2nd player grid
   for (var r = 0; r < rows; ++r)
@@ -99,21 +101,32 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
           }
         }
 
-      else if (easymode) //
-      {       //massed up player 1
-              //need to add condition to know when p1 turn or at turn.
-              //cell.body.addEventListener('click', fn, true);
-              cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
-              {
-                  r = (Math.floor(Math.random() * Math.floor(10)));
-                  c = (Math.floor(Math.random() * Math.floor(9)));
-                  //random hit success, but massed up guess board. Need to find a ways to showing the random coordinate on guess board.
-                  //For now, its will show what u hit on the guess board but player board is getting hit by random when u hit the guess board.
-                  return function () {
-                      callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
-                  }
-              })(cell, r, c, i), false);
-      }
+      else if (easymode ) //
+  	  {      
+	     if(grid.className != "p2-guess")
+       {        	
+        		cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+         		{
+           	return function()
+           	{
+             	callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+           	}
+           //bgMusic();
+            })(cell, r, c, i), false);
+        }
+        else
+        {    
+       		cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+       		{
+           	return function()
+            { 
+              alert("Click Anywhere to Continue");
+             	callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
+           	}
+            //bgMusic();
+          		})(cell, r, c, i), false);
+           }
+    	  }
       else if (mediummode)
       {
 
@@ -456,19 +469,36 @@ function changeTurn()
         }
       }
     }
-    if(p1HasShips)
+    if(p1HasShips )
     {
       p2Grid.style.display = "none";
       p2Guess.style.display = "none";
-      setTimeout(() => alert("Okay, Player 2, turn your back, and Player 1, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
-      setTimeout(() => p1Grid.style.display = "inline", 0);
+      if(!onAi)
+      {
+         setTimeout(() => alert("Okay, Player 2, turn your back, and Player 1, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+      }
+      else
+      {
+        setTimeout(() => alert("AI turn is over. Player 1, press OK to advance"), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+     
+      }
+       setTimeout(() => p1Grid.style.display = "inline", 0);
       setTimeout(() => p1Guess.style.display = "inline", 0);
       curPlyr--;
     }
     else
     {
       const gameOver = document.getElementById("over");
+      if(!onAi)
+      {
       alert("Game over, Player 2 wins!");
+      }
+      else
+      {
+        
+      {
+      alert("Game over, AI wins!");
+      }
       gameOver.play();
     }
   }
