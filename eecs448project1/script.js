@@ -503,8 +503,6 @@ function changeTurn()
       }
       else
       {
-        
-      {
       alert("Game over, AI wins!");
       }
       gameOver.play();
