@@ -153,7 +153,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                             randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
                             randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
                             callback(element, randomR, randomC, i);
-                            
+                             isHit == true;
                             // Pass the element, rows, columns, and item number back.
                         }
                         if (isHit) {
