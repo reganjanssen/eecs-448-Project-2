@@ -10,7 +10,7 @@
   <li>Hard: Cheater, cheater pumpkin eater! This mode knows where all your ships are and lands a hit every turn.</li></ol>
 
 <h2> Custom Requirement:</h2>
-<small> In addition to the AI requirments added, the game now includes background music as well as noises indicating a hit, miss, sunken ship, and game over.</small>
+<small> In addition to the AI requirments added, the game now includes background music as well as noises indicating a hit, miss, and game over.</small>
 
 <h2>File Explainations:</h2>
 <ul>
