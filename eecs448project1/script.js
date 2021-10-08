@@ -70,209 +70,43 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
     var tr = grid.appendChild(document.createElement('tr')); // Put a new row in
     for (var c = 0; c < cols; ++c)
     {
-        var cell = tr.appendChild(document.createElement('td')); // Put a new column in
-        cell.innerHTML = `${String.fromCharCode(letter)}${i++}`; // Insert the grid number, like A1, B2, C3 etc.
-        if(grid.className == "p1-grid")
+      var cell = tr.appendChild(document.createElement('td')); // Put a new column in
+      cell.innerHTML = `${String.fromCharCode(letter)}${i++}`; // Insert the grid number, like A1, B2, C3 etc.
+      if(grid.className == "p1-grid")
+      {
+        if(p1GridArr[r][c] == 1)
         {
-          if(p1GridArr[r][c] == 1)
-          {
-            cell.className = 'clicked';
-          }
-          if(p1GridArr[r][c] == 2)
-          {
-            cell.className = 'hit';
-          }
-          if(p1GridArr[r][c] == 3)
-          {
-            cell.className = 'benign';
-          }
+          cell.className = 'clicked';
         }
-        if(grid.className == "p2-grid")
+        if(p1GridArr[r][c] == 2)
         {
-          if(p2GridArr[r][c] == 1)
-          {
-            cell.className = 'clicked';
-          }
-          if(p2GridArr[r][c] == 2)
-          {
-            cell.className = 'hit';
-          }
-          if(p2GridArr[r][c] == 3)
-          {
-            cell.className = 'benign';
-          }
+          cell.className = 'hit';
         }
+        if(p1GridArr[r][c] == 3)
+        {
+          cell.className = 'benign';
+        }
+      }
+      if(grid.className == "p2-grid")
+      {
+        if(p2GridArr[r][c] == 1)
+        {
+          cell.className = 'clicked';
+        }
+        if(p2GridArr[r][c] == 2)
+        {
+          cell.className = 'hit';
+        }
+        if(p2GridArr[r][c] == 3)
+        {
+          cell.className = 'benign';
+        }
+      }
 
       else if (easymode ) // Implementation of Easy AI opponent
-  	  {      
-	     if(grid.className != "p2-guess")
-       {        	
-        		cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
-         		{
-           	return function()
-           	{
-             	callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
-           	}
-            })(cell, r, c, i), false);
-        }
-        else
-        {    
-       		cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
-       		{
-           	return function()
-            { 
-                var randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
- 		        var randomR= (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-             	callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
-           	}
-          		})(cell, r, c, i), false);
-           }
-    	  }
-      else if (mediummode) // Implementation of Medium AI opponent
+      {
+        if(grid.className != "p2-guess")
         {
-            var randomC;
-            var randomR;
-			var tempC;
-            var tempR;
-            let isHit = false;
-
-            if (grid.className != "p2-guess") {
-                cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
-                {
-                    return function () {
-                        callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
-                    }
-                })(cell, r, c, i), false);
-            }
-            else {
-
-                cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
-                {	
-                    return function () {
-                        if (!isHit) {
-                            randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-                            randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                            callback(element, randomR, randomC, i);
-                             isHit == true;
-                            // Pass the element, rows, columns, and item number back.
-                        }
-                        if (isHit) {
-							/* old one
-							if (p1GridArr[randomC + 1][randomR] == 1) //top
-                                callback(element, randomR, randomC, i);
-                            else if (p1GridArr[randomC][randomR + 1] == 1) //right
-                                callback(element, randomR, randomC, i);
-                            else if (p1GridArr[randomC - 1][randomR] == 1) // down
-                                callback(element, randomR, randomC, i);
-                            else if (p1GridArr[randomC][randomR - 1] == 1) // left
-                                callback(element, randomR, randomC, i);
-								*/
-							tempC= randomR;
-							tempR= randomC;
-							let left = true;
-							let right = true;
-							let top_ = true;
-							let bottom = true;
-                            //try to find the randoC -+1 or, randomR -+1 or just find the ship places like hard and set isHit = fulse and find next randoms;
-							if(top_)
-							{
-								if (p1GridArr[randomC][randomR+1] != 1) //top
-								{
-									top_=false;
-									callback(element, randomR, randomC+1, i);
-								}
-								if(p1GridArr[randomC][tempR+1] == 1)
-								{
-									tempC= randomR;
-									tempR ++;
-									callback(element, tempC, tempR, i)
-								}
-                            }
-							if(bottom)
-							{
-								if (p1GridArr[randomC][randomR-1] != 1) //top
-								{
-									bottom=false;
-									callback(element, randomR, randomC+1, i);
-								}
-								if(p1GridArr[randomC][tempR-1] == 1)
-								{
-									tempC= randomR;
-									tempR--;
-									callback(element, tempC, tempR, i)
-								}
-                            }   							
-							if(left)
-							{
-								if (p1GridArr[randomC-1][randomR] != 1) //left
-								{
-									left=false;
-									callback(element, randomR, randomC+1, i);
-								}
-								if(p1GridArr[tempC-1][tempR] == 1)
-								{
-									tempC--;
-									tempR= randomC;
-									callback(element, tempC, tempR, i)
-								}
-                            }  
-                            
-                            if(right)
-							{
-								if (p1GridArr[randomC+1][randomR] != 1) //right
-								{
-									right=false;
-									callback(element, randomR, randomC+1, i);
-								}
-								if(p1GridArr[tempC+1][tempR] == 1)
-								{
-									tempC++;
-									tempR= randomC;
-									callback(element, tempC, tempR, i)
-								}
-                            }  
-                            else {
-                                randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-                                randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                                if (p1GridArr[randomC][randomR] != 1)
-                                    isHit = false;
-                            }
-                        }
-                    }
-                })(cell, r, c, i), false);
-            }
-      }
-      else if (hardmode) // Implementation of Hard AI opponent
-      {
-            if (grid.className != "p2-guess") {
-                cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
-                {
-                    return function () {
-                        callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
-                    }
-                })(cell, r, c, i), false);
-            }
-            else {
-
-                cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
-                {   
-                    return function () {
-                        for (var row = 0; row < 10; row++) {
-                            for (var col = 0; col < 9; col++) {
-                                if (p1GridArr[row][col] == 1) { //find the ship on the grid.
-                                    r = row;
-                                    c = col;
-                                }
-                            }
-                        }
-                        callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
-                    }
-                    
-                })(cell, r, c, i), false);
-            }
-      }
-      else
-      {
           cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
           {
             return function()
@@ -281,6 +115,172 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             }
           })(cell, r, c, i), false);
         }
+        else
+        {
+          cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+          {
+            return function()
+            {
+              var randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+              var randomR= (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+              callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
+            }
+          })(cell, r, c, i), false);
+        }
+      }
+      else if (mediummode) // Implementation of Medium AI opponent
+      {
+        var randomC;
+        var randomR;
+        var tempC;
+        var tempR;
+        let isHit = false;
+
+        if (grid.className != "p2-guess") {
+          cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+          {
+            return function () {
+              callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+            }
+          })(cell, r, c, i), false);
+        }
+        else {
+
+          cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+          {
+            return function () {
+              if (!isHit) {
+                randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+                randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+                callback(element, randomR, randomC, i);
+                isHit == true;
+                // Pass the element, rows, columns, and item number back.
+              }
+              if (isHit) {
+                /* old one
+                if (p1GridArr[randomC + 1][randomR] == 1) //top
+                callback(element, randomR, randomC, i);
+                else if (p1GridArr[randomC][randomR + 1] == 1) //right
+                callback(element, randomR, randomC, i);
+                else if (p1GridArr[randomC - 1][randomR] == 1) // down
+                callback(element, randomR, randomC, i);
+                else if (p1GridArr[randomC][randomR - 1] == 1) // left
+                callback(element, randomR, randomC, i);
+                */
+                tempC= randomR;
+                tempR= randomC;
+                let left = true;
+                let right = true;
+                let top_ = true;
+                let bottom = true;
+                //try to find the randoC -+1 or, randomR -+1 or just find the ship places like hard and set isHit = fulse and find next randoms;
+                if(top_)
+                {
+                  if (p1GridArr[randomC][randomR+1] != 1) //top
+                  {
+                    top_=false;
+                    callback(element, randomR, randomC+1, i);
+                  }
+                  if(p1GridArr[randomC][tempR+1] == 1)
+                  {
+                    tempC= randomR;
+                    tempR ++;
+                    callback(element, tempC, tempR, i)
+                  }
+                }
+                if(bottom)
+                {
+                  if (p1GridArr[randomC][randomR-1] != 1) //top
+                  {
+                    bottom=false;
+                    callback(element, randomR, randomC+1, i);
+                  }
+                  if(p1GridArr[randomC][tempR-1] == 1)
+                  {
+                    tempC= randomR;
+                    tempR--;
+                    callback(element, tempC, tempR, i)
+                  }
+                }
+                if(left)
+                {
+                  if (p1GridArr[randomC-1][randomR] != 1) //left
+                  {
+                    left=false;
+                    callback(element, randomR, randomC+1, i);
+                  }
+                  if(p1GridArr[tempC-1][tempR] == 1)
+                  {
+                    tempC--;
+                    tempR= randomC;
+                    callback(element, tempC, tempR, i)
+                  }
+                }
+
+                if(right)
+                {
+                  if (p1GridArr[randomC+1][randomR] != 1) //right
+                  {
+                    right=false;
+                    callback(element, randomR, randomC+1, i);
+                  }
+                  if(p1GridArr[tempC+1][tempR] == 1)
+                  {
+                    tempC++;
+                    tempR= randomC;
+                    callback(element, tempC, tempR, i)
+                  }
+                }
+                else {
+                  randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+                  randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+                  if (p1GridArr[randomC][randomR] != 1)
+                  isHit = false;
+                }
+              }
+            }
+          })(cell, r, c, i), false);
+        }
+      }
+      else if (hardmode) // Implementation of Hard AI opponent
+      {
+        if (grid.className != "p2-guess") {
+          cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+          {
+            return function () {
+              callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+            }
+          })(cell, r, c, i), false);
+        }
+        else {
+
+          cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+          {
+            return function () {
+              for (var row = 0; row < 10; row++) {
+                for (var col = 0; col < 9; col++) {
+                  if (p1GridArr[row][col] == 1) { //find the ship on the grid.
+                    r = row;
+                    c = col;
+                  }
+                }
+              }
+              callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+            }
+
+          })(cell, r, c, i), false);
+        }
+      }
+      else
+      {
+        cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
+        {
+          return function()
+          {
+            callback(element, r, c, i); // Pass the element, rows, columns, and item number back.
+          }
+        })(cell, r, c, i), false);
+      }
 
     }
     i = 1;
@@ -485,36 +485,36 @@ function placeShips(arr)
 
       switch (passError) {
         case 0:
-          if(!onAi)
-          {
+        if(!onAi)
+        {
           alert("Ship Placed!");
-          }
-          break;
+        }
+        break;
         case 1:
-         if(!onAi)
-         {
+        if(!onAi)
+        {
           alert("Ship overlaps another ship. Try again.");
-          }
-          break;
+        }
+        break;
         case 2:
-         if(!onAi)
-         {
+        if(!onAi)
+        {
           alert("Ship is out of bounds of the game board. Try again.");
-          }
-          break;
+        }
+        break;
         case 3:
-         if(!onAi)
-         {
+        if(!onAi)
+        {
           alert("Coordinate range does not match ship size. Try again.");
-          }
-          break;
+        }
+        break;
         case 4:
         if(!onAi)
-				{
+        {
           alert("Ship is not horizontal or vertical. Try again.");
-          }
-          break;
-         
+        }
+        break;
+
       }
 
     }while(doesPass == false);
@@ -595,13 +595,13 @@ function changeTurn()
       p1Guess.style.display = "none";
       if(!onAi)
       {
-      	setTimeout(() => alert("Okay, Player 1, turn your back, and Player 2, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+        setTimeout(() => alert("Okay, Player 1, turn your back, and Player 2, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
         setTimeout(() => p2Grid.style.display = "inline", 0);
       }
       else
       {
-      setTimeout(() => alert("AI's turn. Click anywhere on the board to continue."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
-      setTimeout(() => p2Grid.style.display = "inline", 0);
+        setTimeout(() => alert("AI's turn. Click anywhere on the board to continue."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+        setTimeout(() => p2Grid.style.display = "inline", 0);
       }
       setTimeout(() => p2Guess.style.display = "inline", 0);
       curPlyr++;
@@ -632,12 +632,12 @@ function changeTurn()
       p2Guess.style.display = "none";
       if(!onAi)
       {
-         setTimeout(() => alert("Okay, Player 2, turn your back, and Player 1, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+        setTimeout(() => alert("Okay, Player 2, turn your back, and Player 1, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
       }
       else
       {
         setTimeout(() => alert("AI turn is over. Player 1, press OK to advance"), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
-     
+
       }
       setTimeout(() => p1Grid.style.display = "inline", 0);
       setTimeout(() => p1Guess.style.display = "inline", 0);
@@ -648,11 +648,11 @@ function changeTurn()
       const gameOver = document.getElementById("over");
       if(!onAi)
       {
-      alert("Game over, Player 2 wins!");
+        alert("Game over, Player 2 wins!");
       }
       else
       {
-      alert("Game over, AI wins!");
+        alert("Game over, AI wins!");
       }
       gameOver.play();
     }
@@ -809,21 +809,21 @@ function gameAIhandler(choice)
   onAi = true;
   placeShips(p2GridArr);
 
-    if (choice == 1) {
-        easymode = true;
-        document.getElementById('easyAI').disabled = 'disabled';
-        document.getElementById("playerNum").innerHTML = curPlyr;
-    }
-    if (choice == 2) {
-        mediummode = true;
-        document.getElementById('mediumAI').disabled = 'disabled';
-        document.getElementById("playerNum").innerHTML = curPlyr;
-    }
-    if (choice == 3) {
-        hardmode = true;
-        document.getElementById('hardAI').disabled = 'disabled';
-        document.getElementById("playerNum").innerHTML = curPlyr;
-    }
+  if (choice == 1) {
+    easymode = true;
+    document.getElementById('easyAI').disabled = 'disabled';
+    document.getElementById("playerNum").innerHTML = curPlyr;
+  }
+  if (choice == 2) {
+    mediummode = true;
+    document.getElementById('mediumAI').disabled = 'disabled';
+    document.getElementById("playerNum").innerHTML = curPlyr;
+  }
+  if (choice == 3) {
+    hardmode = true;
+    document.getElementById('hardAI').disabled = 'disabled';
+    document.getElementById("playerNum").innerHTML = curPlyr;
+  }
   drawGrids();
 
   alert("Okay Player 1, you start. AI, turn your back.");
@@ -857,4 +857,3 @@ function getAiCoords(shipNum)
   {
   }
 }
-
