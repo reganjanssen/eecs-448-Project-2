@@ -166,17 +166,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                 callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
               }
               else {
-                /* old one
-                if (p1GridArr[randomC + 1][randomR] == 1) //top
-                callback(element, randomR, randomC, i);
-                else if (p1GridArr[randomC][randomR + 1] == 1) //right
-                callback(element, randomR, randomC, i);
-                else if (p1GridArr[randomC - 1][randomR] == 1) // down
-                callback(element, randomR, randomC, i);
-                else if (p1GridArr[randomC][randomR - 1] == 1) // left
-                callback(element, randomR, randomC, i);
-                */
-
                 /* temp commented to test new approach
                 tempC = randomR;
                 tempR = randomC;
@@ -252,18 +241,19 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
 
                 if (newShip)
                 {
+                  newShip = false;
+
                   var tempR = randomR;
                   var tempC = randomC;
 
-                  var upChecked = false;
-                  var downChecked = false;
-                  var rightChecked = false;
-                  var leftChecked = false;
+                  var upChecked     = false;
+                  var downChecked   = false;
+                  var rightChecked  = false;
+                  var leftChecked   = false;
 
-                  var isVertical = false;
-                  var isHorizontal = false;
+                  var isVertical    = false;
+                  var isHorizontal  = false;
 
-                  newShip = false;
                 }
 
                 // note: randomR and randomC are the baseCoordinates to check from
