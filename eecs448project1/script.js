@@ -601,7 +601,7 @@ function changeTurn()
       else
       {
         setTimeout(() => alert("AI's turn. Click anywhere on the board to continue."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
-        setTimeout(() => p2Grid.style.display = "inline", 0);
+        setTimeout(() => p2Grid.style.display = "none", 0);
       }
       setTimeout(() => p2Guess.style.display = "inline", 0);
       curPlyr++;
