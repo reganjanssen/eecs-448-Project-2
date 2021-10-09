@@ -16,9 +16,15 @@ let p2Guess;
 let AIgame;
 let choice;
 let onAi;
-let easymode;
-let mediummode;
-let hardmode;
+let easyMode;
+let mediumMode;
+let hardMode;
+
+// medium case
+var isHit = false;
+var newShip = false;
+var randomR;
+var randomC;
 
 // These arrays are the grids that will allow us to play the game.
 let p1GridArr = createArray(10, 9);
@@ -103,7 +109,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
         }
       }
 
-      else if (easymode ) // Implementation of Easy AI opponent
+      else if (easyMode) // Implementation of Easy AI opponent
       {
         if(grid.className != "p2-guess")
         {
@@ -115,27 +121,24 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             }
           })(cell, r, c, i), false);
         }
+
         else
         {
           cell.addEventListener('click', (function(element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
           {
             return function()
             {
-              var randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-              var randomR= (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+              randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+              randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
               callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
             }
           })(cell, r, c, i), false);
         }
       }
-      else if (mediummode) // Implementation of Medium AI opponent
-      {
-        var randomC;
-        var randomR;
-        var tempC;
-        var tempR;
-        let isHit = false;
 
+
+      else if (mediumMode) // Implementation of Medium AI opponent
+      {
         if (grid.className != "p2-guess") {
           cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
           {
@@ -144,6 +147,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
             }
           })(cell, r, c, i), false);
         }
+
         else {
 
           cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
@@ -152,11 +156,16 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
               if (!isHit) {
                 randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
                 randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                callback(element, randomR, randomC, i);
-                isHit == true;
-                // Pass the element, rows, columns, and item number back.
+
+                if (p1GridArr[randomR][randomC] == 1) // if there is a ship at random coordinates
+                {
+                  isHit = true;
+                  newShip = true;
+                }
+
+                callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
               }
-              if (isHit) {
+              else {
                 /* old one
                 if (p1GridArr[randomC + 1][randomR] == 1) //top
                 callback(element, randomR, randomC, i);
@@ -167,8 +176,10 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                 else if (p1GridArr[randomC][randomR - 1] == 1) // left
                 callback(element, randomR, randomC, i);
                 */
-                tempC= randomR;
-                tempR= randomC;
+
+                /* temp commented to test new approach
+                tempC = randomR;
+                tempR = randomC;
                 let left = true;
                 let right = true;
                 let top_ = true;
@@ -237,12 +248,185 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                   if (p1GridArr[randomC][randomR] != 1)
                   isHit = false;
                 }
-              }
+                */
+
+                if (newShip)
+                {
+                  var tempR = randomR;
+                  var tempC = randomC;
+
+                  var upChecked = false;
+                  var downChecked = false;
+                  var rightChecked = false;
+                  var leftChecked = false;
+
+                  var isVertical = false;
+                  var isHorizontal = false;
+
+                  newShip = false;
+                }
+
+                // note: randomR and randomC are the baseCoordinates to check from
+
+                if (isVertical) // skip horizontal checks if ship appears to be vertical
+                {
+                  rightChecked = true;
+                  leftChecked  = true;
+                }
+
+                else if (isHorizontal) // skip horizontal checks if ship appears to be horizontal
+                {
+                  upChecked   = true;
+                  downChecked = true;
+                }
+
+
+                // up case
+                if (!upChecked)
+                {
+                  tempR = tempR-1;
+                  if (tempR >= 0 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
+                  {
+                    if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                    {
+                      isVertical = true;
+                    }
+
+                    else
+                    {
+                      upChecked = true;
+                      randomR = tempR; // next check will start at oringal hit coordinates
+                      randomC = tempC;
+                    }
+
+                    return callback(element, tempR, tempC, i);
+                  }
+
+                  else // if going off grid or spot has been previously hit
+                  {
+                    upChecked = true;
+                    randomR = tempR; // next check will start at oringal hit coordinates
+                    randomC = tempC;
+                  }
+                }
+
+
+                // down case
+                if (!downChecked)
+                {
+                  tempR = tempR+1;
+                  if (tempR < 10 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
+                  {
+                    if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                    {
+                      isVertical = true;
+                    }
+
+                    else
+                    {
+                      downChecked = true;
+
+                      if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
+                      {
+                        isHit = false;
+                        randomR = tempR; // next check will start at oringal hit coordinates
+                        randomC = tempC;
+                      }
+
+                      else // if it was not vertical, skip up/down cases
+                      {
+                        isHorizontal = true;
+                      }
+                    }
+
+                    return callback(element, tempR, tempC, i);
+                  }
+
+                  else // if going off grid or spot has been previously hit
+                  {
+                    downChecked = true;
+
+                    if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
+                    {
+                      isHit = false;
+                      randomR = tempR; // next check will start at oringal hit coordinates
+                      randomC = tempC;
+                    }
+
+                    else // if it was not vertical, skip up/down cases
+                    {
+                      isHorizontal = true;
+                    }
+                  }
+
+                }
+
+
+                // left case
+                if (!leftChecked)
+                {
+                  tempC = tempC-1;
+                  if (tempR < 9 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
+                  {
+                    if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                    {
+                      isHorizontal = true;
+                    }
+
+                    else
+                    {
+                      leftChecked = true;
+                      randomR = tempR; // next check will start at oringal hit coordinates
+                      randomC = tempC;
+                    }
+
+                    return callback(element, tempR, tempC, i);
+                  }
+
+                  else // if going off grid or spot has been previously hit
+                  {
+                    leftChecked = true;
+                    randomR = tempR; // next check will start at oringal hit coordinates
+                    randomC = tempC;
+                  }
+                }
+
+
+                // right case
+                if (!rightChecked)
+                {
+                  tempC = tempC+1;
+                  if (tempR < 9 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
+                  {
+                    if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                    {
+                      isHorizontal = true;
+                    }
+
+                    else
+                    {
+                      rightChecked = true;
+                      isHit = false;
+                    }
+
+                    return callback(element, tempR, tempC, i);
+                  }
+
+                  else // if going off grid or spot has been previously hit
+                  {
+                    rightChecked = true;
+                    isHit = false;
+                  }
+                }
+
+              } // end if (isHit == true) case
             }
           })(cell, r, c, i), false);
         }
       }
-      else if (hardmode) // Implementation of Hard AI opponent
+
+
+      else if (hardMode) // Implementation of Hard AI opponent
       {
         if (grid.className != "p2-guess") {
           cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
@@ -690,7 +874,7 @@ function drawGrids()
       hitShip.play();
       alert("It's a hit!");
       cell.className = 'hit';
-     
+
     }
     else
     {
@@ -698,7 +882,7 @@ function drawGrids()
       missShip.play();
       alert("It's a miss.");
       cell.className = 'clicked';
-      
+
     }
     document.getElementById("boards").removeChild(player2grid); // Redraw player 2's bottom grid so that it reflects where player 1 has guessed.
     player2grid = playBoard(10, 9, "p2-grid", function(cell, row, col, i){});
@@ -812,17 +996,17 @@ function gameAIhandler(choice)
   placeShips(p2GridArr);
 
   if (choice == 1) {
-    easymode = true;
+    easyMode = true;
     document.getElementById('easyAI').disabled = 'disabled';
     document.getElementById("playerNum").innerHTML = curPlyr;
   }
   if (choice == 2) {
-    mediummode = true;
+    mediumMode = true;
     document.getElementById('mediumAI').disabled = 'disabled';
     document.getElementById("playerNum").innerHTML = curPlyr;
   }
   if (choice == 3) {
-    hardmode = true;
+    hardMode = true;
     document.getElementById('hardAI').disabled = 'disabled';
     document.getElementById("playerNum").innerHTML = curPlyr;
   }
