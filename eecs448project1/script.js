@@ -116,7 +116,12 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                         return function () {
                             randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
                             randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                            callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
+                            if (p1GridArr[randomC][randomR] != 2)
+                                    callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
+                                else {
+                                    randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+                                    randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+                                }
                         }
                     })(cell, r, c, i), false);
 
@@ -166,62 +171,45 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 }
                             }
                             else if (isHit) {
-                                if (tempC >= 0 && tempC <= 10) {
-                                    if (p1GridArr[tempC + 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
+                                
+                                    if (p1GridArr[tempC+1][tempR] == 1 ) //top
                                     {
                                         tempC = tempC + 1;
+										alert("tempC1= "+tempC);
                                         callback(element, tempC, tempR, i);
+										
                                     }
-                                    else if (p1GridArr[tempC - 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
+                                    else if (p1GridArr[tempC - 1][tempR] == 1) //down
                                     {
                                         tempC = tempC - 1;
+										alert("tempC2= "+ tempC);
                                         callback(element, tempC, tempR, i);
                                     }
-                                    else if (p1GridArr[tempC][tempR + 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //top
+                                    else if (p1GridArr[tempC][tempR + 1] == 1 ) //right
                                     {
                                         tempR = tempR + 1;
+										alert("tempR1= "+tempR);
                                         callback(element, tempC, tempR, i);
                                     }
-                                    else if (p1GridArr[tempC][tempR - 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //bottom
+                                    else if (p1GridArr[tempC][tempR - 1] == 1) //left
                                     {
                                         tempR = tempR - 1;
+										alert("tempR2= "+tempR);
                                         callback(element, tempC, tempR, i);
                                     }
-                                    else {
+                                    
+									else {
                                         randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
                                         randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
                                         isHit = false;
+										alert("random"+randomC +" " + randomR);
                                         callback(element, randomR, randomC, i);
+										if (p1GridArr[randomR][randomC] == 1 && p1GridArr[randomC][randomR] != 2) // if there is a ship at random coordinates
+										{
+											isHit = true;
+										}
                                     }
-                                }
-                                else if (tempR >= 0 && tempR <= 9) {
-                                    if (p1GridArr[tempC + 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
-                                    {
-                                        tempC = tempC + 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else if (p1GridArr[tempC - 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
-                                    {
-                                        tempC = tempC - 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else if (p1GridArr[tempC][tempR + 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //top
-                                    {
-                                        tempR = tempR + 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else if (p1GridArr[tempC][tempR - 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //bottom
-                                    {
-                                        tempR = tempR - 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else {
-                                        randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-                                        randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                                        isHit = false;
-                                        callback(element, randomR, randomC, i);
-                                    }
-                                }
+                                
                             }
 
                             /* temp commented to test new approach
