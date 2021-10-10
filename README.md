@@ -14,13 +14,12 @@
 
 <h2>File Explainations:</h2>
 <ul>
-  <li>Documentation: This folder contains the proper jsdoc documentation in HTML format, works cited, previous groups design paradigm, explaination of custom artifact, and TeamInfo</li>
-  <li>TeamInfo: This folder contains the teams notes and time logging for the project</li>
+  <li>Documentation: This folder contains the proper jsdoc documentation in HTML format, works cited, previous groups design paradigm, explaination of custom artifact, and time logging for the project</li>
   <li>eecs448project1: This folder contains the files that make up the game - index.html, style.css, and script.js. It also contains a Music folder where the sounds can be accessed</li>
   <li>Archive: This folder contains the previous groups (Group 6) documentation and artifacts</li></ul>
 
 <h2>User Instructions:</h2>
-To play the battleship game you first need to download the zip file. Once the file has been downloaded, open the eecs448project1 folder from your downloads folder and click on the index.html file. This will take you to a new browser window where the game will be played. Once the html file is opened, follow the instructions on the screen.
+To play the Battleship game you first need to download the zip file. Once the file has been downloaded, open the eecs448project1 folder from your downloads folder and open the index.html file. This will take you to a new browser window where the game will be played. Once the html file is opened, follow the instructions on the screen.
 
 
 
