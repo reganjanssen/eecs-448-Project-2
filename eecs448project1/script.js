@@ -119,6 +119,13 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                             callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
                         }
                     })(cell, r, c, i), false);
+
+                    // sets autoClick on AI's turn, gameEnded is to avoid infinite alerts after gameOver
+                    setInterval(function () {
+                      if (onAi && curPlyr != 1 && !gameEnded) {
+                        cell.click();
+                      }
+                    }, 500);
                 }
             }
 
@@ -463,6 +470,13 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                           */
                         }
                     })(cell, r, c, i), false);
+
+                    // sets autoClick on AI's turn, gameEnded is to avoid infinite alerts after gameOver
+                    setInterval(function () {
+                      if (onAi && curPlyr != 1 && !gameEnded) {
+                        cell.click();
+                      }
+                    }, 500);
                 }
             }
 
@@ -913,13 +927,15 @@ function drawGrids() {
         if (p1GridArr[row][col] == 1) {
             p1GridArr[row][col] = 2;
             hitShip.play();
-            alert("It's a hit!");
+            if (!onAi) alert("It's a hit!");
+            else       alert("AI hit your ship!"); // comment this line out to skip AI view
             cell.className = 'hit';
         }
         else {
             p1GridArr[row][col] = 3;
             missShip.play(); //still has error back up to old version.
-            alert("It's a miss.");
+            if (!onAi) alert("It's a miss.");
+            else       alert("AI missed!"); // comment this line out to skip AI view
             cell.className = 'clicked';
         }
         document.getElementById("boards").removeChild(player1grid); // Redraw player 1's bottom grid so that it reflects where player 2 has guessed.
