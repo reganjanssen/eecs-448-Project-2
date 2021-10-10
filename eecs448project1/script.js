@@ -130,7 +130,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                       if (onAi && curPlyr != 1 && !gameEnded) {
                         cell.click();
                       }
-                    }, 10000);
+                    }, 1000);
                 }
             }
 
@@ -469,7 +469,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                       if (onAi && curPlyr != 1 && !gameEnded) {
                         cell.click();
                       }
-                    }, 500);
+                    }, 1000);
                 }
             }
 
@@ -507,7 +507,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                       if (onAi && curPlyr != 1 && !gameEnded) {
                         cell.click();
                       }
-                    }, 500);
+                    }, 1000);
 
                 }
             }
