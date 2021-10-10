@@ -19,6 +19,7 @@ let onAi;
 let easyMode;
 let mediumMode;
 let hardMode;
+let gameEnded = false;
 
 // medium case
 var isHit = false;
@@ -266,7 +267,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 callback(element, tempC, tempR, i)
                               }
                             }
-            
+
                             if(right)
                             {
                               if (p1GridArr[randomC+1][randomR] != 1) //right
@@ -293,33 +294,33 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                             {
                               var tempR = randomR;
                               var tempC = randomC;
-            
+
                               var upChecked = false;
                               var downChecked = false;
                               var rightChecked = false;
                               var leftChecked = false;
-            
+
                               var isVertical = false;
                               var isHorizontal = false;
-            
+
                               newShip = false;
                             }
-            
+
                             // note: randomR and randomC are the baseCoordinates to check from
-            
+
                             if (isVertical) // skip horizontal checks if ship appears to be vertical
                             {
                               rightChecked = true;
                               leftChecked  = true;
                             }
-            
+
                             else if (isHorizontal) // skip horizontal checks if ship appears to be horizontal
                             {
                               upChecked   = true;
                               downChecked = true;
                             }
-            
-            
+
+
                             // up case
                             if (!upChecked)
                             {
@@ -330,17 +331,17 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 {
                                   isVertical = true;
                                 }
-            
+
                                 else
                                 {
                                   upChecked = true;
                                   randomR = tempR; // next check will start at oringal hit coordinates
                                   randomC = tempC;
                                 }
-            
+
                                 return callback(element, tempR, tempC, i);
                               }
-            
+
                               else // if going off grid or spot has been previously hit
                               {
                                 upChecked = true;
@@ -348,8 +349,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 randomC = tempC;
                               }
                             }
-            
-            
+
+
                             // down case
                             if (!downChecked)
                             {
@@ -360,47 +361,47 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 {
                                   isVertical = true;
                                 }
-            
+
                                 else
                                 {
                                   downChecked = true;
-            
+
                                   if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
                                   {
                                     isHit = false;
                                     randomR = tempR; // next check will start at oringal hit coordinates
                                     randomC = tempC;
                                   }
-            
+
                                   else // if it was not vertical, skip up/down cases
                                   {
                                     isHorizontal = true;
                                   }
                                 }
-            
+
                                 return callback(element, tempR, tempC, i);
                               }
-            
+
                               else // if going off grid or spot has been previously hit
                               {
                                 downChecked = true;
-            
+
                                 if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
                                 {
                                   isHit = false;
                                   randomR = tempR; // next check will start at oringal hit coordinates
                                   randomC = tempC;
                                 }
-            
+
                                 else // if it was not vertical, skip up/down cases
                                 {
                                   isHorizontal = true;
                                 }
                               }
-            
+
                             }
-            
-            
+
+
                             // left case
                             if (!leftChecked)
                             {
@@ -411,17 +412,17 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 {
                                   isHorizontal = true;
                                 }
-            
+
                                 else
                                 {
                                   leftChecked = true;
                                   randomR = tempR; // next check will start at oringal hit coordinates
                                   randomC = tempC;
                                 }
-            
+
                                 return callback(element, tempR, tempC, i);
                               }
-            
+
                               else // if going off grid or spot has been previously hit
                               {
                                 leftChecked = true;
@@ -429,8 +430,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 randomC = tempC;
                               }
                             }
-            
-            
+
+
                             // right case
                             if (!rightChecked)
                             {
@@ -441,23 +442,23 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 {
                                   isHorizontal = true;
                                 }
-            
+
                                 else
                                 {
                                   rightChecked = true;
                                   isHit = false;
                                 }
-            
+
                                 return callback(element, tempR, tempC, i);
                               }
-            
+
                               else // if going off grid or spot has been previously hit
                               {
                                 rightChecked = true;
                                 isHit = false;
                               }
                             }
-            
+
                           } // end if (isHit == true) case
                           */
                         }
@@ -476,8 +477,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                         }
                     })(cell, r, c, i), false);
                 }
-                else {
 
+                else {
                     cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
                     {
                         return function () {
@@ -493,8 +494,18 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                         }
 
                     })(cell, r, c, i), false);
+
+                    // sets autoClick on AI's turn, gameEnded is to avoid infinite alerts after gameOver
+                    setInterval(function () {
+                      if (onAi && curPlyr != 1 && !gameEnded) {
+                        cell.click();
+                      }
+                    }, 500);
+
                 }
             }
+
+
             else {
                 cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
                 {
@@ -801,7 +812,7 @@ function changeTurn() {
                 setTimeout(() => p2Grid.style.display = "inline", 0);
             }
             else {
-                setTimeout(() => alert("AI's turn. Click anywhere on the board to continue."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+                // setTimeout(() => alert("AI's turn. Click anywhere on the board to continue."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
                 setTimeout(() => p2Grid.style.display = "none", 0);
             }
             setTimeout(() => p2Guess.style.display = "inline", 0);
@@ -811,6 +822,7 @@ function changeTurn() {
             const gameOver = document.getElementById("over");
             alert("Game over, Player 1 wins!");
             gameOver.play();
+            gameEnded = true;
         }
     }
     else {
@@ -829,7 +841,7 @@ function changeTurn() {
                 setTimeout(() => alert("Okay, Player 2, turn your back, and Player 1, press OK to advance."), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
             }
             else {
-                setTimeout(() => alert("AI turn is over. Player 1, press OK to advance"), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
+                // setTimeout(() => alert("AI turn is over. Player 1, press OK to advance"), 0); // These three lines use setTimeout to ensure the grid is properly hidden BEFORE the alert. It doesn't actually hide otherwise. It's a dumb JS quirk.
 
             }
             setTimeout(() => p1Grid.style.display = "inline", 0);
@@ -845,6 +857,7 @@ function changeTurn() {
                 alert("Game over, AI wins!");
             }
             gameOver.play();
+            gameEnded = true;
         }
     }
     document.getElementById("playerNum").innerHTML = curPlyr;
