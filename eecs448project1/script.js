@@ -130,7 +130,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                       if (onAi && curPlyr != 1 && !gameEnded) {
                         cell.click();
                       }
-                    }, 500);
+                    }, 10000);
                 }
             }
 
@@ -171,31 +171,35 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 }
                             }
                             else if (isHit) {
-                                
-                                    if (p1GridArr[tempC+1][tempR] == 1 ) //top
+                                let fire = true;
+                                if (fire&&p1GridArr[tempC+1][tempR] == 1 ) //top
                                     {
                                         tempC = tempC + 1;
 										alert("tempC1= "+tempC);
-                                        callback(element, tempC, tempR, i);
+                                    callback(element, tempC, tempR, i);
+                                    fire = false;
 										
                                     }
-                                    else if (p1GridArr[tempC - 1][tempR] == 1) //down
+                                else if (fire&&p1GridArr[tempC - 1][tempR] == 1) //down
                                     {
                                         tempC = tempC - 1;
 										alert("tempC2= "+ tempC);
-                                        callback(element, tempC, tempR, i);
+                                    callback(element, tempC, tempR, i);
+                                    fire = false;
                                     }
-                                    else if (p1GridArr[tempC][tempR + 1] == 1 ) //right
+                                else if (fire&&p1GridArr[tempC][tempR + 1] == 1 ) //right
                                     {
                                         tempR = tempR + 1;
 										alert("tempR1= "+tempR);
-                                        callback(element, tempC, tempR, i);
+                                    callback(element, tempC, tempR, i);
+                                    fire = false;
                                     }
-                                    else if (p1GridArr[tempC][tempR - 1] == 1) //left
+                                else if (fire&&p1GridArr[tempC][tempR - 1] == 1) //left
                                     {
                                         tempR = tempR - 1;
 										alert("tempR2= "+tempR);
-                                        callback(element, tempC, tempR, i);
+                                    callback(element, tempC, tempR, i);
+                                    fire = false;
                                     }
                                     
 									else {
@@ -203,7 +207,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                         randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
                                         isHit = false;
 										alert("random"+randomC +" " + randomR);
-                                        callback(element, randomR, randomC, i);
+                                    callback(element, randomR, randomC, i);
+                                    fire = false;
 										if (p1GridArr[randomR][randomC] == 1 && p1GridArr[randomC][randomR] != 2) // if there is a ship at random coordinates
 										{
 											isHit = true;
