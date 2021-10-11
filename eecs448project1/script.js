@@ -80,7 +80,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
     var letter = 65; // 65 is ASCII for the letter A. We use this when numbering the grid.
     var i = 1; // This is also used for numbering the grid.
     var grid = document.createElement('table');
-    document.getElementById("grid").style.display = "inline";
+    
 
     grid.className = classname; // Determines if it's the 1st or 2nd player grid
     for (var r = 0; r < rows; ++r) {
@@ -573,7 +573,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
 * @post The coordinates of the ship are returned.
 * @author Zach Sambol - adapted from newbedev solution
 */
-document.getElementById("grid").style.display = "none";
+
 function getCoords(shipNum) {
     let coordString = window.prompt("Enter Starting Point for Ship " + shipNum + " as a Grid ID (ex. B3) within A-J, 1-9");
     coordSplit = coordString.split("");
@@ -1023,14 +1023,14 @@ function gameHandler() {
     document.getElementById("playerNum").innerHTML = curPlyr;
 
     drawGrids();
-
+    document.getElementById("grid").style.display = "none";
     alert("Okay Player 1, you start. Player 2, turn your back.");
     setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
     setTimeout(() => p1Guess.style.display = "inline", 0);
     setTimeout(() => p2Grid.style.display = "none", 0);
     setTimeout(() => p2Guess.style.display = "none", 0);
 }
-
+document.getElementById("grid").style.display = "inline";
 function gameAIhandler(choice) {
     alert("Next prompt will ask for the number of ships in play. Amount of ships corresponds with ship size. Ex. 1 ship gives each player a 1x1 ship. 3 ships gives each player a 1x1, 1x2, and 1x3 ship to place.");
     AIgame = true;
