@@ -80,7 +80,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
     var letter = 65; // 65 is ASCII for the letter A. We use this when numbering the grid.
     var i = 1; // This is also used for numbering the grid.
     var grid = document.createElement('table');
-    
+
 
     grid.className = classname; // Determines if it's the 1st or 2nd player grid
     for (var r = 0; r < rows; ++r) {
@@ -142,7 +142,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                       if (onAi && curPlyr != 1 && !gameEnded) {
                         cell.click();
                       }
-                    }, 1000);
+                    }, 5000);
                 }
             }
 
@@ -178,323 +178,191 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                             }
 
                             else if (isHit) {
-                            /*
-                                if (tempC >= 0 && tempC <= 10) {
-                                    if (p1GridArr[tempC + 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
-                                    {
-                                        tempC = tempC + 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else if (p1GridArr[tempC - 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
-                                    {
-                                        tempC = tempC - 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else if (p1GridArr[tempC][tempR + 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //top
-                                    {
-                                        tempR = tempR + 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else if (p1GridArr[tempC][tempR - 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //bottom
-                                    {
-                                        tempR = tempR - 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else {
-                                        randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-                                        randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                                        isHit = false;
-                                        callback(element, randomR, randomC, i);
-                                    }
-                                }
-                                else if (tempR >= 0 && tempR <= 9) {
-                                    if (p1GridArr[tempC + 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
-                                    {
-                                        tempC = tempC + 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else if (p1GridArr[tempC - 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
-                                    {
-                                        tempC = tempC - 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else if (p1GridArr[tempC][tempR + 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //top
-                                    {
-                                        tempR = tempR + 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else if (p1GridArr[tempC][tempR - 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //bottom
-                                    {
-                                        tempR = tempR - 1;
-                                        callback(element, tempC, tempR, i);
-                                    }
-                                    else {
-                                        randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-                                        randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                                        isHit = false;
-                                        callback(element, randomR, randomC, i);
-                                    }
-                                }
-                            }
-                            */
-                            /* temp commented to test new approach
-                            tempC = randomR;
-                            tempR = randomC;
-                            let left = true;
-                            let right = true;
-                            let top_ = true;
-                            let bottom = true;
-                            //try to find the randoC -+1 or, randomR -+1 or just find the ship places like hard and set isHit = fulse and find next randoms;
-                            if(top_)
-                            {
-                              if (p1GridArr[randomC][randomR+1] != 1) //top
+                              if (newShip) // initialize all values if random shot hits ship
                               {
-                                top_=false;
-                                callback(element, randomR, randomC+1, i);
+                                tempR = baseR;
+                                tempC = baseC;
+
+                                upChecked = false;
+                                downChecked = false;
+                                rightChecked = false;
+                                leftChecked = false;
+
+                                isVertical = false;
+                                isHorizontal = false;
+
+                                newShip = false;
                               }
-                              if(p1GridArr[randomC][tempR+1] == 1)
+
+                              if (baseCase) // save initial coordinates that random shot hit
                               {
-                                tempC= randomR;
-                                tempR ++;
-                                callback(element, tempC, tempR, i)
+                                tempR = baseR;
+                                tempC = baseC;
+                                baseCase = false;
                               }
-                            }
-                            if(bottom)
-                            {
-                              if (p1GridArr[randomC][randomR-1] != 1) //top
+
+                              // note: randomR and randomC are the baseCoordinates to check from
+
+                              if (isVertical) // skip horizontal checks if ship appears to be vertical
                               {
-                                bottom=false;
-                                callback(element, randomR, randomC+1, i);
+                                rightChecked = true;
+                                leftChecked  = true;
                               }
-                              if(p1GridArr[randomC][tempR-1] == 1)
+
+                              else if (isHorizontal) // skip horizontal checks if ship appears to be horizontal
                               {
-                                tempC= randomR;
-                                tempR--;
-                                callback(element, tempC, tempR, i)
+                                upChecked   = true;
+                                downChecked = true;
                               }
-                            }
-                            if(left)
-                            {
-                              if (p1GridArr[randomC-1][randomR] != 1) //left
+
+
+                              // up case
+                              if (!upChecked)
                               {
-                                left=false;
-                                callback(element, randomR, randomC+1, i);
-                              }
-                              if(p1GridArr[tempC-1][tempR] == 1)
-                              {
-                                tempC--;
-                                tempR= randomC;
-                                callback(element, tempC, tempR, i)
-                              }
-                            }
-
-                            if(right)
-                            {
-                              if (p1GridArr[randomC+1][randomR] != 1) //right
-                              {
-                                right=false;
-                                callback(element, randomR, randomC+1, i);
-                              }
-                              if(p1GridArr[tempC+1][tempR] == 1)
-                              {
-                                tempC++;
-                                tempR= randomC;
-                                callback(element, tempC, tempR, i)
-                              }
-                            }
-                            else {
-                              randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-                              randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                              if (p1GridArr[randomC][randomR] != 1)
-                              isHit = false;
-                            }
-                            */
-
-                            if (newShip)
-                            {
-                              tempR = baseR;
-                              tempC = baseC;
-
-                              upChecked = false;
-                              downChecked = false;
-                              rightChecked = false;
-                              leftChecked = false;
-
-                              isVertical = false;
-                              isHorizontal = false;
-
-                              newShip = false;
-                            }
-
-                            if (baseCase)
-                            {
-                              tempR = baseR;
-                              tempC = baseC;
-                              baseCase = false;
-                            }
-
-                            // note: randomR and randomC are the baseCoordinates to check from
-
-                            if (isVertical) // skip horizontal checks if ship appears to be vertical
-                            {
-                              rightChecked = true;
-                              leftChecked  = true;
-                            }
-
-                            else if (isHorizontal) // skip horizontal checks if ship appears to be horizontal
-                            {
-                              upChecked   = true;
-                              downChecked = true;
-                            }
-
-
-                            // up case
-                            if (!upChecked)
-                            {
-                              tempR = tempR-1;
-                              if (tempR >= 0 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
-                              {
-                                if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                                tempR = tempR-1;
+                                if (tempR >= 0 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
                                 {
-                                  isVertical = true;
+                                  if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                                  {
+                                    isVertical = true;
+                                  }
+
+                                  else
+                                  {
+                                    upChecked = true;
+                                    // tempR = randomR; // next check will start at oringal hit coordinates
+                                    // tempC = randomC;
+                                    baseCase = true;
+                                  }
+
+                                  return callback(element, tempR, tempC, i);
                                 }
 
-                                else
+                                else // if going off grid or spot has been previously hit
                                 {
                                   upChecked = true;
-                                  // tempR = randomR; // next check will start at oringal hit coordinates
-                                  // tempC = randomC;
-                                  baseCase = true;
+                                  tempR = randomR; // next check will start at oringal hit coordinates
+                                  tempC = randomC;
                                 }
-
-                                return callback(element, tempR, tempC, i);
                               }
 
-                              else // if going off grid or spot has been previously hit
-                              {
-                                upChecked = true;
-                                tempR = randomR; // next check will start at oringal hit coordinates
-                                tempC = randomC;
-                              }
-                            }
 
-
-                            // down case
-                            if (!downChecked)
-                            {
-                              tempR = tempR+1;
-                              if (tempR < 10 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
+                              // down case
+                              if (!downChecked)
                               {
-                                if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                                tempR = tempR+1;
+                                if (tempR < 10 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
                                 {
-                                  isVertical = true;
+                                  if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                                  {
+                                    isVertical = true;
+                                  }
+
+                                  else
+                                  {
+                                    downChecked = true;
+
+                                    if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
+                                    {
+                                      isHit = false;
+                                      // tempR = randomR; // next check will start at oringal hit coordinates
+                                      // tempC = randomC;
+                                      baseCase = true;
+                                    }
+
+                                    else // if it was not vertical, skip up/down cases
+                                    {
+                                      isHorizontal = true;
+                                    }
+                                  }
+
+                                  return callback(element, tempR, tempC, i);
                                 }
 
-                                else
+                                else // if going off grid or spot has been previously hit
                                 {
                                   downChecked = true;
 
                                   if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
                                   {
                                     isHit = false;
-                                    // tempR = randomR; // next check will start at oringal hit coordinates
-                                    // tempC = randomC;
-                                    baseCase = true;
                                   }
 
                                   else // if it was not vertical, skip up/down cases
                                   {
                                     isHorizontal = true;
                                   }
+
+                                  tempR = randomR; // next check will start at oringal hit coordinates
+                                  tempC = randomC;
                                 }
 
-                                return callback(element, tempR, tempC, i);
                               }
 
-                              else // if going off grid or spot has been previously hit
+
+                              // left case
+                              if (!leftChecked)
                               {
-                                downChecked = true;
-
-                                if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
+                                tempC = tempC-1;
+                                if (tempR < 9 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
                                 {
-                                  isHit = false;
+                                  if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                                  {
+                                    isHorizontal = true;
+                                  }
+
+                                  else
+                                  {
+                                    leftChecked = true;
+                                    // tempR = randomR; // next check will start at oringal hit coordinates
+                                    // tempC = randomC;
+                                    baseCase = true;
+                                  }
+
+                                  return callback(element, tempR, tempC, i);
                                 }
 
-                                else // if it was not vertical, skip up/down cases
-                                {
-                                  isHorizontal = true;
-                                }
-
-                                tempR = randomR; // next check will start at oringal hit coordinates
-                                tempC = randomC;
-                              }
-
-                            }
-
-
-                            // left case
-                            if (!leftChecked)
-                            {
-                              tempC = tempC-1;
-                              if (tempR < 9 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
-                              {
-                                if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
-                                {
-                                  isHorizontal = true;
-                                }
-
-                                else
+                                else // if going off grid or spot has been previously hit
                                 {
                                   leftChecked = true;
-                                  // tempR = randomR; // next check will start at oringal hit coordinates
-                                  // tempC = randomC;
-                                  baseCase = true;
+                                  tempR = randomR; // next check will start at oringal hit coordinates
+                                  tempC = randomC;
                                 }
-
-                                return callback(element, tempR, tempC, i);
                               }
 
-                              else // if going off grid or spot has been previously hit
-                              {
-                                leftChecked = true;
-                                tempR = randomR; // next check will start at oringal hit coordinates
-                                tempC = randomC;
-                              }
-                            }
 
-
-                            // right case
-                            if (!rightChecked)
-                            {
-                              tempC = tempC+1;
-                              if (tempR < 9 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
+                              // right case
+                              if (!rightChecked)
                               {
-                                if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                                tempC = tempC+1;
+                                if (tempR < 9 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
                                 {
-                                  isHorizontal = true;
+                                  if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                                  {
+                                    isHorizontal = true;
+                                  }
+
+                                  else
+                                  {
+                                    rightChecked = true;
+                                    isHit = false;
+                                  }
+
+                                  return callback(element, tempR, tempC, i);
                                 }
 
-                                else
+                                else // if going off grid or spot has been previously hit
                                 {
                                   rightChecked = true;
                                   isHit = false;
                                 }
-
-                                return callback(element, tempR, tempC, i);
                               }
 
-                              else // if going off grid or spot has been previously hit
-                              {
-                                rightChecked = true;
-                                isHit = false;
-                              }
-                            }
-
-                            // if this is reached, hit randomly again
-                            isHit = false;
-                            randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-                            randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                            callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
+                              // if this is reached, hit randomly again
+                              isHit = false;
+                              randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+                              randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+                              callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
 
                           } // end if (isHit == true) case
 
@@ -506,7 +374,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                       if (onAi && curPlyr != 1 && !gameEnded) {
                         cell.click();
                       }
-                    }, 1000);
+                    }, 5000);
                 }
             }
 
@@ -544,7 +412,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                       if (onAi && curPlyr != 1 && !gameEnded) {
                         cell.click();
                       }
-                    }, 1000);
+                    }, 5000);
 
                 }
             }
@@ -959,7 +827,7 @@ function drawGrids() {
         changeTurn();
     });
 
-    
+
     var player2guess = playBoard(10, 9, "p2-guess", function (cell, row, col, i) {
         const hitShip = document.getElementById("hit");
         const missShip = document.getElementById("miss");
