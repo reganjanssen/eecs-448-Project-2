@@ -313,7 +313,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                     baseCase = true; // next check will start at oringal hit coordinates
                                   }
 
-                                  tempR = tempR-1;
                                   return callback(element, tempR, tempC, i);
                                 }
 
