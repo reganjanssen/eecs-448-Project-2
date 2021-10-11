@@ -30,6 +30,7 @@ var tempR;
 var tempC;
 var baseR;
 var baseC;
+var baseCase;
 var upChecked;
 var downChecked;
 var rightChecked;
@@ -324,6 +325,13 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                               newShip = false;
                             }
 
+                            if (baseCase)
+                            {
+                              tempR = baseR;
+                              tempC = baseC;
+                              baseCase = false;
+                            }
+
                             // note: randomR and randomC are the baseCoordinates to check from
 
                             if (isVertical) // skip horizontal checks if ship appears to be vertical
@@ -353,8 +361,9 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 else
                                 {
                                   upChecked = true;
-                                  tempR = randomR; // next check will start at oringal hit coordinates
-                                  tempC = randomC;
+                                  // tempR = randomR; // next check will start at oringal hit coordinates
+                                  // tempC = randomC;
+                                  baseCase = true;
                                 }
 
                                 return callback(element, tempR, tempC, i);
@@ -387,8 +396,9 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                   if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
                                   {
                                     isHit = false;
-                                    tempR = randomR; // next check will start at oringal hit coordinates
-                                    tempC = randomC;
+                                    // tempR = randomR; // next check will start at oringal hit coordinates
+                                    // tempC = randomC;
+                                    baseCase = true;
                                   }
 
                                   else // if it was not vertical, skip up/down cases
@@ -407,14 +417,15 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
                                 {
                                   isHit = false;
-                                  tempR = randomR; // next check will start at oringal hit coordinates
-                                  tempC = randomC;
                                 }
 
                                 else // if it was not vertical, skip up/down cases
                                 {
                                   isHorizontal = true;
                                 }
+
+                                tempR = randomR; // next check will start at oringal hit coordinates
+                                tempC = randomC;
                               }
 
                             }
@@ -434,8 +445,9 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 else
                                 {
                                   leftChecked = true;
-                                  tempR = randomR; // next check will start at oringal hit coordinates
-                                  tempC = randomC;
+                                  // tempR = randomR; // next check will start at oringal hit coordinates
+                                  // tempC = randomC;
+                                  baseCase = true;
                                 }
 
                                 return callback(element, tempR, tempC, i);
