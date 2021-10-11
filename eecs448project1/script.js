@@ -1067,7 +1067,7 @@ function gameAIhandler(choice) {
         document.getElementById("playerNum").innerHTML = curPlyr;
     }
     drawGrids();
-
+    document.getElementById("grid").style.display = "none";
     alert("Okay Player 1, you start. AI, turn your back.");
     setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
     setTimeout(() => p1Guess.style.display = "inline", 0);
