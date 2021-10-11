@@ -910,7 +910,7 @@ function changeTurn() {
 
 /**
 * Function used to make sure Background Music isn't too loud so extra sounds can be heard
-*
+* adapted from Nell Martinez's “Lower Background Music Volume When Autoplay HTML.” 
 * @pre none
 * @post lowers volume
 * @author Jui Nagarkar
@@ -928,6 +928,7 @@ function lowerVolume() {
 * @author Drew Fink & Andrew Brown
 */
 function drawGrids() {
+    //music adapted from Mark Lassoff's “Coding Sound with Javascript: Beginner's Guide.” 
     const hitShip = document.getElementById("hit");//plays music for hit
     const missShip = document.getElementById("miss");//plays music for miss
     var player1grid = playBoard(10, 9, "p1-grid", function (cell, row, col, i) { });
@@ -937,14 +938,14 @@ function drawGrids() {
     var player1guess = playBoard(10, 9, "p1-guess", function (cell, row, col, i) {
         if (p2GridArr[row][col] == 1) {
             p2GridArr[row][col] = 2;
-            hitShip.play();
+            hitShip.play();//plays hit sound effect
             alert("It's a hit!");
             cell.className = 'hit';
 
         }
         else {
             p2GridArr[row][col] = 3;
-            missShip.play();
+            missShip.play();//plays miss sound effect
             alert("It's a miss.");
             cell.className = 'clicked';
 
@@ -1091,7 +1092,7 @@ function gameAIhandler(choice) {
 
 /**
 * Initiates the game by placing the ships and initializing the grids.
-*
+* 
 * @pre number of ships
 * @post returns random numbers
 * @author Chen Lu
@@ -1105,6 +1106,7 @@ function getAiCoords(shipNum) {
     try {
         if (Math.random() > 0.5)  // we can use >0.5 = horizontal or any value bettwen 0-1.
         {
+            //adapted from "Random Variable Javascript Code Example"
             coordX1 = (Math.floor(Math.random() * Math.floor(9 - (shipNum - 1))));// Math.random output 0<x<1  max ship is 1x6 when the shipNum = 6 we only can do 0,1,2 Floor will return a int;
             coordY1 = (Math.floor(Math.random() * Math.floor(9)));
             let coordTogether = [coordY1, coordX1, coordY1, coordX1 + (shipNum - 1)];// + ship number to get next coordx  and return coord to set ship
