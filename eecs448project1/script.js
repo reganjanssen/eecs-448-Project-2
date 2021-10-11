@@ -909,21 +909,27 @@ function changeTurn() {
 }
 
 /**
+* Function used to make sure Background Music isn't too loud so extra sounds can be heard
+*
+* @pre none
+* @post lowers volume
+* @author Jui Nagarkar
+*/
+function lowerVolume() {
+    var backgroundMusic = document.getElementById("background");//background music
+    backgroundMusic.volume = 0.1;// lowers music
+}
+
+/**
 * Draws the ship placement grids and guessing grids to the screen, and provides for redrawing them to show guesses by the other player.
 *
 * @pre The ships have been placed in the grid arrays but they have not been drawn to the screen.
 * @post The grids are now visible to the player.
 * @author Drew Fink & Andrew Brown
 */
-
-// Function used to make sure Background Music isn't too loud so extra sounds can be heard
-function lowerVolume() {
-    var backgroundMusic = document.getElementById("background");
-    backgroundMusic.volume = 0.1;
-}
 function drawGrids() {
-    const hitShip = document.getElementById("hit");
-    const missShip = document.getElementById("miss");
+    const hitShip = document.getElementById("hit");//plays music for hit
+    const missShip = document.getElementById("miss");//plays music for miss
     var player1grid = playBoard(10, 9, "p1-grid", function (cell, row, col, i) { });
 
     var player2grid = playBoard(10, 9, "p2-grid", function (cell, row, col, i) { });
@@ -952,6 +958,7 @@ function drawGrids() {
         changeTurn();
     });
 
+    
     var player2guess = playBoard(10, 9, "p2-guess", function (cell, row, col, i) {
         const hitShip = document.getElementById("hit");
         const missShip = document.getElementById("miss");
@@ -1023,7 +1030,7 @@ function gameHandler() {
     document.getElementById("playerNum").innerHTML = curPlyr;
 
     drawGrids();
-    document.getElementById("grid").style.display = "none";
+    document.getElementById("grid").style.display = "none";//hides sample board
     alert("Okay Player 1, you start. Player 2, turn your back.");
     setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
     setTimeout(() => p1Guess.style.display = "inline", 0);
@@ -1031,6 +1038,13 @@ function gameHandler() {
     setTimeout(() => p2Guess.style.display = "none", 0);
 }
 
+/**
+* Initiates the game by placing the ships and initializing the grids.
+*
+* @pre The players need to be ready to start the game.
+* @post The game has been started.
+* @author Chen Lu, Natasha Shirley, Andrew Loaiza
+*/
 function gameAIhandler(choice) {
     alert("Next prompt will ask for the number of ships in play. Amount of ships corresponds with ship size. Ex. 1 ship gives each player a 1x1 ship. 3 ships gives each player a 1x1, 1x2, and 1x3 ship to place.");
     AIgame = true;
@@ -1074,6 +1088,14 @@ function gameAIhandler(choice) {
     setTimeout(() => p2Grid.style.display = "none", 0);
     setTimeout(() => p2Guess.style.display = "none", 0);
 }
+
+/**
+* Initiates the game by placing the ships and initializing the grids.
+*
+* @pre number of ships
+* @post returns random numbers
+* @author Chen Lu
+*/
 function getAiCoords(shipNum) {
 
     let coordX1 = 0;
