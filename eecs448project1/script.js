@@ -922,8 +922,8 @@ function lowerVolume() {
     backgroundMusic.volume = 0.1;
 }
 function drawGrids() {
-    const hitShip = document.getElementById("hit"); //calling hit sound from html and setting it in a constant
-    const missShip = document.getElementById("miss"); //calling miss sound from html and setting it in a constant
+    const hitShip = document.getElementById("hit");
+    const missShip = document.getElementById("miss");
     var player1grid = playBoard(10, 9, "p1-grid", function (cell, row, col, i) { });
 
     var player2grid = playBoard(10, 9, "p2-grid", function (cell, row, col, i) { });
@@ -931,14 +931,14 @@ function drawGrids() {
     var player1guess = playBoard(10, 9, "p1-guess", function (cell, row, col, i) {
         if (p2GridArr[row][col] == 1) {
             p2GridArr[row][col] = 2;
-            hitShip.play();//having the hit sound play
+            hitShip.play();
             alert("It's a hit!");
             cell.className = 'hit';
 
         }
         else {
             p2GridArr[row][col] = 3;
-            missShip.play();//having the miss sound play
+            missShip.play();
             alert("It's a miss.");
             cell.className = 'clicked';
 
@@ -957,14 +957,14 @@ function drawGrids() {
         const missShip = document.getElementById("miss");
         if (p1GridArr[row][col] == 1) {
             p1GridArr[row][col] = 2;
-            hitShip.play();//having the hit sound play
+            hitShip.play();
             if (!onAi) alert("It's a hit!");
             else       alert("AI hit your ship!"); // comment this line out to skip AI view
             cell.className = 'hit';
         }
         else {
             p1GridArr[row][col] = 3;
-            missShip.play(); //having the miss sound play
+            missShip.play(); //still has error back up to old version.
             if (!onAi) alert("It's a miss.");
             else       alert("AI missed!"); // comment this line out to skip AI view
             cell.className = 'clicked';
@@ -1023,7 +1023,7 @@ function gameHandler() {
     document.getElementById("playerNum").innerHTML = curPlyr;
 
     drawGrids();
-    document.getElementById("grid").style.display = "none"; //this hides the grid that we only want to be seen when the main menu is open
+    document.getElementById("grid").style.display = "none";
     alert("Okay Player 1, you start. Player 2, turn your back.");
     setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
     setTimeout(() => p1Guess.style.display = "inline", 0);
@@ -1067,7 +1067,7 @@ function gameAIhandler(choice) {
         document.getElementById("playerNum").innerHTML = curPlyr;
     }
     drawGrids();
-    document.getElementById("grid").style.display = "none"; //this hides the grid that we only want to be seen when the main menu is open
+    document.getElementById("grid").style.display = "none";
     alert("Okay Player 1, you start. AI, turn your back.");
     setTimeout(() => p1Grid.style.display = "inline", 0); // Again using the setTimeout "trick" to ensure the alert plays first (whereas it never does otherwise)
     setTimeout(() => p1Guess.style.display = "inline", 0);
