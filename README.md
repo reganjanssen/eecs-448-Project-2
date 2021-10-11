@@ -1,6 +1,6 @@
 # Project 2: Battleship with AI opponents
 <h4> Group 17 - EECS 448</h4>
-<small> This program contains a battlship game written in JavaScript. The game allows for a tradtional two player game or the option to play against an Easy, Medium, or Hard AI opponent. </small>
+<small> This program contains a battlship game written in JavaScript. For best experience, run the game in the Safari browser. The game allows for a tradtional two player game or the option to play against an Easy, Medium, or Hard AI opponent. </small>
 <h2> Welcome to Battleship!</h2>
 <small> This game allows for players to choose whether they would like to play against a computer opponent or a friend. It then allows the player to choose the number of ships to play with (1-6), and asks the player(s) to place the ships. After all ships have been placed, players will take turns attacking their opponents ships. Attacks are sent by typing in the coordinate of the desired attack, if playing against the computer attacks are sent after player 1 sends their attacks. While playing the game, players will have the ability to view their own board as well as the ability to view the attacks that they have sent on the opponents board. Once a player or computer has sunk all of the other players ships, the game will end and the program stops running.</small>
 <h2> AI Requirements:</h2>
