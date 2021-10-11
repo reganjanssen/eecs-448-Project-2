@@ -80,6 +80,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
     var letter = 65; // 65 is ASCII for the letter A. We use this when numbering the grid.
     var i = 1; // This is also used for numbering the grid.
     var grid = document.createElement('table');
+    document.getElementById("grid").style.display = "inline";
 
     grid.className = classname; // Determines if it's the 1st or 2nd player grid
     for (var r = 0; r < rows; ++r) {
@@ -572,6 +573,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
 * @post The coordinates of the ship are returned.
 * @author Zach Sambol - adapted from newbedev solution
 */
+document.getElementById("grid").style.display = "none";
 function getCoords(shipNum) {
     let coordString = window.prompt("Enter Starting Point for Ship " + shipNum + " as a Grid ID (ex. B3) within A-J, 1-9");
     coordSplit = coordString.split("");
