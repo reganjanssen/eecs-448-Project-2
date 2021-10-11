@@ -125,3 +125,11 @@ p {
     font-weight:bold; color:red;
 }
 
+img{
+    height: 200px;
+    width: 200px;
+    top: 400px;
+    bottom: 400px;
+    left: 400px;
+
+}
