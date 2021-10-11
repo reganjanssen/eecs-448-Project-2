@@ -1030,7 +1030,7 @@ function gameHandler() {
     setTimeout(() => p2Grid.style.display = "none", 0);
     setTimeout(() => p2Guess.style.display = "none", 0);
 }
-document.getElementById("grid").style.display = "inline";
+
 function gameAIhandler(choice) {
     alert("Next prompt will ask for the number of ships in play. Amount of ships corresponds with ship size. Ex. 1 ship gives each player a 1x1 ship. 3 ships gives each player a 1x1, 1x2, and 1x3 ship to place.");
     AIgame = true;
