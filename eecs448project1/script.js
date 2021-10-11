@@ -229,10 +229,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
 
                                   else
                                   {
-                                    upChecked = true;
-                                    // tempR = randomR; // next check will start at oringal hit coordinates
-                                    // tempC = randomC;
-                                    baseCase = true;
+                                    upChecked = true; // skip case since there is no ship
+                                    baseCase = true; // next check will start at oringal hit coordinates
                                   }
 
                                   return callback(element, tempR, tempC, i);
@@ -241,8 +239,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 else // if going off grid or spot has been previously hit
                                 {
                                   upChecked = true;
-                                  tempR = randomR; // next check will start at oringal hit coordinates
-                                  tempC = randomC;
+                                  tempR = baseR; // next check will start at oringal hit coordinates
+                                  tempC = baseC;
                                 }
                               }
 
@@ -264,10 +262,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
 
                                     if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
                                     {
-                                      isHit = false;
-                                      // tempR = randomR; // next check will start at oringal hit coordinates
-                                      // tempC = randomC;
-                                      baseCase = true;
+                                      isHit = false; // reached end of vertical ship, go back to random
+                                      baseCase = true; // next check will start at oringal hit coordinates
                                     }
 
                                     else // if it was not vertical, skip up/down cases
@@ -293,8 +289,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                     isHorizontal = true;
                                   }
 
-                                  tempR = randomR; // next check will start at oringal hit coordinates
-                                  tempC = randomC;
+                                  tempR = baseR; // next check will start at oringal hit coordinates
+                                  tempC = baseC;
                                 }
 
                               }
@@ -306,7 +302,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 tempC = tempC-1;
                                 if (tempR < 9 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
                                 {
-                                  if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                                  if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is horizontal
                                   {
                                     isHorizontal = true;
                                   }
@@ -314,19 +310,18 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                   else
                                   {
                                     leftChecked = true;
-                                    // tempR = randomR; // next check will start at oringal hit coordinates
-                                    // tempC = randomC;
-                                    baseCase = true;
+                                    baseCase = true; // next check will start at oringal hit coordinates
                                   }
 
+                                  tempR = tempR-1;
                                   return callback(element, tempR, tempC, i);
                                 }
 
                                 else // if going off grid or spot has been previously hit
                                 {
                                   leftChecked = true;
-                                  tempR = randomR; // next check will start at oringal hit coordinates
-                                  tempC = randomC;
+                                  tempR = baseR; // next check will start at oringal hit coordinates
+                                  tempC = baseC;
                                 }
                               }
 
@@ -337,7 +332,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 tempC = tempC+1;
                                 if (tempR < 9 && p1GridArr[tempR][tempC] != 2) // make sure we are not going off grid && spot has not already been hit
                                 {
-                                  if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is vertical
+                                  if (p1GridArr[tempR][tempC] == 1) // if ship at coordinte, assume ship is horizontal
                                   {
                                     isHorizontal = true;
                                   }
@@ -354,7 +349,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 else // if going off grid or spot has been previously hit
                                 {
                                   rightChecked = true;
-                                  isHit = false;
+                                  isHit = false; // go back to random hits
                                 }
                               }
 
@@ -778,7 +773,7 @@ function changeTurn() {
 
 /**
 * Function used to make sure Background Music isn't too loud so extra sounds can be heard
-* adapted from Nell Martinez's “Lower Background Music Volume When Autoplay HTML.” 
+* adapted from Nell Martinez's “Lower Background Music Volume When Autoplay HTML.”
 * @pre none
 * @post lowers volume
 * @author Jui Nagarkar
@@ -796,7 +791,7 @@ function lowerVolume() {
 * @author Drew Fink & Andrew Brown
 */
 function drawGrids() {
-    //music adapted from Mark Lassoff's “Coding Sound with Javascript: Beginner's Guide.” 
+    //music adapted from Mark Lassoff's “Coding Sound with Javascript: Beginner's Guide.”
     const hitShip = document.getElementById("hit");//plays music for hit
     const missShip = document.getElementById("miss");//plays music for miss
     var player1grid = playBoard(10, 9, "p1-grid", function (cell, row, col, i) { });
@@ -960,7 +955,7 @@ function gameAIhandler(choice) {
 
 /**
 * Initiates the game by placing the ships and initializing the grids.
-* 
+*
 * @pre number of ships
 * @post returns random numbers
 * @author Chen Lu
