@@ -23,9 +23,19 @@ let gameEnded = false;
 
 // medium case
 var isHit = false;
-var newShip = false;
+var newShip;
 var randomR;
 var randomC;
+var tempR;
+var tempC;
+var baseR;
+var baseC;
+var upChecked;
+var downChecked;
+var rightChecked;
+var leftChecked;
+var isVertical;
+var isHorizontal;
 
 // These arrays are the grids that will allow us to play the game.
 let p1GridArr = createArray(10, 9);
@@ -137,8 +147,6 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
 
             else if (mediumMode) // Implementation of Medium AI opponent
             {
-                var tempR;
-                var tempC;
                 if (grid.className != "p2-guess") {
                     cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
                     {
@@ -149,74 +157,84 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                 }
 
                 else {
-
                     cell.addEventListener('click', (function (element, r, c, i) // This inserts a "listener" for the event so that we know when it's clicked.
                     {
                         return function () {
                             if (!isHit) {
                                 randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
                                 randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                                tempR = randomR;
-                                tempC = randomC;
+
                                 if (p1GridArr[randomR][randomC] == 1 && p1GridArr[randomC][randomR] != 2) // if there is a ship at random coordinates
                                 {
                                     isHit = true;
-                                    //newShip = true;
+                                    newShip = true;
+                                    baseR = randomR;
+                                    baseC = randomC;
                                 }
-                                if (p1GridArr[randomC][randomR] != 2)
-                                    callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
-                                else {
-                                    randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
-                                    randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
-                                }
+
+                                callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
                             }
+
                             else if (isHit) {
-                                let fire = true;
-                                if (fire&&p1GridArr[tempC+1][tempR] == 1 ) //top
+                            /*
+                                if (tempC >= 0 && tempC <= 10) {
+                                    if (p1GridArr[tempC + 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
                                     {
                                         tempC = tempC + 1;
-										alert("tempC1= "+tempC);
-                                    callback(element, tempC, tempR, i);
-                                    fire = false;
-										
+                                        callback(element, tempC, tempR, i);
                                     }
-                                else if (fire&&p1GridArr[tempC - 1][tempR] == 1) //down
+                                    else if (p1GridArr[tempC - 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
                                     {
                                         tempC = tempC - 1;
-										alert("tempC2= "+ tempC);
-                                    callback(element, tempC, tempR, i);
-                                    fire = false;
+                                        callback(element, tempC, tempR, i);
                                     }
-                                else if (fire&&p1GridArr[tempC][tempR + 1] == 1 ) //right
+                                    else if (p1GridArr[tempC][tempR + 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //top
                                     {
                                         tempR = tempR + 1;
-										alert("tempR1= "+tempR);
-                                    callback(element, tempC, tempR, i);
-                                    fire = false;
+                                        callback(element, tempC, tempR, i);
                                     }
-                                else if (fire&&p1GridArr[tempC][tempR - 1] == 1) //left
+                                    else if (p1GridArr[tempC][tempR - 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //bottom
                                     {
                                         tempR = tempR - 1;
-										alert("tempR2= "+tempR);
-                                    callback(element, tempC, tempR, i);
-                                    fire = false;
+                                        callback(element, tempC, tempR, i);
                                     }
-                                    
-									else {
+                                    else {
                                         randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
                                         randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
                                         isHit = false;
-										alert("random"+randomC +" " + randomR);
-                                    callback(element, randomR, randomC, i);
-                                    fire = false;
-										if (p1GridArr[randomR][randomC] == 1 && p1GridArr[randomC][randomR] != 2) // if there is a ship at random coordinates
-										{
-											isHit = true;
-										}
+                                        callback(element, randomR, randomC, i);
                                     }
-                                
+                                }
+                                else if (tempR >= 0 && tempR <= 9) {
+                                    if (p1GridArr[tempC + 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
+                                    {
+                                        tempC = tempC + 1;
+                                        callback(element, tempC, tempR, i);
+                                    }
+                                    else if (p1GridArr[tempC - 1][tempR] == 1 && p1GridArr[tempC][tempR + 1] != 2) //right
+                                    {
+                                        tempC = tempC - 1;
+                                        callback(element, tempC, tempR, i);
+                                    }
+                                    else if (p1GridArr[tempC][tempR + 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //top
+                                    {
+                                        tempR = tempR + 1;
+                                        callback(element, tempC, tempR, i);
+                                    }
+                                    else if (p1GridArr[tempC][tempR - 1] == 1 && p1GridArr[tempC][tempR + 1] != 2) //bottom
+                                    {
+                                        tempR = tempR - 1;
+                                        callback(element, tempC, tempR, i);
+                                    }
+                                    else {
+                                        randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+                                        randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+                                        isHit = false;
+                                        callback(element, randomR, randomC, i);
+                                    }
+                                }
                             }
-
+                            */
                             /* temp commented to test new approach
                             tempC = randomR;
                             tempR = randomC;
@@ -289,19 +307,19 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                               isHit = false;
                             }
                             */
-                            /*
+
                             if (newShip)
                             {
-                              var tempR = randomR;
-                              var tempC = randomC;
+                              tempR = baseR;
+                              tempC = baseC;
 
-                              var upChecked = false;
-                              var downChecked = false;
-                              var rightChecked = false;
-                              var leftChecked = false;
+                              upChecked = false;
+                              downChecked = false;
+                              rightChecked = false;
+                              leftChecked = false;
 
-                              var isVertical = false;
-                              var isHorizontal = false;
+                              isVertical = false;
+                              isHorizontal = false;
 
                               newShip = false;
                             }
@@ -335,8 +353,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 else
                                 {
                                   upChecked = true;
-                                  randomR = tempR; // next check will start at oringal hit coordinates
-                                  randomC = tempC;
+                                  tempR = randomR; // next check will start at oringal hit coordinates
+                                  tempC = randomC;
                                 }
 
                                 return callback(element, tempR, tempC, i);
@@ -345,8 +363,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                               else // if going off grid or spot has been previously hit
                               {
                                 upChecked = true;
-                                randomR = tempR; // next check will start at oringal hit coordinates
-                                randomC = tempC;
+                                tempR = randomR; // next check will start at oringal hit coordinates
+                                tempC = randomC;
                               }
                             }
 
@@ -369,8 +387,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                   if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
                                   {
                                     isHit = false;
-                                    randomR = tempR; // next check will start at oringal hit coordinates
-                                    randomC = tempC;
+                                    tempR = randomR; // next check will start at oringal hit coordinates
+                                    tempC = randomC;
                                   }
 
                                   else // if it was not vertical, skip up/down cases
@@ -389,8 +407,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 if (isVertical) // only end if ship was assumed vertical, if not, check horizontal
                                 {
                                   isHit = false;
-                                  randomR = tempR; // next check will start at oringal hit coordinates
-                                  randomC = tempC;
+                                  tempR = randomR; // next check will start at oringal hit coordinates
+                                  tempC = randomC;
                                 }
 
                                 else // if it was not vertical, skip up/down cases
@@ -416,8 +434,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                                 else
                                 {
                                   leftChecked = true;
-                                  randomR = tempR; // next check will start at oringal hit coordinates
-                                  randomC = tempC;
+                                  tempR = randomR; // next check will start at oringal hit coordinates
+                                  tempC = randomC;
                                 }
 
                                 return callback(element, tempR, tempC, i);
@@ -426,8 +444,8 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                               else // if going off grid or spot has been previously hit
                               {
                                 leftChecked = true;
-                                randomR = tempR; // next check will start at oringal hit coordinates
-                                randomC = tempC;
+                                tempR = randomR; // next check will start at oringal hit coordinates
+                                tempC = randomC;
                               }
                             }
 
@@ -459,8 +477,14 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                               }
                             }
 
+                            // if this is reached, hit randomly again
+                            isHit = false;
+                            randomC = (Math.floor(Math.random() * Math.floor(10))); //stores a random col number to hit board
+                            randomR = (Math.floor(Math.random() * Math.floor(9))); //row coordinate for random hit
+                            callback(element, randomR, randomC, i); // Pass the element, rows, columns, and item number back.
+
                           } // end if (isHit == true) case
-                          */
+
                         }
                     })(cell, r, c, i), false);
 
@@ -469,7 +493,7 @@ function playBoard(rows, cols, classname, callback) // The "callback" is a funct
                       if (onAi && curPlyr != 1 && !gameEnded) {
                         cell.click();
                       }
-                    }, 1000);
+                    }, 500);
                 }
             }
 
